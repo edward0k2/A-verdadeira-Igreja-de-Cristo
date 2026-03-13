@@ -1,0 +1,1159 @@
+:root {
+    --primary: #d4af37;
+    --primary-hover: #b8860b;
+    --bg-main: #fcf9f2;
+    --bg-card: #f5f1e6;
+    --border-light: #c9bfae;
+    --text-main: #4a3f35;
+    --text-muted: #7a6d5f;
+    --white: #ffffff;
+    --font-main: 'Inter', sans-serif;
+    --font-heading: 'Lora', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: var(--bg-main);
+    border-bottom: 2px solid var(--border-light);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.img-logo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.logo h1 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--text-main);
+    line-height: 1;
+}
+
+.logo h1 span {
+    color: var(--primary);
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 300;
+    margin-top: 2px;
+}
+
+.menu ul {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+    margin-left: 0;
+    /* Padrão */
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 500;
+    font-family: var(--font-heading);
+    transition: color 0.3s;
+}
+
+.menu ul li a:hover {
+    color: var(--primary);
+}
+
+/* Nav Right & Hamburger */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.btn-action {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.btn-action:hover {
+    background: var(--primary-hover);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.hamburger span {
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-main);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+
+/* Book Container */
+.book-container {
+    padding: 4rem 5%;
+    min-height: 70vh;
+}
+
+.view {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.view.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Summary View */
+.summary-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.summary-header h2 {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.oracao-container {
+    max-width: 700px;
+    margin: 3rem auto 0 auto;
+    text-align: left;
+}
+
+.oracao-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+    font-weight: normal;
+}
+
+.oracao-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.oracao-text {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    text-align: justify;
+}
+
+.chapters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.chapter-card {
+    background: var(--bg-card);
+    padding: 2.5rem 2rem;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.chapter-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.chapter-card span {
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.chapter-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+}
+
+/* Chapter View */
+#chapterView {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 1.5rem;
+}
+
+.nav-left-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.chapter-nav h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.btn-back,
+.btn-nav {
+    background: transparent;
+    border: 1px solid var(--border-light);
+    padding: 0.6rem 1.2rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.btn-nav:hover,
+.btn-back:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Road Viewer - Container para os botões e a trilha */
+.road-viewer {
+    position: relative;
+    width: 100%;
+}
+
+.road-wrapper {
+    overflow-x: auto;
+    padding: 6rem 1rem; /* Aumentado o padding vertical */
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    scroll-behavior: smooth; /* Rolagem suave nativa */
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+}
+
+.road-container {
+    display: flex;
+    align-items: center;
+    min-width: max-content;
+    padding: 0 100px;
+    position: relative;
+}
+
+/* A linha da estrada - Conexão central */
+.road-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--border-light);
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+/* Ajustes de nó */
+.road-node {
+    width: 350px;
+    margin: 0 40px;
+    /* Espaçamento bem menor */
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+/* Padrão Alternado */
+.road-node:nth-child(odd) {
+    flex-direction: column-reverse;
+}
+
+/* Caixa em baixo, personagens em cima */
+.road-node:nth-child(even) {
+    flex-direction: column;
+}
+
+/* Caixa em cima, personagens em baixo */
+
+.node-box {
+    background: var(--white);
+    padding: 1.8rem;
+    border: 3px solid var(--border-light);
+    border-radius: 12px;
+    position: relative;
+    z-index: 5;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 20px 0;
+}
+
+.node-box:hover {
+    border-color: var(--primary);
+    transform: translateY(-5px);
+}
+
+/* Conectores laterais REMOVIDOS conforme solicitado */
+.node-box::before,
+.node-box::after {
+    display: none;
+}
+
+/* Conector Vertical - Une Personagens ao Marco através da Estrada */
+.road-node::after {
+    content: '✝';
+    /* Cruz */
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    background: repeating-linear-gradient(to bottom, var(--border-light) 0 4px, transparent 4px 8px);
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Direcionando a linha: Cruz perfeitamente entre os personagens */
+.road-node:nth-child(odd)::after {
+    top: 250px;
+    /* Estrada */
+    bottom: 130px;
+    /* Recuado para subir e ficar no centro dos personagens (base) */
+    align-items: flex-end;
+}
+
+.road-node:nth-child(even)::after {
+    top: 130px;
+    /* Recuado para descer e ficar no centro dos personagens (topo) */
+    bottom: 130px;
+    /* Estrada */
+    align-items: flex-start;
+}
+
+/* Personagens - LADO A LADO */
+.personagens-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    /* Horizontal */
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    /* Espaço exato para a cruz no centro */
+    padding: 20px 0;
+    position: relative;
+    z-index: 10;
+}
+
+/* Se houver apenas um personagem, desloca para a ESQUERDA da linha/cruz */
+.personagem-mini:only-child {
+    margin-right: 150px;
+    /* Deslocamento para a esquerda */
+    margin-left: 0;
+}
+
+.personagem-mini {
+    background: var(--white);
+    border: 2px solid var(--border-light);
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    /* Caixas retas */
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    font-family: var(--font-main);
+    font-weight: 600;
+}
+
+.personagem-mini:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: scale(1.05);
+}
+
+.node-box span {
+    font-size: 0.8rem;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.node-box h4 {
+    font-family: var(--font-heading);
+    margin: 0.5rem 0;
+}
+
+.btn-view-node {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+/* Botões de Navegação Lateral */
+.nav-side-group {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.nav-side-left {
+    left: -60px;
+}
+
+.nav-side-right {
+    right: -60px;
+}
+
+.btn-scroll {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.btn-scroll.btn-extreme {
+    width: 38px;
+    height: 38px;
+    font-size: 0.9rem;
+    background: var(--bg-card);
+    border-color: var(--border-light);
+    color: var(--text-muted);
+}
+
+.btn-scroll:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+}
+
+.btn-scroll.btn-extreme:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--white);
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: var(--bg-main);
+    margin: 5vh auto;
+    padding: 2.5rem 3.5rem;
+    width: 95%;
+    max-width: 1250px;
+    border-radius: 12px;
+    position: relative;
+    max-height: 90vh; /* Limita a altura máxima */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* O modal em si não rola, o conteúdo sim */
+    box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+#modalBody h3 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.interpretation {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-left: 4px solid var(--primary);
+    margin-top: 2rem;
+    font-style: italic;
+}
+
+/* Ações de PDF no Modal */
+.pdf-actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    border-top: 1px dashed var(--border-light);
+    padding-top: 1.5rem;
+}
+
+.pdf-actions a,
+.pdf-actions button {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-read {
+    background: var(--bg-card);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn-read:hover {
+    background: var(--primary);
+    color: var(--white);
+}
+
+/* Footer (30vh) */
+.footer {
+    height: 30vh;
+    min-height: 250px;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+/* Estilos Mobile */
+@media (max-width: 768px) {
+    .road-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .chapter-nav {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .chapter-nav h2 {
+        font-size: 1.8rem;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+    }
+}
+
+/* --- Seção de Catecismo --- */
+#catechismView {
+    padding: 20px 40px 60px 40px;
+    /* Topo reduzido para ficar mais próximo da navbar */
+    max-width: 1600px;
+    margin: 0 auto;
+    display: none;
+}
+
+#catechismView.active {
+    display: block;
+}
+
+.catechism-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.catechism-header h2 {
+    font-family: 'Lora', serif;
+    font-size: 2.8rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.books-header-relative {
+    position: relative;
+}
+
+.search-container {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.search-input {
+    padding: 0.7rem 1.2rem;
+    border: 1px solid var(--border-light);
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-family: var(--font-main);
+    width: 220px;
+    transition: all 0.3s ease;
+    outline: none;
+    background: var(--white);
+    color: var(--text-main);
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+    width: 280px;
+}
+
+@media (max-width: 1024px) {
+    .books-header-relative {
+        padding-right: 0;
+    }
+
+    .search-container {
+        position: static;
+        transform: none;
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.catechism-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 colunas lado a lado */
+    gap: 20px;
+    align-items: stretch;
+}
+
+.catechism-card {
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 30px;
+    /* Padding uniforme e limpo */
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+    /* Agora seguro com layout flex */
+    height: 100%;
+    min-height: 550px;
+}
+
+.cat-content {
+    flex-grow: 1;
+    /* Faz o conteúdo ocupar o espaço de cima */
+    margin-bottom: 20px;
+}
+
+.cat-cover {
+    width: 100%;
+    margin-top: auto;
+    /* Joga para o bottom */
+    border-top: 1px solid var(--bg-card);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    /* Organiza imagem e origem verticalmente */
+    align-items: center;
+    justify-content: center;
+}
+
+.cat-cover img {
+    max-width: 100%;
+    height: 220px;
+    /* Mais longa */
+    /* Altura fixa para as capas */
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    margin-bottom: 12px;
+}
+
+.cat-origin {
+    font-size: 0.8rem;
+    color: #888;
+    font-family: 'Outfit', sans-serif;
+    font-style: italic;
+    text-align: center;
+}
+
+.catechism-card:hover .cat-cover img {
+    transform: scale(1.05);
+}
+
+.catechism-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+}
+
+.cat-top-meta {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 15px !important;
+    margin-bottom: 20px !important;
+    position: static !important;
+}
+
+.cat-ordem {
+    position: static !important;
+    /* Força a saída do absolute antigo */
+    background: var(--primary) !important;
+    color: var(--white) !important;
+    width: 35px !important;
+    height: 35px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    font-weight: bold !important;
+    font-family: 'Outfit', sans-serif !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2) !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+}
+
+.cat-year {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: #d4af37;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+    /* Removido pois o gap do flex resolve */
+}
+
+.catechism-card h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.catechism-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* --- Seção de Santos e Beatos --- */
+#saintsView {
+    padding: 20px 2% 60px 2%; /* Reduzido preenchimento lateral */
+    max-width: 1600px; /* Aumentado de 1200px */
+    margin: 0 auto;
+    display: none;
+}
+
+#saintsView.active {
+    display: block;
+}
+
+.saints-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.saints-header h2 {
+    font-family: 'Lora', serif;
+    font-size: 2.8rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.saint-photo-timeline {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: var(--white);
+    margin-right: 150px;
+    /* Deslocamento para alinhar com o traço vertical da cruz */
+}
+
+.saint-photo-timeline:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+/* Responsividade */
+
+/* Breakpoint para tablets e telas médias */
+@media (max-width: 1024px) {
+
+    /* Navbar */
+    .navbar {
+        padding: 1rem 3%;
+    }
+
+    .menu ul {
+        gap: 1.5rem;
+    }
+
+    .book-container {
+        padding: 3rem 3%;
+    }
+
+    .chapters-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .catechism-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .road-wrapper {
+        padding: 2rem 0.5rem;
+    }
+
+    .road-node {
+        width: 260px;
+        margin: 0 40px;
+    }
+
+    .footer {
+        flex-direction: column;
+        text-align: left;
+        height: auto;
+        padding: 2rem 0;
+    }
+}
+
+/* Breakpoint para smartphones */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+        /* Mostra o hamburger no mobile */
+    }
+
+    .btn-action {
+        display: none;
+        /* Esconde o botão de apoiar no mobile para poupar espaço */
+    }
+
+    .menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: var(--bg-main);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+    }
+
+    .menu.active {
+        right: 0;
+    }
+
+    .menu ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 2.5rem;
+    }
+
+    .menu ul li a {
+        font-size: 1.2rem;
+    }
+
+    /* Animação do Hamburger Ativo (transforma num X) */
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+
+    .chapters-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .catechism-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .road-wrapper {
+        overflow-x: scroll;
+    }
+
+    .road-node {
+        width: 220px;
+        margin: 0 20px;
+    }
+
+    .personagens-wrapper {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .footer {
+        padding: 1.5rem 0;
+    }
+}
+
+/* Breakpoint ultra‑pequeno */
+@media (max-width: 480px) {
+    .navbar h1 {
+        font-size: 1.5rem;
+    }
+
+    .oracao-columns {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .btn-back,
+    .btn-nav {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .chapter-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .cat-cover img {
+        height: 180px;
+        margin-left: 2rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+}
+
+/* --- Modo Livro (Saints Book Mode) --- */
+.book-reader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1500px;
+    padding: 1rem 0;
+    flex-grow: 1; /* Ocupa o espaço disponível no modal */
+    position: relative;
+}
+
+.book-container-inner {
+    width: 100%;
+    max-width: 1150px;
+    height: 700px; /* Aumentei um pouco a altura */
+    display: flex;
+    background: #fff;
+    border-radius: 6px;
+    position: relative;
+    border: 1px solid var(--border-light);
+    transform-style: preserve-3d;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.25);
+}
+
+.book-spine {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    background: linear-gradient(to right, rgba(0,0,0,0.15), rgba(0,0,0,0.02) 20%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0.15));
+    transform: translateX(-50%);
+    z-index: 10;
+    border-left: 1px solid rgba(0,0,0,0.08);
+    border-right: 1px solid rgba(0,0,0,0.08);
+}
+
+.book-page {
+    flex: 1;
+    padding: 3.5rem 4.5rem;
+    background: #fff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden; /* Removemos o scroll para forçar a nova página */
+}
+
+.page-left {
+    box-shadow: inset -15px 0 20px -15px rgba(0,0,0,0.2);
+    border-radius: 4px 0 0 4px;
+}
+
+.page-right {
+    box-shadow: inset 15px 0 20px -15px rgba(0,0,0,0.2);
+    border-radius: 0 4px 4px 0;
+}
+
+.page-empty {
+    background: #f9f9f9;
+}
+
+.book-content {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text-main);
+    text-align: justify;
+    flex-grow: 1;
+    display: block; /* Voltar para block para facilitar cálculo de altura */
+}
+
+.book-content p {
+    margin-bottom: 1.2rem;
+}
+
+.book-image-placeholder {
+    width: 100%;
+    height: 200px;
+    background: #f5f1e6;
+    border: 2px dashed var(--border-light);
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.9rem;
+    border-radius: 4px;
+}
+
+.book-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.btn-book-nav {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    transition: all 0.3s;
+}
+
+.btn-book-nav:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+.page-number {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    position: absolute;
+    bottom: 20px;
+}
+
+.page-left .page-number { left: 40px; }
+.page-right .page-number { right: 40px; }
+
+/* Animação simulada de virada */
+@keyframes pageTurn {
+    0% { transform: rotateY(0deg); transform-origin: left; }
+    100% { transform: rotateY(-180deg); transform-origin: left; }
+}
+
+.turning {
+    animation: pageTurn 0.6s ease-in-out forwards;
+}

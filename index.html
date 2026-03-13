@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>História da Salvação - Livro Interativo</title>
+    <link rel="stylesheet" href="style.css?v=1.4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Lora:ital,wght@0,400;0,700;1,400&family=Outfit:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Logo de Jesus Cristo" class="img-logo">
+            <h1 id="logoHome">Jesus, Eu<span> Confio em Vós</span></h1>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="#" id="btnSumario">Sumário</a></li>
+                <li><a href="#">Sobre a Igreja</a></li>
+                <li><a href="#" id="btnLivros">Livros</a></li>
+                <li><a href="#" id="btnCatecismo">Catecismo</a></li>
+                <li><a href="#" id="btnSantos">Santos Incorruptíveis</a></li>
+            </ul>
+        </nav>
+        <div class="nav-right">
+            <button class="btn-action">Apoiar Projeto</button>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="book-container">
+        <!-- Tela de Sumário (Início do Livro) -->
+        <section id="summaryView" class="view active">
+            <div class="summary-header">
+                <h2>A Unica e Absoluta Verdade.</h2>
+                <p>Uma jornada do Gênesis ao Apocalipse sob a luz do Magistério da Igreja Católica Apostolica Romana.
+                </p>
+                <div class="oracao-container">
+                    <h3 class="oracao-title">Padre nosso</h3>
+                    <div class="oracao-columns">
+                        <p class="oracao-text">
+                            &nbsp;&nbsp;&nbsp;&nbsp;Padre nosso, que estais nos céus, santificado seja o vosso nome;
+                            venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu; o pão
+                            nosso de cada dia nos dai hoje; e perdoai-nos as nossas dívidas, assim como nós perdoamos
+                            aos nossos devedores; e não nos deixeis cair em tentação; R/. Mas livrai-nos do mal. Amém.
+                        </p>
+                        <p class="oracao-text">
+                            &nbsp;&nbsp;&nbsp;&nbsp;Pater noster, qui es in caelis Sanctificétur nomen tuum: Advéniat
+                            regnum tuum: Fiat voluntas tua, sicut in caelo, et in terra. Panem nostrum quotidiánum da
+                            nobis hódie: Et dimítte nobis débita nostra, sicut et nos dimíttimus debitóribus nostris. Et
+                            ne nos indúcas in tentatiónem. R/. Sed líbera nos a malo. Amen
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="chapters-grid" id="chaptersGrid">
+                <!-- Capítulos serão gerados via JS -->
+            </div>
+
+            <div class="oracao-container">
+                <h3 class="oracao-title">Credo</h3>
+                <div class="oracao-columns">
+                    <p class="oracao-text">
+                        &nbsp;&nbsp;&nbsp;&nbsp;Creio em Deus Padre, todo-poderoso, Criador do céu e da terra. E em
+                        Jesus Cristo, um só seu Filho, nosso Senhor, o qual foi concebido do Espírito Santo, nasceu
+                        de Maria Virgem; padeceu sob o poder de Pôncio Pilatos, foi crucificado, morto e sepultado;
+                        desceu aos infernos; ao terceiro dia resurgeu dos mortos; subiu aos céus, está sentado à mão
+                        direita de Deus Padre todo-poderoso, donde há de vir a julgar os vivos e os mortos; creio no
+                        Espírito Santo; na santa Igreja Católica; na comunhão dos santos; na remissão dos pecados;
+                        na ressurreição da carne; na vida eterna. Amém.
+                    </p>
+                    <p class="oracao-text">
+                        &nbsp;&nbsp;&nbsp;&nbsp;Credo in Deum, Patrem omnipoténtem, Creatórem caeli et terrae. Et in
+                        Jesum Christum, Filium eius únicum, Dóminum nostrum: qui concéptus est de Spíritu Sancto,
+                        natus ex María Virgine, passus sub Pontio Piláto, crucifíxus, mórtuus, et sepúltus:
+                        descéndit ad ínferos; tértia die resurréxit a mórtuis; ascéndit ad caelos; sedet ad déxteram
+                        Dei Patris omnipoténtis: inde ventúrus est judicare vivos et mórtuos. Credo in Spiritum
+                        Sanctum, sanctam Ecelésiam cathólicam, Sanctórum communionem, remissiónem peccatórum carnis
+                        resurrectiónem, vitam aetérnam. Amen.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tela de Capítulo Individual -->
+        <section id="chapterView" class="view">
+            <div class="chapter-nav">
+                <div class="nav-left-group">
+                    <button id="backToSummary" class="btn-back">← Sumário</button>
+                    <button id="prevChapterNav" class="btn-nav">← Cap. Anterior</button>
+                </div>
+                <h2 id="chapterTitle">Título do Capítulo</h2>
+                <div class="page-controls">
+                    <button id="nextChapter" class="btn-nav">Próximo Cap. →</button>
+                </div>
+            </div>
+
+            <div class="road-viewer">
+                <!-- Botões de Navegação Lateral -->
+                <div class="nav-side-group nav-side-left">
+                    <button class="btn-scroll" onclick="scrollRoad('roadWrapperChapter', -1)" title="Rolar Esquerda">&lt;</button>
+                    <button class="btn-scroll btn-extreme" onclick="scrollExtreme('roadWrapperChapter', 'start')" title="Ir ao Início">&lt;&lt;</button>
+                </div>
+                
+                <div class="road-wrapper" id="roadWrapperChapter">
+                    <div class="road-container" id="roadContainer">
+                        <!-- Estrada horizontal e nós serão gerados via JS -->
+                    </div>
+                </div>
+
+                <div class="nav-side-group nav-side-right">
+                    <button class="btn-scroll" onclick="scrollRoad('roadWrapperChapter', 1)" title="Rolar Direita">&gt;</button>
+                    <button class="btn-scroll btn-extreme" onclick="scrollExtreme('roadWrapperChapter', 'end')" title="Ir ao Fim">&gt;&gt;</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tela de Catecismo -->
+        <!-- Tela de Catecismo -->
+        <section id="catechismView" class="view">
+            <div class="catechism-header">
+                <h2>Catecismos da Igreja</h2>
+                <p>Uma linha do tempo da doutrina cristã, preservada e ensinada pela Igreja Católica.</p>
+            </div>
+            <div class="catechism-grid" id="catechismGrid">
+                <!-- Cards de catecismos serão gerados via JS -->
+            </div>
+        </section>
+
+        <!-- Tela de Livros -->
+        <section id="booksView" class="view">
+            <div class="catechism-header books-header-relative">
+                <h2>Biblioteca de Livros</h2>
+                <p>Nossa coleção de livros e documentos para leitura.</p>
+                <div class="search-container">
+                    <input type="text" id="searchInputLivros" placeholder="Pesquisar livros..." class="search-input">
+                </div>
+            </div>
+            <div class="catechism-grid" id="booksGrid">
+                <!-- Cards de livros serão gerados via JS -->
+            </div>
+        </section>
+
+        <!-- Tela de Santos e Beatos (Linha do Tempo) -->
+        <section id="saintsView" class="view">
+            <div class="saints-header">
+                <h2>Santos, Beatos e Mártires</h2>
+                <p>A história daqueles que viveram o Evangelho com radicalidade desde a origem da Igreja.</p>
+            </div>
+            <div class="road-viewer">
+                <!-- Botões de Navegação Lateral -->
+                <div class="nav-side-group nav-side-left">
+                    <button class="btn-scroll" onclick="scrollRoad('roadWrapperSaints', -1)" title="Rolar Esquerda">&lt;</button>
+                    <button class="btn-scroll btn-extreme" onclick="scrollExtreme('roadWrapperSaints', 'start')" title="Ir ao Início">&lt;&lt;</button>
+                </div>
+
+                <div class="road-wrapper" id="roadWrapperSaints">
+                    <div class="road-container" id="saintsTimeline">
+                        <!-- Estrada horizontal gerada via JS -->
+                    </div>
+                </div>
+
+                <div class="nav-side-group nav-side-right">
+                    <button class="btn-scroll" onclick="scrollRoad('roadWrapperSaints', 1)" title="Rolar Direita">&gt;</button>
+                    <button class="btn-scroll btn-extreme" onclick="scrollExtreme('roadWrapperSaints', 'end')" title="Ir ao Fim">&gt;&gt;</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Informações Detalhadas -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modalBody">
+                <!-- Conteúdo dinâmico -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>História da Salvação</h3>
+                <p>Crido sob a doutrina da Igreja Católica Apostólica Romana.</p>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="#">Bíblia Online</a></li>
+                    <li><a href="#">Vaticano News</a></li>
+                    <li><a href="#">Santo do Dia</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <p>© 2026. Ad maiorem Dei gloriam.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=1.4"></script>
+</body>
+
+</html>
