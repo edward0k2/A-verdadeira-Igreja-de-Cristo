@@ -1,0 +1,13 @@
+{
+  "name": "a-verdadeira-igreja-de-cristo",
+  "version": "1.0.0",
+  "description": "Aplicação web da Verdadeira Igreja de Cristo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
