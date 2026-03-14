@@ -23,13 +23,18 @@ module.exports = (req, res) => {
         urlPath = '/index.html';
     }
     
-    // Constrói o caminho do arquivo
-    let filePath = path.join(process.cwd(), urlPath);
+    // Remove barras duplas e normaliza o caminho
+    urlPath = urlPath.replace(/\/+/g, '/');
     
-    // Garante que o arquivo existe e está dentro do diretório permitido
-    const realPath = fs.realpathSync(process.cwd());
-    if (!fs.realpathSync(filePath).startsWith(realPath)) {
-        res.status(404).send('Arquivo não encontrado');
+    // Constrói o caminho do arquivo
+    const basePath = process.cwd();
+    let filePath = path.join(basePath, urlPath);
+    
+    // Normaliza e valida caminho como segurança
+    const normalizedPath = path.normalize(filePath);
+    if (!normalizedPath.startsWith(basePath)) {
+        res.writeHead(403);
+        res.end('Acesso negado');
         return;
     }
 
@@ -37,14 +42,17 @@ module.exports = (req, res) => {
     const contentType = MIME_TYPES[extname] || 'application/octet-stream';
 
     try {
-        const content = fs.readFileSync(filePath);
-        res.setHeader('Content-Type', contentType);
-        res.status(200).send(content);
-    } catch (error) {
-        if (error.code === 'ENOENT') {
-            res.status(404).send('Arquivo não encontrado');
-        } else {
-            res.status(500).send('Erro no servidor: ' + error.message);
+        if (!fs.existsSync(normalizedPath)) {
+            res.writeHead(404);
+            res.end('Arquivo não encontrado');
+            return;
         }
+        
+        const content = fs.readFileSync(normalizedPath);
+        res.writeHead(200, { 'Content-Type': contentType });
+        res.end(content);
+    } catch (error) {
+        res.writeHead(500);
+        res.end('Erro no servidor: ' + error.message);
     }
 };
