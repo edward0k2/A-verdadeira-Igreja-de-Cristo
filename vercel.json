@@ -1,18 +1,7 @@
 {
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "**/*.html",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "server.js"
-    }
-  ]
+  "buildCommand": "echo 'Vercel deployment configured'",
+  "outputDirectory": ".",
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
