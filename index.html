@@ -24,7 +24,7 @@
         <nav class="menu">
             <ul>
                 <li><a href="#" id="btnTerco">Santo Terço</a></li>
-                <li><a href="#">Sobre a Igreja</a></li>
+                <li><a href="#" id="btnAbout">Sobre a Igreja</a></li>
                 <li><a href="#" id="btnLivros">Livros</a></li>
                 <li><a href="#" id="btnCatecismo">Catecismo</a></li>
                 <li><a href="#" id="btnSantos">Santos Incorruptíveis</a></li>
@@ -111,6 +111,54 @@
                 <div class="title-divider"></div>
             </div>
             <div class="chapters-grid" id="novoTestamentoGrid"></div>
+        </section>
+
+        <!-- Seção: Sobre a Igreja (Fundação) -->
+        <section id="aboutView" class="view">
+            <div class="about-container">
+                <h1 class="monumental-title">"Tu és Pedro, e sobre esta pedra edificarei a minha Igreja." (Mt 16,18)</h1>
+                <div class="image-16-9-container">
+                    <!-- COLOQUE A URL DA SUA IMAGEM NO src="..." ABAIXO -->
+                    <img src="./coletania de imagens/cristo-edificando-a-igreja.jpg" alt="Cristo edificando a Igreja" class="about-main-image">
+                </div>
+                <div class="about-content">
+                    <p class="lead-text">Cristo edificando a Igreja sobre a pedra que és Pedro</p>
+                    <div class="about-grid">
+                        <div class="about-text-block">
+                            <h3>A Fundação Divina</h3>
+                            <p>A Igreja Católica não é uma instituição humana, mas divina em sua origem. Fundada por Jesus Cristo durante sua vida pública, ela recebeu a missão de levar a salvação a todas as nações, guiada pelo Espírito Santo.</p>
+                        </div>
+                        <div class="about-text-block">
+                            <h3>O Primado de Pedro</h3>
+                            <p>Ao entregar as chaves do Reino dos Céus a Simão, Jesus mudou seu nome para Pedro (Rocha), estabelecendo-o como o fundamento visível de sua Igreja e o primeiro Papa.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testamento-title" style="margin-top: 5rem;">
+                <h3>Sucessão Apostólica: Linha do Tempo dos Papas</h3>
+                <div class="title-divider"></div>
+            </div>
+
+            <div class="road-viewer">
+                <!-- Botões de Navegação Lateral -->
+                <div class="nav-side-group nav-side-left">
+                    <button class="btn-scroll" onclick="scrollRoad('roadWrapperPapas', -1)" title="Rolar Esquerda">&lt;</button>
+                    <button class="btn-scroll btn-extreme" onclick="scrollExtreme('roadWrapperPapas', 'start')" title="Ir ao Início">&lt;&lt;</button>
+                </div>
+                
+                <div class="road-wrapper" id="roadWrapperPapas">
+                    <div class="road-container" id="papasTimeline">
+                        <!-- Estrada horizontal e nós dos papas serão gerados via JS -->
+                    </div>
+                </div>
+
+                <div class="nav-side-group nav-side-right">
+                    <button class="btn-scroll" onclick="scrollRoad('roadWrapperPapas', 1)" title="Rolar Direita">&gt;</button>
+                    <button class="btn-scroll btn-extreme" onclick="scrollExtreme('roadWrapperPapas', 'end')" title="Ir ao Fim">&gt;&gt;</button>
+                </div>
+            </div>
         </section>
 
         <!-- Seção Independente: Santo Terço -->
@@ -357,7 +405,7 @@
     <!-- Modal de Estatísticas -->
     <div id="statsModal" class="modal">
         <div class="modal-content stats-content">
-            <span class="close" onclick="closeStats()">&times;</span>
+            <span class="close-modal" onclick="closeStats()">&times;</span>
             <h2>Estatísticas de Leitura</h2>
             <div class="stats-grid">
                 <div class="stat-item">
@@ -395,6 +443,7 @@
 
     <button id="backToTop" class="back-to-top" title="Voltar ao Topo">↑</button>
 
+    <script src="papas-data.js"></script>
     <script src="script.js?v=2.2"></script>
 </body>
 

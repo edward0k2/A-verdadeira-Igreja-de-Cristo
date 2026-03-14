@@ -429,6 +429,23 @@ function updateProgressUI() {
     }
 }
 
+function switchView(viewId) {
+    const views = ['summaryView', 'chapterView', 'catechismView', 'booksView', 'saintsView', 'tercoView', 'aboutView'];
+    views.forEach(id => {
+        const view = document.getElementById(id);
+        if (view) {
+            if (id === viewId) {
+                view.classList.add('active');
+                if (id === 'aboutView') renderPapasTimeline();
+            } else {
+                view.classList.remove('active');
+            }
+        }
+    });
+    // Reset scroll ao trocar de aba principal
+    window.scrollTo(0, 0);
+}
+
 function openStats() {
     updateProgressUI();
     document.getElementById('statsModal').style.display = 'block';
@@ -524,6 +541,33 @@ async function showSaintDetails(id) {
     currentSaintPages = await createDynamicPages(saint);
     
     renderSaintBookContent();
+    setupOrientationControl();
+}
+
+function setupOrientationControl() {
+    // Verifica se é mobile para sugerir rotação
+    if (window.innerWidth <= 768 && window.innerHeight > window.innerWidth) {
+        // Opcional: Mostrar um aviso visual suave
+    }
+}
+
+async function toggleFullScreen() {
+    const modal = document.getElementById('infoModal');
+    if (!document.fullscreenElement) {
+        try {
+            await modal.requestFullscreen();
+            if (screen.orientation && screen.orientation.lock) {
+                await screen.orientation.lock('landscape').catch(e => console.log("Orientation lock not supported:", e));
+            }
+        } catch (err) {
+            console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+        }
+    } else {
+        document.exitFullscreen();
+        if (screen.orientation && screen.orientation.unlock) {
+            screen.orientation.unlock();
+        }
+    }
 }
 
 async function createDynamicPages(saint) {
@@ -619,8 +663,16 @@ function renderSaintBookContent() {
         
         <div class="book-nav">
             <button onclick="prevSaintPage()" class="btn-book-nav" ${currentSaintPage === 0 ? 'disabled style="opacity:0.5; cursor:default;"' : ''}>← Página Anterior</button>
-            <span style="font-family: var(--font-heading); color: var(--text-muted);">Páginas ${currentSaintPage * 2 + 1}-${currentSaintPage * 2 + 2}</span>
+            <div class="page-controls">
+                <span style="font-family: var(--font-heading); color: var(--text-muted);">Páginas ${currentSaintPage * 2 + 1}-${currentSaintPage * 2 + 2}</span>
+                <button onclick="toggleFullScreen()" class="btn-book-nav" style="margin-left: 10px;" title="Tela Cheia para melhor leitura">⛶</button>
+            </div>
             <button onclick="nextSaintPage()" class="btn-book-nav" ${currentSaintPage * 2 + 2 >= currentSaintPages.length ? 'disabled style="opacity:0.5; cursor:default;"' : ''}>Próxima Página →</button>
+        </div>
+        
+        <div class="orientation-warning">
+            <div class="warning-icon">🔄</div>
+            <p>Gire o celular para o lado para uma melhor leitura do livro.</p>
         </div>
     `;
 }
@@ -885,10 +937,16 @@ function openChapter(index, tipo = 'AT') {
     const summaryView = document.getElementById('summaryView');
     const chapterView = document.getElementById('chapterView');
 
-    summaryView.classList.remove('active');
-    chapterView.classList.add('active');
+    switchView('chapterView');
 
     renderChapterContent();
+    
+    // Garantir que o scroll volte ao topo após a renderização do conteúdo
+    setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    }, 50);
 }
 
 let currentChapterSource = 'AT';
@@ -1004,65 +1062,40 @@ function showPersonagem(nome, origem, historia, doutrina) {
 }
 
 function setupEventListeners() {
-    document.getElementById('logoHome').onclick = () => {
-        document.getElementById('chapterView').classList.remove('active');
-        document.getElementById('catechismView').classList.remove('active');
-        document.getElementById('booksView').classList.remove('active');
-        document.getElementById('saintsView').classList.remove('active');
-        document.getElementById('summaryView').classList.add('active');
+    document.getElementById('logoHome').onclick = (e) => {
+        if (e) e.preventDefault();
+        switchView('summaryView');
     };
 
     document.getElementById('btnCatecismo').onclick = (e) => {
         e.preventDefault();
-        document.getElementById('summaryView').classList.remove('active');
-        document.getElementById('chapterView').classList.remove('active');
-        document.getElementById('booksView').classList.remove('active');
-        document.getElementById('saintsView').classList.remove('active');
-        document.getElementById('catechismView').classList.add('active');
+        switchView('catechismView');
         renderCatechisms();
     };
 
     document.getElementById('btnLivros').onclick = (e) => {
         e.preventDefault();
-        document.getElementById('summaryView').classList.remove('active');
-        document.getElementById('chapterView').classList.remove('active');
-        document.getElementById('saintsView').classList.remove('active');
-        document.getElementById('catechismView').classList.remove('active');
-        document.getElementById('booksView').classList.add('active');
+        switchView('booksView');
         renderLivros();
     };
 
     document.getElementById('btnSantos').onclick = (e) => {
         e.preventDefault();
-        document.getElementById('summaryView').classList.remove('active');
-        document.getElementById('chapterView').classList.remove('active');
-        document.getElementById('catechismView').classList.remove('active');
-        document.getElementById('booksView').classList.remove('active');
-        document.getElementById('saintsView').classList.add('active');
+        switchView('saintsView');
+    };
+
+    document.getElementById('btnAbout').onclick = (e) => {
+        e.preventDefault();
+        switchView('aboutView');
     };
 
     document.getElementById('btnTerco').onclick = (e) => {
         e.preventDefault();
-        document.getElementById('tercoView').classList.add('active');
-        document.getElementById('summaryView').classList.remove('active');
-        document.getElementById('chapterView').classList.remove('active');
-        document.getElementById('catechismView').classList.remove('active');
-        document.getElementById('booksView').classList.remove('active');
-        document.getElementById('saintsView').classList.remove('active');
-    };
-
-    document.getElementById('logoHome').onclick = (e) => {
-        document.getElementById('summaryView').classList.add('active');
-        document.getElementById('tercoView').classList.remove('active');
-        document.getElementById('chapterView').classList.remove('active');
-        document.getElementById('catechismView').classList.remove('active');
-        document.getElementById('booksView').classList.remove('active');
-        document.getElementById('saintsView').classList.remove('active');
+        switchView('tercoView');
     };
 
     document.getElementById('backToSummary').onclick = () => {
-        document.getElementById('summaryView').classList.add('active');
-        document.getElementById('chapterView').classList.remove('active');
+        switchView('summaryView');
     };
 
     const goToPrev = () => {
@@ -1118,6 +1151,56 @@ function scrollRoad(wrapperId, direction) {
         left: scrollAmount,
         behavior: 'smooth'
     });
+}
+
+// papasData agora é carregado do arquivo papas-data.js
+
+function renderPapasTimeline() {
+    const timeline = document.getElementById('papasTimeline');
+    if (!timeline) return;
+    timeline.innerHTML = '';
+
+    papasData.forEach(papa => {
+        const node = document.createElement('div');
+        node.className = 'road-node';
+        
+        node.innerHTML = `
+            <div class="personagens-wrapper">
+                <img src="${papa.foto}" alt="Foto ${papa.nome}" class="saint-photo-timeline" onclick="event.stopPropagation(); showPapaDetails(${papa.id})">
+            </div>
+            <div class="node-box" onclick="showPapaDetails(${papa.id})">
+                <span>${papa.periodo}</span>
+                <h4>${papa.nome}</h4>
+                <p style="font-size: 0.85rem; color: #666; margin-top: 5px; line-height: 1.4;">${papa.descricaoCurta}</p>
+                <div class="btn-view-node">História Completa →</div>
+            </div>
+        `;
+        timeline.appendChild(node);
+    });
+}
+
+async function showPapaDetails(id) {
+    const papa = papasData.find(p => p.id === id);
+    if (!papa) return;
+
+    currentSaintPage = 0;
+    currentSaintPages = [];
+    
+    // Preparar o objeto para ser compatível com createDynamicPages (que espera campos de santo)
+    const papaAsSaint = {
+        nome: papa.nome,
+        foto: papa.foto,
+        data: papa.periodo,
+        historia: papa.historia,
+        doutrina: papa.doutrina
+    };
+
+    document.getElementById('infoModal').style.display = "block";
+    
+    currentSaintPages = await createDynamicPages(papaAsSaint);
+    
+    renderSaintBookContent();
+    setupOrientationControl();
 }
 
 function scrollExtreme(wrapperId, position) {
