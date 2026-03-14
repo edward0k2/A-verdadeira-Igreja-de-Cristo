@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>História da Salvação - Livro Interativo</title>
-    <link rel="stylesheet" href="style.css?v=1.4">
+    <link rel="stylesheet" href="style.css?v=2.5">
+    <script src="script.js?v=2.5"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -21,7 +22,7 @@
         </div>
         <nav class="menu">
             <ul>
-                <li><a href="#" id="btnSumario">Sumário</a></li>
+                <li><a href="#" id="btnTerco">Santo Terço</a></li>
                 <li><a href="#">Sobre a Igreja</a></li>
                 <li><a href="#" id="btnLivros">Livros</a></li>
                 <li><a href="#" id="btnCatecismo">Catecismo</a></li>
@@ -41,33 +42,46 @@
     <main class="book-container">
         <!-- Tela de Sumário (Início do Livro) -->
         <section id="summaryView" class="view active">
-            <div class="summary-header">
-                <h2>A Unica e Absoluta Verdade.</h2>
-                <p>Uma jornada do Gênesis ao Apocalipse sob a luz do Magistério da Igreja Católica Apostolica Romana.
-                </p>
-                <div class="oracao-container">
-                    <h3 class="oracao-title">Padre nosso</h3>
-                    <div class="oracao-columns">
-                        <p class="oracao-text">
-                            &nbsp;&nbsp;&nbsp;&nbsp;Padre nosso, que estais nos céus, santificado seja o vosso nome;
-                            venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu; o pão
-                            nosso de cada dia nos dai hoje; e perdoai-nos as nossas dívidas, assim como nós perdoamos
-                            aos nossos devedores; e não nos deixeis cair em tentação; R/. Mas livrai-nos do mal. Amém.
-                        </p>
-                        <p class="oracao-text">
-                            &nbsp;&nbsp;&nbsp;&nbsp;Pater noster, qui es in caelis Sanctificétur nomen tuum: Advéniat
-                            regnum tuum: Fiat voluntas tua, sicut in caelo, et in terra. Panem nostrum quotidiánum da
-                            nobis hódie: Et dimítte nobis débita nostra, sicut et nos dimíttimus debitóribus nostris. Et
-                            ne nos indúcas in tentatiónem. R/. Sed líbera nos a malo. Amen
-                        </p>
+            <div class="summary-hero">
+                <!-- Imagens laterais preservadas no Sumário Bíblico -->
+                <div class="hero-side hero-left">
+                    <img src="./coletania de imagens/coracao-de-jesus.jpg" alt="Coração de Jesus" class="hero-img">
+                </div>
+
+                <div class="summary-header">
+                    <h2>A Unica e Absoluta Verdade.</h2>
+                    <p>Uma jornada do Gênesis ao Apocalipse sob a luz do Magistério da Igreja Católica Apostolica Romana.</p>
+                    <div class="oracao-container">
+                        <h3 class="oracao-title">Padre nosso</h3>
+                        <div class="oracao-columns">
+                            <p class="oracao-text">
+                                &nbsp;&nbsp;&nbsp;&nbsp;Padre nosso, que estais nos céus, santificado seja o vosso nome;
+                                venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu; o pão
+                                nosso de cada dia nos dai hoje; e perdoai-nos as nossas dívidas, assim como nós perdoamos
+                                aos nossos devedores; e não nos deixeis cair em tentação; R/. Mas livrai-nos do mal. Amém.
+                            </p>
+                            <p class="oracao-text">
+                                &nbsp;&nbsp;&nbsp;&nbsp;Pater noster, qui es in caelis Sanctificétur nomen tuum: Advéniat
+                                regnum tuum: Fiat voluntas tua, sicut in caelo, et in terra. Panem nostrum quotidiánum da
+                                nobis hódie: Et dimítte nobis débita nostra, sicut et nos dimíttimus debitóribus nostris. Et
+                                ne nos indúcas in tentatiónem. R/. Sed líbera nos a malo. Amen
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="chapters-grid" id="chaptersGrid">
-                <!-- Capítulos serão gerados via JS -->
+
+                <div class="hero-side hero-right">
+                    <img src="./coletania de imagens/coracao-de-maria.jpg" alt="Coração de Maria" class="hero-img">
+                </div>
             </div>
 
-            <div class="oracao-container">
+            <div class="testamento-title">
+                <h3>Antigo Testamento</h3>
+                <div class="title-divider"></div>
+            </div>
+            <div class="chapters-grid" id="chaptersGrid"></div>
+
+            <div class="oracao-container" style="margin: 4rem auto;">
                 <h3 class="oracao-title">Credo</h3>
                 <div class="oracao-columns">
                     <p class="oracao-text">
@@ -88,6 +102,119 @@
                         Sanctum, sanctam Ecelésiam cathólicam, Sanctórum communionem, remissiónem peccatórum carnis
                         resurrectiónem, vitam aetérnam. Amen.
                     </p>
+                </div>
+            </div>
+
+            <div class="testamento-title" style="margin-top: 5rem;">
+                <h3>Novo Testamento</h3>
+                <div class="title-divider"></div>
+            </div>
+            <div class="chapters-grid" id="novoTestamentoGrid"></div>
+        </section>
+
+        <!-- Seção Independente: Santo Terço -->
+        <section id="tercoView" class="view">
+            <div class="summary-header" style="margin-top: 2rem;">
+                <h2>O Santo Terço</h2>
+                <p>A "arma" espiritual dos cristãos e o saltério da Virgem Maria.</p>
+                
+                <div class="terco-section">
+                    <h3>História do Santo Terço</h3>
+                    <p class="terco-text">
+                        A história do Santo Terço remonta ao século XII, quando a Ordem dos Pregadores (Dominicanos) começou a difundir a oração do Saltério de Maria. São Domingos de Gusmão recebeu da própria Virgem Santíssima a missão de propagar o Rosário como uma forma de combater as heresias e converter os corações.
+                    </p>
+                </div>
+
+                <div class="terco-section">
+                    <h3>Como Rezar o Santo Terço</h3>
+                    <div class="terco-steps">
+                        <div class="step-card">
+                            <span>1</span>
+                            <p>Sinal da Cruz e Credo</p>
+                        </div>
+                        <div class="step-card">
+                            <span>2</span>
+                            <p>Pai Nosso e 3 Ave Marias (Fé, Esperança e Caridade)</p>
+                        </div>
+                        <div class="step-card">
+                            <span>3</span>
+                            <p>Anúncio do Mistério e Pai Nosso</p>
+                        </div>
+                        <div class="step-card">
+                            <span>4</span>
+                            <p>10 Ave Marias, Glória e Ó meu Jesus</p>
+                        </div>
+                        <div class="step-card">
+                            <span>5</span>
+                            <p>Salve Rainha ao final dos 5 mistérios</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="terco-section">
+                    <h3>Orações do Santo Terço</h3>
+                    <div class="prayers-list">
+                        <div class="prayer-block">
+                            <h4 class="prayer-title">Credo (Símbolo dos Apóstolos)</h4>
+                            <p class="terco-text">
+                                Creio em Deus Pai todo-poderoso, Criador do céu e da terra. E em Jesus Cristo, seu único Filho, nosso Senhor, o qual foi concebido pelo poder do Espírito Santo, nasceu da Virgem Maria; padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus; está sentado à direita de Deus Pai todo-poderoso, donde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo; na santa Igreja Católica; na comunhão dos santos; na remissão dos pecados; na ressurreição da carne; na vida eterna. Amém.
+                            </p>
+                        </div>
+                        <div class="prayer-block">
+                            <h4 class="prayer-title">Pai Nosso</h4>
+                            <p class="terco-text">
+                                Pai nosso, que estais nos céus, santificado seja o vosso nome; venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu; o pão nosso de cada dia nos dai hoje; perdoai-nos as nossas dívidas, assim como nós perdoamos aos nossos devedores; e não nos deixeis cair em tentação; mas livrai-nos do mal. Amém.
+                            </p>
+                        </div>
+                        <div class="prayer-block">
+                            <h4 class="prayer-title">Ave Maria</h4>
+                            <p class="terco-text">
+                                Ave, Maria, cheia de graça, o Senhor é convosco; bendita sois vós entre as mulheres e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora da nossa morte. Amém.
+                            </p>
+                        </div>
+                        <div class="prayer-block">
+                            <h4 class="prayer-title">Glória ao Pai</h4>
+                            <p class="terco-text">
+                                Glória ao Pai, ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém.
+                            </p>
+                        </div>
+                        <div class="prayer-block">
+                            <h4 class="prayer-title">Ó meu Jesus (Oração de Fátima)</h4>
+                            <p class="terco-text">
+                                Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu e socorrei principalmente as que mais precisarem.
+                            </p>
+                        </div>
+                        <div class="prayer-block">
+                            <h4 class="prayer-title">Salve Rainha</h4>
+                            <p class="terco-text">
+                                Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva. A vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei, e depois deste desterro mostrai-nos Jesus, bendito fruto do vosso ventre. Ó clemente, ó piedosa, ó doce sempre Virgem Maria. Rogai por nós, Santa Mãe de Deus. Para que sejamos dignos das promessas de Cristo. Amém.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="terco-media-grid">
+                <div class="media-column">
+                    <h3>Vídeos e Mistérios</h3>
+                    <div class="video-container">
+                        <!-- COLE A URL DO YOUTUBE ABAIXO NO src="..." -->
+                        <iframe src="" title="Santo Terço - Vídeo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <p class="media-label">Santo Terço do Dia</p>
+                    </div>
+                </div>
+
+                <div class="media-column">
+                    <h3>Áudios do Terço</h3>
+                    <div class="audio-player">
+                        <p class="media-label">Santo Terço (Áudio Completo)</p>
+                        <!-- COLE A URL DO ÁUDIO MP3 ABAIXO NO src="..." -->
+                        <audio controls src=""></audio>
+                    </div>
+                    <div class="audio-player">
+                        <p class="media-label">Mistérios do Dia</p>
+                        <audio controls src=""></audio>
+                    </div>
                 </div>
             </div>
         </section>
@@ -203,11 +330,65 @@
             </div>
             <div class="footer-social">
                 <p>© 2026. Ad maiorem Dei gloriam.</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">Site desenvolvido e criado por <strong>Jesus Eduardo</strong></p>
+                <div style="margin-top: 0.5rem;">
+                    <a href="https://github.com/edward0k2" target="_blank" rel="noopener noreferrer" style="margin-right: 1rem; color: #fff;">GitHub</a>
+                    <a href="https://www.linkedin.com/in/eduardo-pereira-lima-45b7952b0/" target="_blank" rel="noopener noreferrer" style="color: #fff;">LinkedIn</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <script src="script.js?v=1.4"></script>
+    <!-- Barra de Progresso Flutuante -->
+    <div id="progressWidget" class="progress-widget" onclick="openStats()">
+        <div class="progress-bar-container">
+            <div id="progressFill" class="progress-fill" style="width: 0%;"></div>
+        </div>
+        <span id="progressText">0% Lido</span>
+    </div>
+
+    <!-- Modal de Estatísticas -->
+    <div id="statsModal" class="modal">
+        <div class="modal-content stats-content">
+            <span class="close" onclick="closeStats()">&times;</span>
+            <h2>Estatísticas de Leitura</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <div class="stat-info">
+                        <span id="statDays">0</span>
+                        <p>Dias lendo</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <div class="stat-info">
+                        <span id="statHours">0h</span>
+                        <p>Tempo total</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-book-open"></i>
+                    <div class="stat-info">
+                        <span id="statLastBook">---</span>
+                        <p>Onde parou</p>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-section">
+                <h3>Progresso Geral: <span id="statPercent">0%</span></h3>
+                <div class="full-bar">
+                    <div id="statFill" class="fill" style="width: 0%;"></div>
+                </div>
+                <p><span id="statReadCount">0</span> de 73 livros concluídos</p>
+            </div>
+            <button class="continue-btn" onclick="continueReading()">Continuar Leitura</button>
+        </div>
+    </div>
+
+    <button id="backToTop" class="back-to-top" title="Voltar ao Topo">↑</button>
+
+    <script src="script.js?v=2.2"></script>
 </body>
 
 </html>
