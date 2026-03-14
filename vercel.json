@@ -1,7 +1,6 @@
 {
-  "buildCommand": "echo 'Vercel deployment configured'",
+  "buildCommand": "echo 'Static files ready'",
   "outputDirectory": ".",
-  "env": {
-    "NODE_ENV": "production"
-  }
+  "installCommand": "echo 'No install needed'",
+  "cleanUrls": true
 }

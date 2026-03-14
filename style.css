@@ -71,7 +71,7 @@ body {
     list-style: none;
     gap: 2.5rem;
     margin-left: 0;
-    /* Padrão */
+    /* PadrÃ£o */
 }
 
 .menu ul li a {
@@ -147,6 +147,66 @@ body {
     opacity: 1;
 }
 
+
+
+/* Hero Layout with Side Images */
+.summary-hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-side {
+    flex: 0 0 300px;
+    height: 500px;
+    border: 3px solid var(--border-light);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.hero-side:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.summary-header {
+    flex: 1;
+    text-align: center;
+    margin-bottom: 0 !important; /* Overriding previous margin since hero handles it */
+}
+
+/* Responsividade para o Hero */
+@media (max-width: 1100px) {
+    .summary-hero {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-side {
+        flex: none;
+        width: 100%;
+        max-width: 600px;
+        height: 300px;
+    }
+}
+
 /* Summary View */
 .summary-header {
     text-align: center;
@@ -157,6 +217,26 @@ body {
     font-family: var(--font-heading);
     font-size: 3.5rem;
     margin-bottom: 1rem;
+}
+
+.testamento-title {
+    text-align: center;
+    margin: 4rem 0 2rem 0;
+}
+
+.testamento-title h3 {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.title-divider {
+    width: 80px;
+    height: 3px;
+    background: var(--primary);
+    margin: 0 auto;
+    border-radius: 2px;
 }
 
 .oracao-container {
@@ -189,26 +269,48 @@ body {
 
 .chapters-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
 .chapter-card {
     background: var(--bg-card);
-    padding: 2.5rem 2rem;
+    padding: 1.5rem;
     border: 1px solid var(--border-light);
-    border-radius: 4px;
+    border-radius: 8px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 180px;
+    position: relative;
+    overflow: hidden;
+}
+
+.chapter-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: var(--primary);
+    opacity: 0.3;
+    transition: opacity 0.3s;
 }
 
 .chapter-card:hover {
     border-color: var(--primary);
-    transform: translateY(-8px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.1);
+}
+
+.chapter-card:hover::before {
+    opacity: 1;
 }
 
 .chapter-card span {
@@ -271,7 +373,7 @@ body {
     color: var(--primary);
 }
 
-/* Road Viewer - Container para os botões e a trilha */
+/* Road Viewer - Container para os botÃµes e a trilha */
 .road-viewer {
     position: relative;
     width: 100%;
@@ -295,7 +397,7 @@ body {
     position: relative;
 }
 
-/* A linha da estrada - Conexão central */
+/* A linha da estrada - ConexÃ£o central */
 .road-container::before {
     content: '';
     position: absolute;
@@ -308,11 +410,11 @@ body {
     z-index: 1;
 }
 
-/* Ajustes de nó */
+/* Ajustes de nÃ³ */
 .road-node {
     width: 350px;
     margin: 0 40px;
-    /* Espaçamento bem menor */
+    /* EspaÃ§amento bem menor */
     position: relative;
     z-index: 2;
     display: flex;
@@ -322,7 +424,7 @@ body {
     height: 500px;
 }
 
-/* Padrão Alternado */
+/* PadrÃ£o Alternado */
 .road-node:nth-child(odd) {
     flex-direction: column-reverse;
 }
@@ -354,6 +456,7 @@ body {
     transform: translateY(-5px);
 }
 
+
 /* Conectores laterais REMOVIDOS conforme solicitado */
 .node-box::before,
 .node-box::after {
@@ -362,7 +465,7 @@ body {
 
 /* Conector Vertical - Une Personagens ao Marco através da Estrada */
 .road-node::after {
-    content: '✝';
+    content: '\271D';
     /* Cruz */
     position: absolute;
     left: 50%;
@@ -386,6 +489,7 @@ body {
     align-items: flex-end;
 }
 
+
 .road-node:nth-child(even)::after {
     top: 130px;
     /* Recuado para descer e ficar no centro dos personagens (topo) */
@@ -403,7 +507,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 60px;
-    /* Espaço exato para a cruz no centro */
+    /* EspaÃ§o exato para a cruz no centro */
     padding: 20px 0;
     position: relative;
     z-index: 10;
@@ -457,7 +561,7 @@ body {
     color: var(--text-muted);
 }
 
-/* Botões de Navegação Lateral */
+/* BotÃµes de NavegaÃ§Ã£o Lateral */
 .nav-side-group {
     position: absolute;
     top: 50%;
@@ -466,6 +570,8 @@ body {
     flex-direction: column;
     gap: 15px;
     z-index: 1000;
+
+    align-items: center;
 }
 
 .nav-side-left {
@@ -495,9 +601,9 @@ body {
 }
 
 .btn-scroll.btn-extreme {
-    width: 38px;
-    height: 38px;
-    font-size: 0.9rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
     background: var(--bg-card);
     border-color: var(--border-light);
     color: var(--text-muted);
@@ -537,10 +643,10 @@ body {
     max-width: 1250px;
     border-radius: 12px;
     position: relative;
-    max-height: 90vh; /* Limita a altura máxima */
+    max-height: 90vh; /* Limita a altura mÃ¡xima */
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* O modal em si não rola, o conteúdo sim */
+    overflow: hidden; /* O modal em si nÃ£o rola, o conteÃºdo sim */
     box-shadow: 0 25px 70px rgba(0,0,0,0.4);
 }
 
@@ -567,7 +673,7 @@ body {
     font-style: italic;
 }
 
-/* Ações de PDF no Modal */
+/* AÃ§Ãµes de PDF no Modal */
 .pdf-actions {
     margin-top: 2rem;
     display: flex;
@@ -630,10 +736,10 @@ body {
     }
 }
 
-/* --- Seção de Catecismo --- */
+/* --- SeÃ§Ã£o de Catecismo --- */
 #catechismView {
     padding: 20px 40px 60px 40px;
-    /* Topo reduzido para ficar mais próximo da navbar */
+    /* Topo reduzido para ficar mais prÃ³ximo da navbar */
     max-width: 1600px;
     margin: 0 auto;
     display: none;
@@ -728,7 +834,7 @@ body {
 
 .cat-content {
     flex-grow: 1;
-    /* Faz o conteúdo ocupar o espaço de cima */
+    /* Faz o conteÃºdo ocupar o espaÃ§o de cima */
     margin-bottom: 20px;
 }
 
@@ -786,7 +892,7 @@ body {
 
 .cat-ordem {
     position: static !important;
-    /* Força a saída do absolute antigo */
+    /* ForÃ§a a saÃ­da do absolute antigo */
     background: var(--primary) !important;
     color: var(--white) !important;
     width: 35px !important;
@@ -828,7 +934,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* --- Seção de Santos e Beatos --- */
+/* --- SeÃ§Ã£o de Santos e Beatos --- */
 #saintsView {
     padding: 20px 2% 60px 2%; /* Reduzido preenchimento lateral */
     max-width: 1600px; /* Aumentado de 1200px */
@@ -863,7 +969,7 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     background-color: var(--white);
     margin-right: 150px;
-    /* Deslocamento para alinhar com o traço vertical da cruz */
+    /* Deslocamento para alinhar com o traÃ§o vertical da cruz */
 }
 
 .saint-photo-timeline:hover {
@@ -873,7 +979,7 @@ body {
 
 /* Responsividade */
 
-/* Breakpoint para tablets e telas médias */
+/* Breakpoint para tablets e telas mÃ©dias */
 @media (max-width: 1024px) {
 
     /* Navbar */
@@ -923,7 +1029,7 @@ body {
 
     .btn-action {
         display: none;
-        /* Esconde o botão de apoiar no mobile para poupar espaço */
+        /* Esconde o botÃ£o de apoiar no mobile para poupar espaÃ§o */
     }
 
     .menu {
@@ -956,7 +1062,7 @@ body {
         font-size: 1.2rem;
     }
 
-    /* Animação do Hamburger Ativo (transforma num X) */
+    /* AnimaÃ§Ã£o do Hamburger Ativo (transforma num X) */
     .hamburger.active span:nth-child(1) {
         transform: translateY(9px) rotate(45deg);
     }
@@ -996,7 +1102,7 @@ body {
     }
 }
 
-/* Breakpoint ultra‑pequeno */
+/* Breakpoint ultraâ€‘pequeno */
 @media (max-width: 480px) {
     .navbar h1 {
         font-size: 1.5rem;
@@ -1033,7 +1139,7 @@ body {
     align-items: center;
     perspective: 1500px;
     padding: 1rem 0;
-    flex-grow: 1; /* Ocupa o espaço disponível no modal */
+    flex-grow: 1; /* Ocupa o espaÃ§o disponÃ­vel no modal */
     position: relative;
 }
 
@@ -1071,7 +1177,7 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
-    overflow: hidden; /* Removemos o scroll para forçar a nova página */
+    overflow: hidden; /* Removemos o scroll para forÃ§ar a nova pÃ¡gina */
 }
 
 .page-left {
@@ -1095,7 +1201,7 @@ body {
     color: var(--text-main);
     text-align: justify;
     flex-grow: 1;
-    display: block; /* Voltar para block para facilitar cálculo de altura */
+    display: block; /* Voltar para block para facilitar cÃ¡lculo de altura */
 }
 
 .book-content p {
@@ -1148,7 +1254,7 @@ body {
 .page-left .page-number { left: 40px; }
 .page-right .page-number { right: 40px; }
 
-/* Animação simulada de virada */
+/* AnimaÃ§Ã£o simulada de virada */
 @keyframes pageTurn {
     0% { transform: rotateY(0deg); transform-origin: left; }
     100% { transform: rotateY(-180deg); transform-origin: left; }
@@ -1156,4 +1262,346 @@ body {
 
 .turning {
     animation: pageTurn 0.6s ease-in-out forwards;
-}
+}
+
+/* BotÃ£o Voltar ao Topo */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: none; /* Escondido por padrÃ£o */
+    justify-content: center;
+    align-items: center;
+    z-index: 2100;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.back-to-top:hover {
+    background: var(--primary-hover);
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+.back-to-top.visible {
+    display: flex;
+    animation: fadeInScale 0.4s ease;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.5) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+/* Barra de Progresso Flutuante */
+.progress-widget {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background: var(--bg-card);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 2100;
+    width: 180px;
+    transition: all 0.3s ease;
+}
+
+.progress-widget:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: var(--border-light);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary);
+    transition: width 1s ease-in-out;
+}
+
+#progressText {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--text-main);
+    text-align: right;
+}
+
+/* Modal de Estatísticas */
+.stats-content {
+    max-width: 500px;
+    text-align: center;
+    padding: 2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.stat-item {
+    background: var(--bg-main);
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.stat-info span {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--primary);
+    display: block;
+}
+
+.stat-info p {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.progress-section {
+    margin: 1.5rem 0;
+}
+
+.full-bar {
+    width: 100%;
+    height: 12px;
+    background: var(--border-light);
+    border-radius: 6px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.full-bar .fill {
+    height: 100%;
+    background: var(--primary);
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.continue-btn {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+.continue-btn:hover {
+    background: var(--primary-hover);
+}
+
+.mark-read-btn {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: all 0.3s;
+}
+
+.mark-read-btn:hover {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.mark-read-btn.is-read {
+    background: #2ecc71;
+    border-color: #2ecc71;
+    color: white;
+    cursor: default;
+}
+
+.page-controls { display: flex; align-items: center; gap: 1rem; position: relative; z-index: 10; }
+
+
+/* Santo Terço Styles */
+.terco-section {
+    margin-top: 3rem;
+    text-align: left;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
+}
+
+.terco-section h3 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+}
+
+.terco-text {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text-main);
+    text-align: justify;
+}
+
+.terco-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.step-card {
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+}
+
+.step-card span {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.terco-media-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 5rem auto;
+    padding: 0 2rem;
+}
+
+.media-column h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--text-main);
+}
+
+.video-container {
+    margin-bottom: 2rem;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.audio-player {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.audio-player audio {
+    width: 100%;
+    height: 40px;
+}
+
+.media-label {
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 1rem;
+}
+
+@media (max-width: 900px) {
+    .terco-media-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.prayers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: 2rem;
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+}
+
+.prayer-block {
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    padding-bottom: 2rem;
+}
+
+.prayer-block:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.prayer-title {
+    font-family: var(--font-heading);
+    color: var(--primary);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}

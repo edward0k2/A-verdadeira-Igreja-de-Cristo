@@ -1,116 +1,136 @@
 const salvaçãoData = [
-    {
-        id: 1,
-        titulo: "Capítulo I: As Origens",
-        descricao: "Da Criação ao pecado original e a primeira promessa de um Salvador.",
+    { 
+        id: 1, 
+        titulo: "Gênesis", 
+        descricao: "A criação do mundo, a queda e as promessas patriarcais.", 
         eventos: [
             {
-                data: "No princípio",
-                titulo: "A Criação",
+                data: "Criação",
+                titulo: "O Início de Tudo",
                 personagens: [
-                    {
-                        nome: "Deus Pai",
-                        origem: "Eternidade",
-                        historia: "Criador de todas as coisas, visíveis e invisíveis. No Gênesis, Ele traz o universo à existência pelo Seu Verbo.",
-                        doutrina: "Deus é Amor e criou o homem para participar de Sua vida divina."
-                    },
-                    {
-                        nome: "Adão",
-                        origem: "Terra (Éden)",
-                        historia: "O primeiro homem, criado do pó da terra e do sopro de Deus. Pai de toda a humanidade.",
-                        doutrina: "Representa a humanidade que, pela desobediência, perde a graça, mas mantém a dignidade de imagem de Deus."
-                    }
+                    { nome: "Deus Pai", origem: "Eternidade", historia: "Criador de todas as coisas pelo poder de Sua Palavra.", doutrina: "Deus é o princípio e o fim de tudo o que existe." },
+                    { nome: "Adão", origem: "Éden", historia: "O primeiro homem, criado do pó da terra e soprado por Deus.", doutrina: "O homem foi criado à imagem e semelhança de Deus (Imago Dei)." }
                 ],
-                texto: "Deus cria o céu e a terra em harmonia. O homem é criado à imagem e semelhança de Deus.",
-                interpretacao: "A criação é o alicerce do plano de Deus. Tudo foi feito para o homem, e o homem para Deus."
+                texto: "No princípio, Deus criou o céu e a terra. E Deus disse: 'Faça-se a luz!'",
+                interpretacao: "A criação não é um acidente, mas um ato de amor e inteligência divina que estabelece o fundamento do plano de salvação."
             },
             {
                 data: "A Queda",
                 titulo: "O Pecado Original",
                 personagens: [
-                    {
-                        nome: "Eva",
-                        origem: "Éden",
-                        historia: "A primeira mulher, 'mãe de todos os viventes'. Criada para ser auxílio e companheira de Adão.",
-                        doutrina: "Sua história prefigura Maria, a Nova Eva, que dará o 'Sim' para a salvação."
-                    },
-                    {
-                        nome: "Serpente",
-                        origem: "Paraíso (Queda Angélica)",
-                        historia: "O tentador que instiga a dúvida sobre a bondade de Deus.",
-                        doutrina: "Representa o mal e o uso distorcido da liberdade."
-                    }
+                    { nome: "Eva", origem: "Éden", historia: "A primeira mulher, companheira de Adão, que sucumbiu à tentação da serpente.", doutrina: "A queda introduz o sofrimento e a morte, mas Deus promete uma descendência que esmagará a serpente." }
                 ],
-                texto: "A desobediência rompe a amizade com Deus.",
-                interpretacao: "O pecado não tem a última palavra. Deus imediatamente promete o Protoevangelho (Gn 3,15)."
+                texto: "A mulher viu que o fruto da árvore era bom para comer... e comeu.",
+                interpretacao: "O pecado original rompe a harmonia inicial, mas prefigura o Protoevangelho (Gn 3,15), onde Maria é a Nova Eva."
             },
             {
-                data: "Dilúvio",
+                data: "O Dilúvio",
                 titulo: "A Arca de Noé",
                 personagens: [
-                    {
-                        nome: "Noé",
-                        origem: "Mesopotâmia Antiga",
-                        historia: "Homem justo em uma geração corrompida. Obedece a Deus construindo a arca.",
-                        doutrina: "Sinal da nova criação e fidelidade de Deus."
-                    }
+                    { nome: "Noé", origem: "Mesopotâmia", historia: "Um homem justo que encontrou graça diante de Deus e construiu uma arca para salvar a criação.", doutrina: "O dilúvio é um tipo do Batismo, que lava o pecado e gera uma nova humanidade." }
                 ],
-                texto: "Deus limpa a terra e estabelece uma aliança com Noé.",
-                interpretacao: "A Arca é figura da Igreja, que salva os homens das águas do pecado."
+                texto: "Porei o meu arco nas nuvens, para que seja o sinal da aliança entre mim e a terra.",
+                interpretacao: "A aliança com Noé mostra a paciência de Deus e Sua promessa de nunca mais destruir a terra pela água."
+            },
+            {
+                data: "Aliança Patriarcal",
+                titulo: "Abraão: Pai na Fé",
+                personagens: [
+                    { nome: "Abraão", origem: "Ur dos Caldeus", historia: "Aquele que acreditou contra toda esperança e saiu de sua terra para seguir a Deus.", doutrina: "A fé de Abraão é o modelo para todos os cristãos (Rm 4)." },
+                    { nome: "Sara", origem: "Ur", historia: "Esposa de Abraão que, na velhice, deu à luz Isaac por milagre divino.", doutrina: "Deus realiza Suas promessas no tempo impossível aos homens." }
+                ],
+                texto: "Olha para o céu e conta as estrelas... Assim será a tua descendência.",
+                interpretacao: "A eleição de Abraão marca o início da formação do Povo de Deus, através do qual virá o Salvador."
+            },
+            {
+                data: "O Sacrifício",
+                titulo: "Isaac: O Filho da Promessa",
+                personagens: [
+                    { nome: "Isaac", origem: "Canaã", historia: "Filho da promessa que subiu o Moriah carregando a lenha para o sacrifício.", doutrina: "Isaac prefigura Cristo carregando a cruz para o sacrifício no Calvário." }
+                ],
+                texto: "Deus providenciará para si o cordeiro para o holocausto, meu filho.",
+                interpretacao: "A obediência de Isaac e a intervenção de Deus mostram o valor do sacrifício e a substituição final pelo Cordeiro de Deus."
             }
-        ]
+        ] 
     },
-    {
-        id: 2,
-        titulo: "Capítulo II: O Povo da Aliança",
-        descricao: "A eleição de Abraão e a formação do povo hebreu.",
+    { 
+        id: 2, 
+        titulo: "Êxodo", 
+        descricao: "A libertação do Egito e a Aliança no Sinai.", 
         eventos: [
             {
-                data: "1850 a.C.",
-                titulo: "Abraão: O Pai na Fé",
+                data: "Vocação",
+                titulo: "Moisés e a Sarça Ardente",
                 personagens: [
-                    {
-                        nome: "Abraão",
-                        origem: "Ur dos Caldeus",
-                        historia: "Chamado por Deus para deixar sua terra por uma promessa de uma grande descendência.",
-                        doutrina: "Pai de todos os crentes e exemplo supremo de obediência na fé."
-                    },
-                    {
-                        nome: "Sara",
-                        origem: "Caldeia / Canaã",
-                        historia: "Esposa de Abraão, que concebe na velhice por milagre de Deus.",
-                        doutrina: "Testemunha de que para Deus nada é impossível."
-                    }
+                    { nome: "Moisés", origem: "Egito", historia: "Resgatado das águas, tornou-se o libertador de Israel após o encontro com o 'EU SOU'.", doutrina: "Moisés é o maior profeta do Antigo Testamento e mediador da Antiga Aliança." }
                 ],
-                texto: "Deus chama Abrão para sair de sua terra sob uma promessa eterna.",
-                interpretacao: "Abraão é o pai de todos os crentes. Sua obediência prefigura o sacrifício de Cristo."
+                texto: "Não te aproximes; tira as sandálias dos teus pés, porque o lugar que pisas é terra santa.",
+                interpretacao: "A revelação do Nome Divino indica a presença constante e salvadora de Deus junto ao Seu povo."
+            },
+            {
+                data: "Plagas e Páscoa",
+                titulo: "A Libertação",
+                personagens: [
+                    { nome: "Aarão", origem: "Egito", historia: "Irmão de Moisés e seu porta-voz diante do Faraó.", doutrina: "Início do sacerdócio institucional em Israel." }
+                ],
+                texto: "Este dia será para vós um memorial; celebrá-lo-eis como uma festa para o Senhor.",
+                interpretacao: "A Páscoa judaica é a prefiguração direta da Páscoa de Cristo, o Cordeiro que tira o pecado do mundo."
+            },
+            {
+                data: "Sinai",
+                titulo: "Os Dez Mandamentos",
+                personagens: [
+                    { nome: "Josué", origem: "Egito", historia: "Auxiliar de Moisés que vigiava a tenda e mais tarde guiaria o povo.", doutrina: "A Lei é um 'pedagogo' que nos conduz a Cristo." }
+                ],
+                texto: "Eu sou o Senhor teu Deus... Não terás outros deuses diante de mim.",
+                interpretacao: "Os Mandamentos (Decálogo) são a expressão da vontade de Deus para que o homem seja livre e viva em santidade."
             }
-        ]
+        ] 
     },
-    {
-        id: 3,
-        titulo: "Capítulo III: Os Profetas e Reis",
-        descricao: "A monarquia de Israel e as vozes proféticas anunciando o Messias.",
-        eventos: []
-    },
-    {
-        id: 4,
-        titulo: "Capítulo IV: A Plenitude dos Tempos",
-        descricao: "A Encarnação do Verbo e o início da Igreja.",
-        eventos: []
-    },
-    {
-        id: 5,
-        titulo: "Capítulo V: O Mistério Pascal",
-        descricao: "A Paixão, Morte e Ressurreição de Nosso Senhor.",
-        eventos: []
-    },
-    {
-        id: 6,
-        titulo: "Capítulo VI: O Tempo da Igreja",
-        descricao: "A descida do Espírito e a vivência comunitária.",
-        eventos: []
-    }
+    { id: 3, titulo: "Levítico", descricao: "Leis sobre culto, sacrifícios e santidade.", eventos: [] },
+    { id: 4, titulo: "Números", descricao: "A jornada pelo deserto rumo à Terra Prometida.", eventos: [] },
+    { id: 5, titulo: "Deuteronômio", descricao: "O segundo código de leis e o discurso final de Moisés.", eventos: [] },
+    { id: 6, titulo: "Josué", descricao: "A conquista e partilha da Terra de Canaã.", eventos: [] },
+    { id: 7, titulo: "Juízes", descricao: "O tempo dos libertadores de Israel antes da monarquia.", eventos: [] },
+    { id: 8, titulo: "Rute", descricao: "Uma história de fidelidade e a ascendência de Davi.", eventos: [] },
+    { id: 9, titulo: "I Samuel", descricao: "A transição para a monarquia e o reinado de Saul.", eventos: [] },
+    { id: 10, titulo: "II Samuel", descricao: "O reinado de Davi e a promessa dinástica.", eventos: [] },
+    { id: 11, titulo: "I Reis", descricao: "O reinado de Salomão e a divisão do reino.", eventos: [] },
+    { id: 12, titulo: "II Reis", descricao: "A história dos dois reinos até o exílio.", eventos: [] },
+    { id: 13, titulo: "I Crônicas", descricao: "Genealogias e o reinado de Davi sob perspectiva sacerdotal.", eventos: [] },
+    { id: 14, titulo: "II Crônicas", descricao: "De Salomão ao decreto de Ciro, focando no Templo.", eventos: [] },
+    { id: 15, titulo: "Esdras", descricao: "O retorno do exílio e a reconstrução do Templo.", eventos: [] },
+    { id: 16, titulo: "Neemias", descricao: "A reconstrução das muralhas de Jerusalém.", eventos: [] },
+    { id: 17, titulo: "Tobias", descricao: "Fidelidade familiar e a providência de Deus através de Rafael.", eventos: [] },
+    { id: 18, titulo: "Judite", descricao: "A corajosa vitória de uma viúva sobre o exército assírio.", eventos: [] },
+    { id: 19, titulo: "Ester", descricao: "A judia que se tornou rainha para salvar seu povo.", eventos: [] },
+    { id: 20, titulo: "I Macabeus", descricao: "A resistência judaica contra a helenização forçada.", eventos: [] },
+    { id: 21, titulo: "II Macabeus", descricao: "Reflexões teológicas sobre o martírio e a ressurreição.", eventos: [] },
+    { id: 22, titulo: "Jó", descricao: "O mistério do sofrimento do justo e a soberania divina.", eventos: [] },
+    { id: 23, titulo: "Salmos", descricao: "A grande coleção de hinos e orações de Israel.", eventos: [] },
+    { id: 24, titulo: "Provérbios", descricao: "Coleção de máximas sobre sabedoria e vida reta.", eventos: [] },
+    { id: 25, titulo: "Eclesiastes", descricao: "Reflexões sobre a vaidade das coisas sob o sol.", eventos: [] },
+    { id: 26, titulo: "Cântico dos Cânticos", descricao: "O sublime poema sobre o amor nupcial.", eventos: [] },
+    { id: 27, titulo: "Sabedoria", descricao: "Elogio da sabaedoria divina na história e na vida.", eventos: [] },
+    { id: 28, titulo: "Eclesiástico", descricao: "Ensinamentos sobre virtude e deveres sociais.", eventos: [] },
+    { id: 29, titulo: "Isaías", descricao: "O grande profeta da santidade de Deus e do Messias sofredor.", eventos: [] },
+    { id: 30, titulo: "Jeremias", descricao: "O profeta da Nova Aliança inscrita no coração.", eventos: [] },
+    { id: 31, titulo: "Lamentações", descricao: "Cantos fúnebres sobre a destruição de Jerusalém.", eventos: [] },
+    { id: 32, titulo: "Baruc", descricao: "Consolo e esperança para os exilados na Babilônia.", eventos: [] },
+    { id: 33, titulo: "Ezequiel", descricao: "Visões da glória de Deus e a promessa de um novo coração.", eventos: [] },
+    { id: 34, titulo: "Daniel", descricao: "Fidelidade no exílio e visões sobre o Reino de Deus.", eventos: [] },
+    { id: 35, titulo: "Oséias", descricao: "O amor fiel de Deus contrastado com a infidelidade do povo.", eventos: [] },
+    { id: 36, titulo: "Joel", descricao: "O dia do Senhor e a promessa da efusão do Espírito.", eventos: [] },
+    { id: 37, titulo: "Amós", descricao: "O profeta da justiça social e do julgamento de Deus.", eventos: [] },
+    { id: 38, titulo: "Abdias", descricao: "Julgamento para Edom e salvação para Israel.", eventos: [] },
+    { id: 39, titulo: "Jonas", descricao: "A misericórdia de Deus que alcança até os pagãos.", eventos: [] },
+    { id: 40, titulo: "Miquéias", descricao: "Anúncio do nascimento do Messias em Belém.", eventos: [] },
+    { id: 41, titulo: "Naum", descricao: "O anúncio da queda de Nínive.", eventos: [] },
+    { id: 42, titulo: "Habacuc", descricao: "O diálogo de um profeta sobre a justiça de Deus.", eventos: [] },
+    { id: 43, titulo: "Sofonias", descricao: "Anúncio do Dia do Senhor e do resto fiel.", eventos: [] },
+    { id: 44, titulo: "Ageu", descricao: "Exortação para a reconstrução do Templo.", eventos: [] },
+    { id: 45, titulo: "Zacarias", descricao: "Visões proféticas e o anúncio do Rei humilde.", eventos: [] },
+    { id: 46, titulo: "Malaquias", descricao: "Chamado à pureza do culto e promessa do mensageiro.", eventos: [] }
 ];
 
 const catecismoData = [
@@ -348,6 +368,118 @@ function init() {
     renderLivros();
     renderSaints();
     setupEventListeners();
+    setupBackToTop();
+    initProgress();
+}
+
+// Lógica de Progresso e Estatísticas
+let userProgress = {
+    readBooks: [],
+    startTime: null,
+    totalTime: 0,
+    lastBook: null
+};
+
+function initProgress() {
+    const saved = localStorage.getItem('historiaSalvacaoProgress');
+    if (saved) {
+        userProgress = JSON.parse(saved);
+    } else {
+        userProgress.startTime = new Date().getTime();
+        saveProgress();
+    }
+    updateProgressUI();
+    
+    // Timer simples para simular tempo gasto (a cada minuto navegando)
+    setInterval(() => {
+        userProgress.totalTime += 1;
+        saveProgress();
+    }, 60000);
+}
+
+function saveProgress() {
+    localStorage.setItem('historiaSalvacaoProgress', JSON.stringify(userProgress));
+}
+
+function updateProgressUI() {
+    const totalBooks = salvaçãoData.length + novoTestamentoData.length;
+    const readCount = userProgress.readBooks.length;
+    const percent = totalBooks > 0 ? Math.round((readCount / totalBooks) * 100) : 0;
+    
+    const fill = document.getElementById('progressFill');
+    const text = document.getElementById('progressText');
+    
+    if (fill) fill.style.width = `${percent}%`;
+    if (text) text.innerText = `${percent}% Lido`;
+    
+    // Atualiza modal se estiver aberto
+    const statPercent = document.getElementById('statPercent');
+    if (statPercent) {
+        statPercent.innerText = `${percent}%`;
+        document.getElementById('statFill').style.width = `${percent}%`;
+        document.getElementById('statReadCount').innerText = readCount;
+        
+        const days = Math.floor((new Date().getTime() - userProgress.startTime) / (1000 * 60 * 60 * 24)) + 1;
+        document.getElementById('statDays').innerText = days;
+        
+        const hours = (userProgress.totalTime / 60).toFixed(1);
+        document.getElementById('statHours').innerText = `${hours}h`;
+        
+        document.getElementById('statLastBook').innerText = userProgress.lastBook ? userProgress.lastBook.titulo : '---';
+    }
+}
+
+function openStats() {
+    updateProgressUI();
+    document.getElementById('statsModal').style.display = 'block';
+}
+
+function closeStats() {
+    document.getElementById('statsModal').style.display = 'none';
+}
+
+function markAsRead(bookId, tipo) {
+    const key = `${tipo}_${bookId}`;
+    if (!userProgress.readBooks.includes(key)) {
+        userProgress.readBooks.push(key);
+        saveProgress();
+        updateProgressUI();
+    }
+}
+
+function continueReading() {
+    if (userProgress.lastBook) {
+        const source = userProgress.lastBook.tipo === 'AT' ? salvaçãoData : novoTestamentoData;
+        const index = source.findIndex(b => b.id === userProgress.lastBook.id);
+        if (index !== -1) {
+            closeStats();
+            openChapter(index, userProgress.lastBook.tipo);
+        }
+    } else {
+        closeStats();
+        // Leva para o início se não tiver último livro
+        document.getElementById('library').scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function setupBackToTop() {
+    const btn = document.getElementById('backToTop');
+    if (!btn) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    });
+
+    btn.onclick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
 }
 
 function renderSaints() {
@@ -671,26 +803,85 @@ function readPdf(pdfPath) {
     `;
 }
 
-function renderSummary() {
-    const grid = document.getElementById('chaptersGrid');
-    if (!grid) return;
-    grid.innerHTML = '';
+const novoTestamentoData = [
+    { id: 1, titulo: "São Mateus", descricao: "O Evangelho do Reino e o cumprimento das profecias.", eventos: [] },
+    { id: 2, titulo: "São Marcos", descricao: "O Evangelho do Servo de Deus e a ação imediata.", eventos: [] },
+    { id: 3, titulo: "São Lucas", descricao: "O Evangelho da Misericórdia e do Espírito Santo.", eventos: [] },
+    { id: 4, titulo: "São João", descricao: "O Evangelho do Verbo Encarnado e o mistério divino.", eventos: [] },
+    { id: 5, titulo: "Atos dos Apóstolos", descricao: "O nascimento e a expansão da Igreja primitiva.", eventos: [] },
+    { id: 6, titulo: "Romanos", descricao: "A teologia da justificação pela fé e o plano de Deus.", eventos: [] },
+    { id: 7, titulo: "I Coríntios", descricao: "Instruções sobre a unidade, carismas e a caridade.", eventos: [] },
+    { id: 8, titulo: "II Coríntios", descricao: "A defesa do ministério apostólico e o consolo de Deus.", eventos: [] },
+    { id: 9, titulo: "Gálatas", descricao: "A liberdade cristã frente à lei e a vida no Espírito.", eventos: [] },
+    { id: 10, titulo: "Efésios", descricao: "O mistério da Igreja como Corpo de Cristo.", eventos: [] },
+    { id: 11, titulo: "Filipenses", descricao: "A alegria em Cristo mesmo em meio à provação.", eventos: [] },
+    { id: 12, titulo: "Colossenses", descricao: "A supremacia absoluta e suficiência de Cristo.", eventos: [] },
+    { id: 13, titulo: "I Tessalonicenses", descricao: "A esperança na vinda do Senhor e a santificação.", eventos: [] },
+    { id: 14, titulo: "II Tessalonicenses", descricao: "Firmeza na fé diante das tribulações e sinais do fim.", eventos: [] },
+    { id: 15, titulo: "I Timóteo", descricao: "Organização da Igreja e o bom combate da fé.", eventos: [] },
+    { id: 16, titulo: "II Timóteo", descricao: "O testamento espiritual de Paulo e a fidelidade ao Evangelho.", eventos: [] },
+    { id: 17, titulo: "Tito", descricao: "Orientações sobre o governo da Igreja e a sã doutrina.", eventos: [] },
+    { id: 18, titulo: "Filêmon", descricao: "Uma lição de fraternidade e perdão em Cristo.", eventos: [] },
+    { id: 19, titulo: "Hebreus", descricao: "O sacerdócio eterno de Cristo e a superioridade da Nova Aliança.", eventos: [] },
+    { id: 20, titulo: "São Tiago", descricao: "A fé manifestada através das obras e da paciência.", eventos: [] },
+    { id: 21, titulo: "I São Pedro", descricao: "Consolo e esperança para os cristãos peregrinos.", eventos: [] },
+    { id: 22, titulo: "II São Pedro", descricao: "Alerta contra falsos mestres e a vinda gloriosa de Cristo.", eventos: [] },
+    { id: 23, titulo: "I São João", descricao: "A certeza da comunhão com Deus através do amor.", eventos: [] },
+    { id: 24, titulo: "II São João", descricao: "Permanência na verdade e alerta contra o erro.", eventos: [] },
+    { id: 25, titulo: "III São João", descricao: "O dever da hospitalidade e a fidelidade à verdade.", eventos: [] },
+    { id: 26, titulo: "São Judas", descricao: "Exortação a lutar pela fé recebida uma vez por todas.", eventos: [] },
+    { id: 27, titulo: "Apocalipse", descricao: "A vitória final de Cristo e a Nova Jerusalém.", eventos: [] }
+];
 
-    salvaçãoData.forEach((cap, index) => {
-        const card = document.createElement('div');
-        card.className = 'chapter-card';
+function renderSummary() {
+    // Renderiza Antigo Testamento
+    const gridAT = document.getElementById('chaptersGrid');
+    if (gridAT) {
+        gridAT.innerHTML = '';
+        salvaçãoData.forEach((cap, index) => {
+            const card = document.createElement('div');
+            card.className = 'chapter-card';
             card.innerHTML = `
-                <span>Capítulo ${cap.id}</span>
+                <span>Livro ${cap.id}</span>
                 <h3>${cap.titulo}</h3>
-                <p>${cap.descricao}</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">${cap.descricao}</p>
             `;
-        card.onclick = () => openChapter(index);
-        grid.appendChild(card);
-    });
+            card.onclick = () => openChapter(index, 'AT');
+            gridAT.appendChild(card);
+        });
+    }
+
+    // Renderiza Novo Testamento
+    const gridNT = document.getElementById('novoTestamentoGrid');
+    if (gridNT) {
+        gridNT.innerHTML = '';
+        novoTestamentoData.forEach((cap, index) => {
+            const card = document.createElement('div');
+            card.className = 'chapter-card';
+            card.innerHTML = `
+                <span>Livro ${cap.id}</span>
+                <h3>${cap.titulo}</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">${cap.descricao}</p>
+            `;
+            card.onclick = () => openChapter(index, 'NT');
+            gridNT.appendChild(card);
+        });
+    }
 }
 
-function openChapter(index) {
+function openChapter(index, tipo = 'AT') {
     currentChapterIndex = index;
+    currentChapterSource = tipo; // Variável global para saber de onde vem o dado
+    
+    // Salva último livro lido
+    const dataSource = tipo === 'AT' ? salvaçãoData : novoTestamentoData;
+    userProgress.lastBook = {
+        id: dataSource[index].id,
+        titulo: dataSource[index].titulo,
+        tipo: tipo
+    };
+    saveProgress();
+
     const summaryView = document.getElementById('summaryView');
     const chapterView = document.getElementById('chapterView');
 
@@ -700,9 +891,36 @@ function openChapter(index) {
     renderChapterContent();
 }
 
+let currentChapterSource = 'AT';
+
 function renderChapterContent() {
-    const cap = salvaçãoData[currentChapterIndex];
+    const dataSource = currentChapterSource === 'AT' ? salvaçãoData : novoTestamentoData;
+    const cap = dataSource[currentChapterIndex];
     document.getElementById('chapterTitle').innerText = cap.titulo;
+
+    // Adiciona botão Marcar como Lido se não estiver lido
+    const header = document.getElementById('chapterView');
+    let readBtn = document.getElementById('markReadBtn');
+    if (header && !readBtn) {
+        readBtn = document.createElement('button');
+        readBtn.id = 'markReadBtn';
+        readBtn.className = 'mark-read-btn';
+        header.appendChild(readBtn);
+    }
+    
+    const key = `${currentChapterSource}_${cap.id}`;
+    if (userProgress.readBooks.includes(key)) {
+        readBtn.innerText = '✓ Lido';
+        readBtn.classList.add('is-read');
+        readBtn.onclick = null;
+    } else {
+        readBtn.innerText = 'Marcar como Lido';
+        readBtn.classList.remove('is-read');
+        readBtn.onclick = () => {
+            markAsRead(cap.id, currentChapterSource);
+            renderChapterContent();
+        };
+    }
 
     const road = document.getElementById('roadContainer');
     road.innerHTML = '';
@@ -741,12 +959,14 @@ function renderChapterContent() {
         road.appendChild(node);
     });
 
+    const totalInSource = dataSource.length;
     document.getElementById('prevChapterNav').style.display = currentChapterIndex > 0 ? 'inline-block' : 'none';
-    document.getElementById('nextChapter').style.display = currentChapterIndex < salvaçãoData.length - 1 ? 'inline-block' : 'none';
+    document.getElementById('nextChapter').style.display = currentChapterIndex < totalInSource - 1 ? 'inline-block' : 'none';
 }
 
 function showDetails(titulo) {
-    const ev = salvaçãoData[currentChapterIndex].eventos.find(e => e.titulo === titulo);
+    const dataSource = currentChapterSource === 'AT' ? salvaçãoData : novoTestamentoData;
+    const ev = dataSource[currentChapterIndex].eventos.find(e => e.titulo === titulo);
     const modal = document.getElementById('infoModal');
     const body = document.getElementById('modalBody');
 
@@ -821,13 +1041,28 @@ function setupEventListeners() {
         document.getElementById('saintsView').classList.add('active');
     };
 
-    document.getElementById('btnSumario').onclick = (e) => {
+    document.getElementById('btnTerco').onclick = (e) => {
         e.preventDefault();
-        document.getElementById('logoHome').click();
+        document.getElementById('tercoView').classList.add('active');
+        document.getElementById('summaryView').classList.remove('active');
+        document.getElementById('chapterView').classList.remove('active');
+        document.getElementById('catechismView').classList.remove('active');
+        document.getElementById('booksView').classList.remove('active');
+        document.getElementById('saintsView').classList.remove('active');
+    };
+
+    document.getElementById('logoHome').onclick = (e) => {
+        document.getElementById('summaryView').classList.add('active');
+        document.getElementById('tercoView').classList.remove('active');
+        document.getElementById('chapterView').classList.remove('active');
+        document.getElementById('catechismView').classList.remove('active');
+        document.getElementById('booksView').classList.remove('active');
+        document.getElementById('saintsView').classList.remove('active');
     };
 
     document.getElementById('backToSummary').onclick = () => {
-        document.getElementById('logoHome').click();
+        document.getElementById('summaryView').classList.add('active');
+        document.getElementById('chapterView').classList.remove('active');
     };
 
     const goToPrev = () => {
