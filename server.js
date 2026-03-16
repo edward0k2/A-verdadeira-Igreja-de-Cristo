@@ -45,7 +45,18 @@ const server = http.createServer((req, res) => {
     });
 });
 
-server.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}`);
-    console.log('Pressione Ctrl+C para encerrar.');
-});
+function startServer(port) {
+    server.listen(port, () => {
+        console.log(`\x1b[32m✔ Servidor rodando em http://localhost:${port}\x1b[0m`);
+        console.log('Pressione Ctrl+C para encerrar.');
+    }).on('error', (err) => {
+        if (err.code === 'EADDRINUSE') {
+            console.log(`\x1b[33m! Porta ${port} ocupada, tentando porta ${port + 1}...\x1b[0m`);
+            startServer(port + 1);
+        } else {
+            console.error('Erro ao iniciar o servidor:', err);
+        }
+    });
+}
+
+startServer(PORT);
