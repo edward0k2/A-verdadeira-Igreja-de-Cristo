@@ -1479,6 +1479,70 @@ body {
     margin-bottom: 1.2rem;
 }
 
+/* As fichas documentadas mantêm todo o conteúdo acessível em telas menores. */
+.pope-book-page {
+    min-width: 0;
+    overflow-y: auto;
+}
+
+.pope-sources {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.pope-sources dl {
+    margin: 1rem 0;
+}
+
+.pope-sources dt {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.pope-sources dd {
+    margin: 0 0 0.65rem;
+}
+
+.pope-sources ul {
+    padding-left: 1.2rem;
+    margin: 0.5rem 0 1rem;
+}
+
+.pope-sources li {
+    margin-bottom: 0.55rem;
+}
+
+.pope-sources a {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.pope-date-note {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin: 0.75rem 0;
+}
+
+@media (max-width: 1000px) {
+    .book-page.pope-book-page {
+        padding: 1.5rem;
+    }
+
+    .pope-book-page .book-content {
+        font-size: 1rem;
+        line-height: 1.6;
+        text-align: left;
+    }
+
+    #modalBody .pope-sources h3 {
+        font-size: 1.4rem;
+    }
+}
+
 .book-image-placeholder {
     width: 100%;
     height: 200px;

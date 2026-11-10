@@ -446,6 +446,8 @@ async function toggleFullScreen() {
 async function createDynamicPages(saint) {
     const pages = [];
     const maxHeight = 500; // Reduzi significativamente para garantir margem de segurança
+    const hasSources = Array.isArray(saint.fontes) && saint.fontes.length > 0;
+    const historyParts = saint.historia.split(hasSources ? /\n\n+/ : '[IMG]');
     
     // 1. Capa / Intro (Sempre fixa)
     pages.push({
@@ -453,17 +455,18 @@ async function createDynamicPages(saint) {
         nome: saint.nome,
         foto: saint.foto,
         data: saint.data,
-        content: saint.historia.split('[IMG]')[0],
-        doutrina: saint.doutrina
+        content: historyParts[0],
+        doutrina: saint.doutrina,
+        hasSources
     });
 
     // 2. Preparar blocos de conteúdo para as páginas seguintes
-    const remainingHistory = saint.historia.split('[IMG]').slice(1);
+    const remainingHistory = historyParts.slice(1);
     let allBlocks = [];
     
     remainingHistory.forEach(part => {
         // Adiciona a imagem placeholder primeiro se existia um [IMG]
-        allBlocks.push({ type: 'image', text: 'Espaço para Cena ou Arte Sacra' });
+        if (!hasSources) allBlocks.push({ type: 'image', text: 'Espaço para Cena ou Arte Sacra' });
         
         // Divide o texto em parágrafos
         const paragraphs = part.trim().split('\n').filter(p => p.trim() !== '');
@@ -473,7 +476,7 @@ async function createDynamicPages(saint) {
     });
 
     // Adiciona o bloco de Doutrina no final
-    allBlocks.push({ type: 'doutrina', content: saint.doutrina });
+    allBlocks.push({ type: 'doutrina', content: saint.doutrina, title: saint.tituloLegado });
 
     // 3. Distribuir blocos em páginas
     let currentPageBlocks = [];
@@ -507,6 +510,16 @@ async function createDynamicPages(saint) {
         pages.push({ type: 'content', blocks: currentPageBlocks, pageIndex: pages.length + 1 });
     }
 
+    if (hasSources) {
+        pages.push({
+            type: 'sources',
+            dados: saint.dadosPontificado,
+            fontes: saint.fontes,
+            fonteFoto: saint.fonteFoto,
+            consultadoEm: saint.consultadoEm
+        });
+    }
+
     return pages;
 }
 
@@ -521,13 +534,13 @@ function renderSaintBookContent() {
                 <div class="book-spine"></div>
                 
                 <!-- Página Esquerda -->
-                <div class="book-page page-left ${pageDataLeft ? '' : 'page-empty'}">
+                <div class="book-page page-left ${pageDataLeft ? '' : 'page-empty'} ${currentSaintPages[0]?.hasSources ? 'pope-book-page' : ''}">
                     ${renderPageContent(pageDataLeft)}
                     ${pageDataLeft ? `<div class="page-number">${currentSaintPage * 2 + 1}</div>` : ''}
                 </div>
 
                 <!-- Página Direita -->
-                <div class="book-page page-right ${pageDataRight ? '' : 'page-empty'}">
+                <div class="book-page page-right ${pageDataRight ? '' : 'page-empty'} ${currentSaintPages[0]?.hasSources ? 'pope-book-page' : ''}">
                     ${renderPageContent(pageDataRight)}
                     ${pageDataRight ? `<div class="page-number">${currentSaintPage * 2 + 2}</div>` : ''}
                 </div>
@@ -550,8 +563,28 @@ function renderSaintBookContent() {
     `;
 }
 
+function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, character => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[character]);
+}
+
 function renderPageContent(page) {
     if (!page) return '<div class="book-content" style="text-align:center; margin-top:50%; opacity:0.1; font-style:italic;">Finis</div>';
+
+    if (page.type === 'sources') {
+        return `
+            <div class="pope-sources">
+                <h3>Dados da Santa Sé</h3>
+                <dl>${page.dados.map(([label, value]) => `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd>`).join('')}</dl>
+                <p class="pope-date-note">Datas na notação original: meses em algarismos romanos; “ou” indica alternativas e reticências indicam informação incompleta. O início pode reunir datas de eleição, consagração ou inauguração.</p>
+                <h4>Fontes e retrato</h4>
+                <ul>${page.fontes.map(source => `<li><a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.titulo)}</a></li>`).join('')}
+                    <li><a href="${escapeHtml(page.fonteFoto)}" target="_blank" rel="noopener noreferrer">Retrato no site do Vaticano</a></li>
+                </ul>
+                <p class="pope-date-note">Consulta: ${escapeHtml(page.consultadoEm.split('-').reverse().join('/'))}.</p>
+            </div>`;
+    }
 
     if (page.type === 'cover') {
         return `
@@ -563,7 +596,7 @@ function renderPageContent(page) {
             <div class="book-content">
                 <p>${page.content}</p>
             </div>
-            <div class="book-image-placeholder" style="height: 160px; margin-top: auto;">Retrato de Época</div>
+            ${page.hasSources ? '<p class="pope-date-note">Retrato: Santa Sé. Referências e datas detalhadas nas páginas seguintes.</p>' : '<div class="book-image-placeholder" style="height: 160px; margin-top: auto;">Retrato de Época</div>'}
         `;
     }
 
@@ -576,7 +609,7 @@ function renderPageContent(page) {
         } else if (block.type === 'doutrina') {
             html += `
                 <div class="interpretation" style="margin-top: auto; border-top: 1px dashed var(--border-light); padding-top: 1rem; background: rgba(212, 175, 55, 0.05);">
-                    <strong>Legado e Doutrina:</strong><br>${block.content}
+                    <strong>${escapeHtml(block.title || 'Legado e Doutrina')}:</strong><br>${block.content}
                 </div>
             `;
         }
@@ -1039,13 +1072,13 @@ function renderPapasTimeline() {
         
         node.innerHTML = `
             <div class="personagens-wrapper">
-                <img src="${papa.foto}" alt="Foto ${papa.nome}" class="saint-photo-timeline" onclick="event.stopPropagation(); showPapaDetails(${papa.id})">
+                <img src="${papa.foto}" alt="Retrato de ${papa.nome}" loading="lazy" decoding="async" class="saint-photo-timeline" onclick="event.stopPropagation(); showPapaDetails(${papa.id})">
             </div>
             <div class="node-box" onclick="showPapaDetails(${papa.id})">
                 <span>${papa.periodo}</span>
                 <h4>${papa.nome}</h4>
                 <p style="font-size: 0.85rem; color: #666; margin-top: 5px; line-height: 1.4;">${papa.descricaoCurta}</p>
-                <div class="btn-view-node">História Completa →</div>
+                <div class="btn-view-node">${papa.fontes ? 'Ver perfil e fontes →' : 'História Completa →'}</div>
             </div>
         `;
         timeline.appendChild(node);
@@ -1065,7 +1098,12 @@ async function showPapaDetails(id) {
         foto: papa.foto,
         data: papa.periodo,
         historia: papa.historia,
-        doutrina: papa.doutrina
+        doutrina: papa.doutrina,
+        tituloLegado: papa.tituloLegado,
+        dadosPontificado: papa.dadosPontificado,
+        fontes: papa.fontes,
+        fonteFoto: papa.fonteFoto,
+        consultadoEm: papa.consultadoEm
     };
 
     document.getElementById('infoModal').style.display = "block";
