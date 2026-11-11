@@ -244,6 +244,7 @@ function init() {
     renderLivros();
     renderSaints();
     setupHistoryDirectories();
+    setupEucharisticMiracles();
     setupSaintReaderResponsiveLayout();
     setupEventListeners();
     setupTercoLive();
@@ -731,7 +732,7 @@ function updateProgressUI() {
 }
 
 function switchView(viewId) {
-    const views = ['summaryView', 'chapterView', 'catechismView', 'booksView', 'saintsView', 'tercoView', 'aboutView'];
+    const views = ['summaryView', 'chapterView', 'catechismView', 'booksView', 'saintsView', 'eucharisticMiraclesView', 'tercoView', 'aboutView'];
     views.forEach(id => {
         const view = document.getElementById(id);
         if (view) {
@@ -745,6 +746,76 @@ function switchView(viewId) {
     });
     // Reset scroll ao trocar de aba principal
     window.scrollTo(0, 0);
+}
+
+function setupEucharisticMiracles() {
+    const grid = document.getElementById('miraclesGrid');
+    const countryFilter = document.getElementById('miraclesCountryFilter');
+    const dateFilter = document.getElementById('miraclesDateFilter');
+    const search = document.getElementById('miraclesSearch');
+    const status = document.getElementById('miraclesDirectoryStatus');
+    if (!grid || !countryFilter || !dateFilter || !search || !status || !Array.isArray(eucharisticMiraclesData)) return;
+
+    const countries = [...new Set(eucharisticMiraclesData.map(item => item.country))].sort((a, b) => a.localeCompare(b, 'pt-BR'));
+    countryFilter.innerHTML = '<option value="all">Todos os países</option>' + countries.map(country => `<option value="${country}">${country}</option>`).join('');
+
+    const romanValue = value => {
+        const digits = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+        let total = 0;
+        for (let i = 0; i < value.length; i += 1) total += (digits[value[i]] || 0) < (digits[value[i + 1]] || 0) ? -(digits[value[i]] || 0) : (digits[value[i]] || 0);
+        return total;
+    };
+    const dateYear = item => {
+        if (item.year !== null) return item.year;
+        const century = item.date.match(/\b([IVXLCDM]+)(?:-[IVXLCDM]+)?\s+século/i);
+        return century ? (romanValue(century[1]) - 1) * 100 + 1 : null;
+    };
+    const dateMatches = (item, selected) => {
+        const year = dateYear(item);
+        if (selected === 'all') return true;
+        if (selected === 'undated') return year === null;
+        if (year === null) return false;
+        if (selected === 'ancient') return year <= 999;
+        const start = Number(selected);
+        const end = start === 1000 ? 1299 : start === 1300 ? 1499 : start === 1500 ? 1799 : start === 1800 ? 1899 : Infinity;
+        return year >= start && year <= end;
+    };
+
+    const render = () => {
+        const query = normalizeDirectoryText(search.value.trim());
+        const country = countryFilter.value;
+        const date = dateFilter.value;
+        const records = eucharisticMiraclesData.filter(item => {
+            if (country !== 'all' && item.country !== country) return false;
+            if (!dateMatches(item, date)) return false;
+            return !query || normalizeDirectoryText(`${item.place} ${item.country} ${item.date}`).includes(query);
+        }).sort((a, b) => (dateYear(a) ?? Infinity) - (dateYear(b) ?? Infinity) || a.place.localeCompare(b.place, 'pt-BR'));
+
+        grid.innerHTML = records.map(item => `
+            <article class="miracle-card">
+                <div class="miracle-card-icon" aria-hidden="true"><i class="fa-solid fa-chalice"></i></div>
+                <div class="miracle-card-content">
+                    <span class="miracle-card-country"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> ${item.country}</span>
+                    <h3>${item.place}</h3>
+                    <p class="miracle-card-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> ${item.date}</p>
+                    <a href="${item.source}" target="_blank" rel="noopener noreferrer">Ver no catálogo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                </div>
+            </article>`).join('');
+        status.textContent = `${records.length} ${records.length === 1 ? 'registro encontrado' : 'registros encontrados'} de ${eucharisticMiraclesData.length}.`;
+        if (!records.length) grid.innerHTML = '<p class="miracles-empty">Nenhum registro encontrado. Tente ajustar a busca ou os filtros.</p>';
+    };
+
+    search.addEventListener('input', render);
+    countryFilter.addEventListener('change', render);
+    dateFilter.addEventListener('change', render);
+    document.getElementById('clearMiraclesSearch')?.addEventListener('click', () => {
+        search.value = '';
+        countryFilter.value = 'all';
+        dateFilter.value = 'all';
+        render();
+        search.focus();
+    });
+    render();
 }
 
 function openStats() {
@@ -1693,6 +1764,11 @@ function setupEventListeners() {
     document.getElementById('btnSantos').onclick = (e) => {
         e.preventDefault();
         switchView('saintsView');
+    };
+
+    document.getElementById('btnMilagres').onclick = (e) => {
+        e.preventDefault();
+        switchView('eucharisticMiraclesView');
     };
 
     document.getElementById('btnAbout').onclick = (e) => {

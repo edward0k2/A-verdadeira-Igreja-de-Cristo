@@ -27,6 +27,7 @@
                 <li><a href="#" id="btnLivros">Livros</a></li>
                 <li><a href="#" id="btnCatecismo">Catecismo</a></li>
                 <li><a href="#" id="btnSantos">Santos Incorruptíveis</a></li>
+                <li><a href="#" id="btnMilagres">Milagres Eucarísticos</a></li>
             </ul>
         </nav>
         <div class="nav-right">
@@ -507,6 +508,39 @@
                 <button type="button" data-page-direction="next" aria-label="Próxima página de santos">Próxima <i class="fas fa-chevron-right" aria-hidden="true"></i></button>
             </div>
         </section>
+
+        <section id="eucharisticMiraclesView" class="view">
+            <div class="saints-header miracles-header">
+                <h2>Milagres Eucarísticos</h2>
+                <p>Explore os milagres catalogados na exposição internacional concebida por São Carlo Acutis, com busca por local, país e data.</p>
+                <p class="miracles-source-note">A exposição reúne aproximadamente 136 painéis. Esta lista acompanha os registros geográficos apresentados no catálogo; datas em séculos ou intervalos são mantidas como na fonte.</p>
+            </div>
+            <div class="history-directory-tools miracles-directory-tools">
+                <div class="history-directory-search">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <input id="miraclesSearch" type="search" autocomplete="off" placeholder="Buscar milagre, local ou data…" aria-label="Buscar milagres eucarísticos">
+                    <button type="button" id="clearMiraclesSearch" aria-label="Limpar busca"><i class="fas fa-times" aria-hidden="true"></i></button>
+                </div>
+                <label>País
+                    <select id="miraclesCountryFilter" aria-label="Filtrar milagres por país"><option value="all">Todos os países</option></select>
+                </label>
+                <label>Data
+                    <select id="miraclesDateFilter" aria-label="Filtrar milagres por período">
+                        <option value="all">Todas as datas</option>
+                        <option value="ancient">Até o ano 999</option>
+                        <option value="1000">1000–1299</option>
+                        <option value="1300">1300–1499</option>
+                        <option value="1500">1500–1799</option>
+                        <option value="1800">1800–1899</option>
+                        <option value="1900">1900 em diante</option>
+                        <option value="undated">Data não especificada</option>
+                    </select>
+                </label>
+                <p id="miraclesDirectoryStatus" class="history-directory-status" role="status" aria-live="polite"></p>
+            </div>
+            <div id="miraclesGrid" class="miracles-grid" aria-live="polite"></div>
+            <p class="miracles-source-link">Fonte: <a href="https://www.miracolieucaristici.org/pr/Liste/list.html" target="_blank" rel="noopener noreferrer">Catálogo oficial da exposição de Carlo Acutis</a>.</p>
+        </section>
     </main>
 
     <!-- Modal de Informações Detalhadas -->
@@ -602,7 +636,8 @@
     <script src="santos-adicionais-data.js?v=1"></script>
     <script src="papas-data.js?v=20261110"></script>
     <script src="bible-story-data.js?v=20261111"></script>
-    <script src="script.js?v=3.7"></script>
+    <script src="milagres-eucaristicos-data.js?v=1"></script>
+    <script src="script.js?v=3.8"></script>
 </body>
 
 </html>
