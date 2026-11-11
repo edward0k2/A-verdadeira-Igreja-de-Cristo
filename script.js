@@ -236,6 +236,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function init() {
+    applyBibleStoryEvents();
+    setupBibleReader();
     renderSummary();
     renderCatechisms();
     renderLivros();
@@ -244,6 +246,282 @@ function init() {
     setupTercoLive();
     setupBackToTop();
     initProgress();
+}
+
+let fullBibleData = null;
+let fullBibleLoadPromise = null;
+let bibleHighlightMode = false;
+let bibleHighlights = {};
+let activeBibleBook = null;
+let activeBibleChapter = 1;
+
+function applyBibleStoryEvents() {
+    [
+        { type: 'AT', books: salvaçãoData },
+        { type: 'NT', books: novoTestamentoData }
+    ].forEach(({ type, books }) => {
+        books.forEach((book, bookIndex) => {
+            const stories = bibleStoryEvents[type][bookIndex] || [];
+            if (!book.eventos.length) {
+                book.eventos = stories.map(([reference, title, names, summary]) => {
+                    const chapter = Number(reference.match(/\b(\d+)[,.:]/)?.[1] || 1);
+                    return {
+                        data: reference,
+                        referencia: reference,
+                        titulo: title,
+                        texto: summary,
+                        interpretacao: 'Percurso de leitura bíblica. A passagem indicada é a fonte principal; esta apresentação serve apenas como orientação.',
+                        bibleTestament: type,
+                        bibleBookIndex: bookIndex,
+                        bibleChapter: chapter,
+                        bibleVerse: Number(reference.match(/\d+[,.:](\d+)/)?.[1] || 1),
+                        personagens: names.map(nome => ({
+                            nome,
+                            origem: book.titulo,
+                            historia: summary,
+                            doutrina: `Passagem relacionada: ${reference}.`
+                        }))
+                    };
+                });
+                return;
+            }
+
+            book.eventos.forEach((event, eventIndex) => {
+                const [reference] = stories[eventIndex] || stories[0] || [];
+                if (!reference) return;
+                event.referencia = reference;
+                event.bibleTestament = type;
+                event.bibleBookIndex = bookIndex;
+                event.bibleChapter = Number(reference.match(/\b(\d+)[,.:]/)?.[1] || 1);
+                event.bibleVerse = Number(reference.match(/\d+[,.:](\d+)/)?.[1] || 1);
+            });
+        });
+    });
+}
+
+function setupBibleReader() {
+    const journeyButton = document.getElementById('bibleJourneyMode');
+    const readerButton = document.getElementById('bibleWholeMode');
+    const journeyView = document.getElementById('bibleJourneyView');
+    const readerView = document.getElementById('bibleReaderView');
+    const testamentFilter = document.getElementById('bibleTestamentFilter');
+    const bookSelect = document.getElementById('bibleBookSelect');
+    const chapterSelect = document.getElementById('bibleChapterSelect');
+    const highlightToggle = document.getElementById('bibleHighlightToggle');
+    const chapterContent = document.getElementById('bibleChapterContent');
+    if (!journeyButton || !readerButton || !journeyView || !readerView) return;
+
+    try {
+        bibleHighlights = JSON.parse(localStorage.getItem('bibleHighlightsV1') || '{}');
+    } catch {
+        bibleHighlights = {};
+    }
+
+    const setMode = mode => {
+        const readerActive = mode === 'reader';
+        journeyView.hidden = readerActive;
+        readerView.hidden = !readerActive;
+        journeyButton.classList.toggle('active', !readerActive);
+        readerButton.classList.toggle('active', readerActive);
+        journeyButton.setAttribute('aria-pressed', String(!readerActive));
+        readerButton.setAttribute('aria-pressed', String(readerActive));
+        if (readerActive) loadBibleCorpus();
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    };
+
+    journeyButton.addEventListener('click', () => setMode('journey'));
+    readerButton.addEventListener('click', () => setMode('reader'));
+
+    testamentFilter.addEventListener('change', () => {
+        populateBibleBooks(testamentFilter.value);
+        const selectedBook = fullBibleData.books.find(book => book.slug === bookSelect.value)
+            || fullBibleData.books.find(book => testamentFilter.value === 'all' || book.testament === testamentFilter.value);
+        if (selectedBook) selectBibleBook(selectedBook, 1);
+    });
+    bookSelect.addEventListener('change', () => {
+        const book = fullBibleData?.books.find(item => item.slug === bookSelect.value);
+        if (book) selectBibleBook(book, 1);
+    });
+    chapterSelect.addEventListener('change', () => {
+        activeBibleChapter = Number(chapterSelect.value) || 1;
+        renderBibleChapter();
+    });
+
+    highlightToggle.addEventListener('click', () => {
+        bibleHighlightMode = !bibleHighlightMode;
+        highlightToggle.classList.toggle('active', bibleHighlightMode);
+        highlightToggle.setAttribute('aria-pressed', String(bibleHighlightMode));
+        highlightToggle.innerHTML = bibleHighlightMode
+            ? '<i class="fas fa-highlighter" aria-hidden="true"></i> Marca-texto ativo'
+            : '<i class="fas fa-highlighter" aria-hidden="true"></i> Ativar marca-texto';
+        document.getElementById('bibleReaderStatus').textContent = bibleHighlightMode
+            ? 'Marca-texto ativo: toque nos versículos para marcar ou desmarcar.'
+            : 'Marca-texto desativado.';
+        chapterContent.classList.toggle('highlight-mode', bibleHighlightMode);
+    });
+
+    document.getElementById('bibleClearHighlights').addEventListener('click', () => {
+        if (!Object.keys(bibleHighlights).length) return;
+        if (!window.confirm('Apagar todas as marcações bíblicas salvas neste dispositivo?')) return;
+        bibleHighlights = {};
+        saveBibleHighlights();
+        renderBibleChapter();
+        document.getElementById('bibleReaderStatus').textContent = 'Todas as marcações foram apagadas deste dispositivo.';
+    });
+
+    const moveChapter = delta => {
+        if (!activeBibleBook) return;
+        let nextChapter = activeBibleChapter + delta;
+        let bookIndex = fullBibleData.books.findIndex(book => book.slug === activeBibleBook.slug);
+        if (nextChapter < 1) {
+            if (bookIndex === 0) return;
+            activeBibleBook = fullBibleData.books[--bookIndex];
+            nextChapter = activeBibleBook.chaptersCount;
+        } else if (nextChapter > activeBibleBook.chaptersCount) {
+            if (bookIndex >= fullBibleData.books.length - 1) return;
+            activeBibleBook = fullBibleData.books[++bookIndex];
+            nextChapter = 1;
+        }
+        testamentFilter.value = activeBibleBook.testament;
+        populateBibleBooks(activeBibleBook.testament);
+        selectBibleBook(activeBibleBook, nextChapter);
+    };
+    document.getElementById('biblePreviousChapter').addEventListener('click', () => moveChapter(-1));
+    document.getElementById('bibleNextChapter').addEventListener('click', () => moveChapter(1));
+
+    chapterContent.addEventListener('click', event => {
+        const verseButton = event.target.closest('[data-bible-verse]');
+        if (!verseButton || !bibleHighlightMode || !activeBibleBook) return;
+        const key = `${activeBibleBook.slug}.${activeBibleChapter}.${verseButton.dataset.bibleVerse}`;
+        if (bibleHighlights[key]) delete bibleHighlights[key];
+        else bibleHighlights[key] = document.getElementById('bibleHighlightColor').value;
+        saveBibleHighlights();
+        renderBibleChapter();
+    });
+}
+
+async function loadBibleCorpus() {
+    const status = document.getElementById('bibleReaderStatus');
+    if (fullBibleData) return;
+    if (!fullBibleLoadPromise) {
+        status.textContent = 'Carregando os 73 livros da Bíblia católica…';
+        fullBibleLoadPromise = fetch('./biblia-matos-soares-completa.json')
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                if (data.totalBooks !== 73 || data.books?.length !== 73) throw new Error('A edição não contém os 73 livros esperados.');
+                fullBibleData = data;
+                populateBibleBooks(document.getElementById('bibleTestamentFilter').value);
+                const lastRead = data.books[0];
+                selectBibleBook(lastRead, 1);
+                status.textContent = '73 livros carregados. Escolha um testamento, livro e capítulo.';
+            })
+            .catch(error => {
+                fullBibleLoadPromise = null;
+                status.textContent = 'Não foi possível carregar o texto bíblico. Verifique a conexão e tente novamente.';
+                console.error('Falha ao carregar a Bíblia:', error);
+            });
+    }
+    await fullBibleLoadPromise;
+}
+
+function populateBibleBooks(testament = 'all') {
+    if (!fullBibleData) return;
+    const select = document.getElementById('bibleBookSelect');
+    const books = fullBibleData.books.filter(book => testament === 'all' || book.testament === testament);
+    select.innerHTML = books.map(book => `<option value="${book.slug}">${book.name}</option>`).join('');
+    if (activeBibleBook && books.some(book => book.slug === activeBibleBook.slug)) select.value = activeBibleBook.slug;
+}
+
+function selectBibleBook(book, chapter = 1) {
+    activeBibleBook = book;
+    activeBibleChapter = Math.min(Math.max(1, Number(chapter) || 1), book.chaptersCount);
+    const bookSelect = document.getElementById('bibleBookSelect');
+    const chapterSelect = document.getElementById('bibleChapterSelect');
+    if (bookSelect) bookSelect.value = book.slug;
+    if (chapterSelect) {
+        chapterSelect.innerHTML = Array.from({ length: book.chaptersCount }, (_, index) => `<option value="${index + 1}">${index + 1}</option>`).join('');
+        chapterSelect.value = String(activeBibleChapter);
+    }
+    renderBibleChapter();
+}
+
+function renderBibleChapter() {
+    if (!activeBibleBook || !fullBibleData) return;
+    const article = document.getElementById('bibleChapterContent');
+    const status = document.getElementById('bibleReaderStatus');
+    const verses = activeBibleBook.chapters[String(activeBibleChapter)] || [];
+    article.innerHTML = '';
+    article.classList.toggle('highlight-mode', bibleHighlightMode);
+    const heading = document.createElement('h3');
+    heading.className = 'bible-chapter-heading';
+    heading.textContent = `${activeBibleBook.name} ${activeBibleChapter}`;
+    article.appendChild(heading);
+
+    const verseList = document.createElement('div');
+    verseList.className = 'bible-verse-list';
+    verses.forEach(verse => {
+        const key = `${activeBibleBook.slug}.${activeBibleChapter}.${verse.v}`;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = `bible-verse ${bibleHighlights[key] ? `is-highlighted highlight-${bibleHighlights[key]}` : ''}`.trim();
+        button.dataset.bibleVerse = verse.v;
+        button.id = `bible-verse-${verse.v}`;
+        button.setAttribute('aria-label', `Versículo ${verse.v}${bibleHighlights[key] ? ', marcado' : ''}`);
+        const number = document.createElement('span');
+        number.className = 'bible-verse-number';
+        number.textContent = verse.v;
+        const text = document.createElement('span');
+        text.className = 'bible-verse-text';
+        text.textContent = verse.t;
+        button.append(number, text);
+        verseList.appendChild(button);
+    });
+    article.appendChild(verseList);
+    status.textContent = `${verses.length} versículos · ${activeBibleBook.name}, capítulo ${activeBibleChapter}`;
+}
+
+function saveBibleHighlights() {
+    try {
+        localStorage.setItem('bibleHighlightsV1', JSON.stringify(bibleHighlights));
+    } catch {
+        document.getElementById('bibleReaderStatus').textContent = 'O navegador não permitiu salvar as marcações neste dispositivo.';
+    }
+}
+
+async function openBiblePassage(testament, bookIndex, chapter, verse = 1) {
+    document.getElementById('infoModal').style.display = 'none';
+    switchView('summaryView');
+    document.getElementById('bibleWholeMode')?.click();
+    await loadBibleCorpus();
+    const source = testament === 'AT' ? salvaçãoData : novoTestamentoData;
+    const targetTitle = source[bookIndex]?.titulo;
+    const titleMap = {
+        'I Samuel': 'I Samuel', 'II Samuel': 'II Samuel', 'I Reis': 'I Reis', 'II Reis': 'II Reis',
+        'I Crônicas': 'I Crônicas', 'II Crônicas': 'II Crônicas', 'I Macabeus': 'I Macabeus', 'II Macabeus': 'II Macabeus',
+        'I Coríntios': 'I Coríntios', 'II Coríntios': 'II Coríntios', 'I Tessalonicenses': 'I Tessalonicenses',
+        'II Tessalonicenses': 'II Tessalonicenses', 'I Timóteo': 'I Timóteo', 'II Timóteo': 'II Timóteo',
+        'I São Pedro': 'I São Pedro', 'II São Pedro': 'II São Pedro', 'I São João': 'I São João',
+        'II São João': 'II São João', 'III São João': 'III São João'
+    };
+    const bookNumber = source[bookIndex]?.id;
+    const targetBook = fullBibleData.books.find(book => book.testament === testament && (
+        book.name.toLocaleLowerCase('pt-BR') === (titleMap[targetTitle] || targetTitle).toLocaleLowerCase('pt-BR')
+        || (testament === 'AT' && fullBibleData.books.indexOf(book) === bookNumber - 1)
+        || (testament === 'NT' && fullBibleData.books.indexOf(book) === 46 + bookNumber - 1)
+    ));
+    if (!targetBook) return;
+    document.getElementById('bibleTestamentFilter').value = 'all';
+    populateBibleBooks('all');
+    selectBibleBook(targetBook, chapter);
+    window.setTimeout(() => {
+        const targetVerse = document.getElementById(`bible-verse-${verse}`);
+        targetVerse?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        targetVerse?.classList.add('is-reference-target');
+        window.setTimeout(() => targetVerse?.classList.remove('is-reference-target'), 1800);
+    }, 50);
 }
 
 function setupTercoLive() {
@@ -885,6 +1163,8 @@ function renderSummary() {
                 <span>Livro ${cap.id}</span>
                 <h3>${cap.titulo}</h3>
                 <p style="font-size: 0.85rem; color: var(--text-muted);">${cap.descricao}</p>
+                <p class="bible-card-reference"><i class="fas fa-bookmark" aria-hidden="true"></i> ${cap.eventos[0]?.referencia || 'Percurso bíblico'}</p>
+                <p class="bible-card-characters">Personagens: ${cap.eventos[0]?.personagens.map(person => person.nome).join(', ') || '—'}</p>
             `;
             card.onclick = () => openChapter(index, 'AT');
             gridAT.appendChild(card);
@@ -902,6 +1182,8 @@ function renderSummary() {
                 <span>Livro ${cap.id}</span>
                 <h3>${cap.titulo}</h3>
                 <p style="font-size: 0.85rem; color: var(--text-muted);">${cap.descricao}</p>
+                <p class="bible-card-reference"><i class="fas fa-bookmark" aria-hidden="true"></i> ${cap.eventos[0]?.referencia || 'Percurso bíblico'}</p>
+                <p class="bible-card-characters">Personagens: ${cap.eventos[0]?.personagens.map(person => person.nome).join(', ') || '—'}</p>
             `;
             card.onclick = () => openChapter(index, 'NT');
             gridNT.appendChild(card);
@@ -998,6 +1280,7 @@ function renderChapterContent() {
             <div class="node-box" onclick="showDetails('${(ev.titulo || '').replace(/'/g, "\\'")}')">
                 <span>${ev.data}</span>
                 <h4>${ev.titulo}</h4>
+                ${ev.referencia ? `<button type="button" class="chapter-reference-link" onclick="event.stopPropagation(); openBiblePassage('${ev.bibleTestament}', ${ev.bibleBookIndex}, ${ev.bibleChapter}, ${ev.bibleVerse})"><i class="fas fa-book-open" aria-hidden="true"></i> Ler ${ev.referencia}</button>` : ''}
                 <div class="btn-view-node">Explorar Marco →</div>
             </div>
         `;
@@ -1015,10 +1298,14 @@ function showDetails(titulo) {
     const ev = dataSource[currentChapterIndex].eventos.find(e => e.titulo === titulo);
     const modal = document.getElementById('infoModal');
     const body = document.getElementById('modalBody');
+    const readReference = ev.referencia
+        ? `<button type="button" class="chapter-reference-link" onclick="openBiblePassage('${ev.bibleTestament}', ${ev.bibleBookIndex}, ${ev.bibleChapter}, ${ev.bibleVerse})"><i class="fas fa-book-open" aria-hidden="true"></i> Abrir ${ev.referencia} na Bíblia completa</button>`
+        : '';
 
     body.innerHTML = `
         <span style="color:#d4af37; font-weight:bold;">${ev.data}</span>
         <h3>${ev.titulo}</h3>
+        ${readReference}
         <p style="margin-top:1.5rem; font-size:1.1rem;">${ev.texto}</p>
         <div class="interpretation">
             <strong>Interpretação da Igreja Católica:</strong><br>

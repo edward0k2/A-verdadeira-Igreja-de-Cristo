@@ -332,6 +332,257 @@ body {
     font-size: 1.5rem;
 }
 
+.bible-card-reference,
+.bible-card-characters {
+    position: relative;
+    z-index: 1;
+    margin-top: 0.55rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.4;
+}
+
+.bible-card-reference {
+    color: var(--primary-hover);
+    font-weight: 700;
+}
+
+.bible-mode-switch {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin: 0 auto 2rem;
+}
+
+.bible-mode-button,
+.bible-tool-button {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    background: var(--white);
+    color: var(--text-main);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.bible-mode-button.active,
+.bible-tool-button.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--white);
+}
+
+.bible-mode-button:hover,
+.bible-tool-button:hover {
+    border-color: var(--primary);
+}
+
+.bible-reader-view[hidden],
+#bibleJourneyView[hidden] {
+    display: none !important;
+}
+
+.bible-reader-view {
+    max-width: 1100px;
+    margin: 1rem auto 4rem;
+    padding: clamp(1rem, 4vw, 2.5rem);
+    border: 1px solid var(--border-light);
+    border-radius: 18px;
+    background: var(--bg-card);
+    box-shadow: 0 12px 35px rgba(60, 44, 12, 0.07);
+}
+
+.bible-reader-heading {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.bible-reader-kicker {
+    color: var(--primary-hover);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.bible-reader-heading h2 {
+    margin: 0.35rem 0;
+    font-family: var(--font-heading);
+    font-size: clamp(1.7rem, 4vw, 2.5rem);
+}
+
+.bible-reader-heading p {
+    color: var(--text-muted);
+}
+
+.bible-reader-toolbar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+}
+
+.bible-reader-toolbar label,
+.bible-color-label {
+    display: grid;
+    gap: 0.35rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.bible-reader-toolbar select,
+.bible-color-label select {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--border-light);
+    border-radius: 9px;
+    background: var(--white);
+    color: var(--text-main);
+    font: inherit;
+}
+
+.bible-reader-actions {
+    display: flex;
+    align-items: end;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.bible-reader-actions .bible-tool-button {
+    font-size: 0.86rem;
+}
+
+.bible-color-label {
+    min-width: 110px;
+}
+
+.bible-reader-actions .bible-clear-highlights {
+    margin-left: auto;
+}
+
+.bible-reader-status {
+    min-height: 1.5rem;
+    margin: 1rem 0;
+    color: var(--text-muted);
+    font-size: 0.86rem;
+}
+
+.bible-chapter-content {
+    padding: clamp(1rem, 4vw, 2.5rem);
+    border: 1px solid rgba(201, 191, 174, 0.65);
+    border-radius: 14px;
+    background: #fffdf8;
+}
+
+.bible-chapter-heading {
+    margin-bottom: 1.2rem;
+    color: var(--primary-hover);
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    text-align: center;
+}
+
+.bible-verse-list {
+    display: block;
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.bible-verse {
+    display: inline;
+    width: 100%;
+    padding: 0.18rem 0.3rem;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-size: 1.08rem;
+    line-height: 2;
+    text-align: left;
+    cursor: default;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+.bible-verse-number {
+    margin-right: 0.35rem;
+    color: var(--primary-hover);
+    font-family: var(--font-main);
+    font-size: 0.72rem;
+    font-weight: 700;
+    vertical-align: super;
+}
+
+.bible-chapter-content.highlight-mode .bible-verse {
+    cursor: pointer;
+}
+
+.bible-chapter-content.highlight-mode .bible-verse:hover {
+    background: rgba(255, 221, 87, 0.25);
+}
+
+.bible-verse.is-highlighted {
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+.bible-verse.highlight-yellow { background: #fff0a6; }
+.bible-verse.highlight-green { background: #c9edc1; }
+.bible-verse.highlight-blue { background: #c9e7fa; }
+.bible-verse.highlight-pink { background: #f8cfe0; }
+
+.bible-verse.is-reference-target {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+.bible-edition-credit {
+    margin-top: 1.2rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    text-align: center;
+}
+
+.bible-edition-credit a,
+.chapter-reference-link {
+    color: var(--primary-hover);
+}
+
+.chapter-reference-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0.5rem 0;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid rgba(212, 175, 55, 0.55);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.9);
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.chapter-reference-link:hover {
+    background: #fff4c5;
+}
+
+.node-box .chapter-reference-link {
+    position: relative;
+    z-index: 2;
+}
+
 /* Section: Sobre a Igreja (About) */
 #aboutView {
     padding-top: 2rem;
@@ -2227,6 +2478,33 @@ body {
 
     .terco-live-controls button {
         flex: 1 1 auto;
+    }
+}
+
+@media (max-width: 700px) {
+    .bible-reader-toolbar {
+        grid-template-columns: 1fr;
+    }
+
+    .bible-reader-actions {
+        align-items: stretch;
+    }
+
+    .bible-reader-actions .bible-tool-button,
+    .bible-color-label {
+        flex: 1 1 calc(50% - 0.55rem);
+    }
+
+    .bible-reader-actions .bible-clear-highlights {
+        margin-left: 0;
+    }
+
+    .bible-chapter-content {
+        padding: 0.8rem;
+    }
+
+    .bible-verse {
+        font-size: 1rem;
     }
 }
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>História da Salvação - Livro Interativo</title>
-    <link rel="stylesheet" href="style.css?v=2.7">
+    <link rel="stylesheet" href="style.css?v=2.8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -75,6 +75,12 @@
                 </div>
             </div>
 
+            <div class="bible-mode-switch" role="group" aria-label="Modo de leitura da Bíblia">
+                <button id="bibleJourneyMode" type="button" class="bible-mode-button active" aria-pressed="true"><i class="fas fa-route" aria-hidden="true"></i> Percurso bíblico</button>
+                <button id="bibleWholeMode" type="button" class="bible-mode-button" aria-pressed="false"><i class="fas fa-book-open" aria-hidden="true"></i> Ler a Bíblia completa</button>
+            </div>
+
+            <div id="bibleJourneyView">
             <div class="testamento-title">
                 <h3>Antigo Testamento</h3>
                 <div class="title-divider"></div>
@@ -110,6 +116,47 @@
                 <div class="title-divider"></div>
             </div>
             <div class="chapters-grid" id="novoTestamentoGrid"></div>
+            </div>
+
+            <div id="bibleReaderView" class="bible-reader-view" hidden>
+                <div class="bible-reader-heading">
+                    <span class="bible-reader-kicker">Cânon católico · 73 livros</span>
+                    <h2>Leia a Bíblia inteira</h2>
+                    <p>Escolha um testamento, livro e capítulo. Toque em um versículo para marcá-lo quando o marca-texto estiver ativo.</p>
+                </div>
+                <div class="bible-reader-toolbar">
+                    <label>Testamento
+                        <select id="bibleTestamentFilter">
+                            <option value="all">Bíblia inteira</option>
+                            <option value="AT">Antigo Testamento</option>
+                            <option value="NT">Novo Testamento</option>
+                        </select>
+                    </label>
+                    <label>Livro
+                        <select id="bibleBookSelect"></select>
+                    </label>
+                    <label>Capítulo
+                        <select id="bibleChapterSelect"></select>
+                    </label>
+                </div>
+                <div class="bible-reader-actions">
+                    <button id="biblePreviousChapter" type="button" class="bible-tool-button"><i class="fas fa-arrow-left" aria-hidden="true"></i> Capítulo anterior</button>
+                    <button id="bibleNextChapter" type="button" class="bible-tool-button">Próximo capítulo <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                    <button id="bibleHighlightToggle" type="button" class="bible-tool-button" aria-pressed="false"><i class="fas fa-highlighter" aria-hidden="true"></i> Ativar marca-texto</button>
+                    <label class="bible-color-label">Cor
+                        <select id="bibleHighlightColor" aria-label="Cor do marca-texto">
+                            <option value="yellow">Amarelo</option>
+                            <option value="green">Verde</option>
+                            <option value="blue">Azul</option>
+                            <option value="pink">Rosa</option>
+                        </select>
+                    </label>
+                    <button id="bibleClearHighlights" type="button" class="bible-tool-button bible-clear-highlights"><i class="fas fa-eraser" aria-hidden="true"></i> Apagar marcações</button>
+                </div>
+                <p id="bibleReaderStatus" class="bible-reader-status" role="status" aria-live="polite">Carregando livros…</p>
+                <article id="bibleChapterContent" class="bible-chapter-content" aria-live="polite"></article>
+                <p class="bible-edition-credit">Texto: Pe. Manuel de Matos Soares, tradução católica a partir da Vulgata Latina (Nihil Obstat e Imprimatur, 1927/1932). Transcrição e dados: <a href="https://github.com/bibliacatolica/biblia" target="_blank" rel="noopener noreferrer">bibliacatolica/biblia</a>, licença CC0 1.0.</p>
+            </div>
         </section>
 
         <!-- Seção: Sobre a Igreja (Fundação) -->
@@ -477,7 +524,8 @@
 
     <script src="santos-data.js"></script>
     <script src="papas-data.js?v=20261110"></script>
-    <script src="script.js?v=2.7"></script>
+    <script src="bible-story-data.js?v=20261111"></script>
+    <script src="script.js?v=2.8"></script>
 </body>
 
 </html>
