@@ -25,8 +25,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/2009/ns_lit_doc_20090426_tolomei_en.html"
             }
         ]
     },
@@ -40,8 +40,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/2009/ns_lit_doc_20090426_nuno_en.html"
             }
         ]
     },
@@ -55,8 +55,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011104_beat-fernandes_po.html"
             }
         ]
     },
@@ -70,8 +70,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/2002/documents/ns_lit_doc_20020519_orozco_po.html"
             }
         ]
     },
@@ -85,8 +85,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19990613_protmann_po.html"
             }
         ]
     },
@@ -100,8 +100,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/2002/documents/ns_lit_doc_20020519_umile_po.html"
             }
         ]
     },
@@ -115,8 +115,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030518_bracelli_en.html"
             }
         ]
     },
@@ -130,8 +130,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20010610_ber-da-corleone_po.html"
             }
         ]
     },
@@ -145,8 +145,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030427_d-aviano_po.html"
             }
         ]
     },
@@ -160,8 +160,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20061015_venerini_en.html"
             }
         ]
     },
@@ -190,8 +190,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20041003_vigne_po.html"
             }
         ]
     },
@@ -205,8 +205,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011125_hoss_en.html"
             }
         ]
     },
@@ -220,8 +220,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/2002/documents/ns_lit_doc_20020519_ignazio_po.html"
             }
         ]
     },
@@ -235,8 +235,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19981025_antonio-galvao_po.html"
             }
         ]
     },
@@ -250,8 +250,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20041003_emmerick_po.html"
             }
         ]
     },
@@ -265,8 +265,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19971012_lentini_po.html"
             }
         ]
     },
@@ -280,8 +280,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19990418_champagnat_po.html"
             }
         ]
     },
@@ -295,8 +295,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/2002/documents/ns_lit_doc_20020414_pavoni_po.html"
             }
         ]
     },
@@ -310,8 +310,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20000903_bl-chaminade_po.html"
             }
         ]
     },
@@ -325,8 +325,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011007_beat-tavernier_po.html"
             }
         ]
     },
@@ -340,8 +340,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20010610_verzeri_en.html"
             }
         ]
     },
@@ -355,8 +355,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19970822_ozanam_po.html"
             }
         ]
     },
@@ -400,8 +400,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20031109_rendu_po.html"
             }
         ]
     },
@@ -415,8 +415,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19981025_teodora-guerin_po.html"
             }
         ]
     },
@@ -430,8 +430,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20061015_guerin_en.html"
             }
         ]
     },
@@ -445,8 +445,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20010429_cittadini_po.html"
             }
         ]
     },
@@ -460,8 +460,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/2002/documents/ns_lit_doc_20020519_benedetta_po.html"
             }
         ]
     },
@@ -475,8 +475,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19980510_kassab_po.html"
             }
         ]
     },
@@ -490,8 +490,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040516_al-hardini_po.html"
             }
         ]
     },
@@ -505,8 +505,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/2002/documents/ns_lit_doc_20020414_errico_po.html"
             }
         ]
     },
@@ -520,8 +520,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030323_bonhomme_po.html"
             }
         ]
     },
@@ -535,8 +535,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19990919_slomsek_po.html"
             }
         ]
     },
@@ -580,8 +580,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040516_cerioli_po.html"
             }
         ]
     },
@@ -595,8 +595,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19991003_beat-roccacasale_po.html"
             }
         ]
     },
@@ -610,8 +610,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030518_de-mattias_en.html"
             }
         ]
     },
@@ -625,8 +625,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20000409_beat-Seelos_po.html"
             }
         ]
     },
@@ -640,8 +640,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/2008/ns_lit_doc_20081012_narcisa_en.html"
             }
         ]
     },
@@ -655,8 +655,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19990613_bojanowski_po.html"
             }
         ]
     },
@@ -685,8 +685,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/2009/ns_lit_doc_20091011_coll_en.html"
             }
         ]
     },
@@ -715,8 +715,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20000903_pius-ix_po.html"
             }
         ]
     },
@@ -730,8 +730,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19971012_hooghvorst_po.html"
             }
         ]
     },
@@ -745,8 +745,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/2009/ns_lit_doc_20091011_jugan_en.html"
             }
         ]
     },
@@ -760,8 +760,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20060430_biraghi_po.html"
             }
         ]
     },
@@ -775,8 +775,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20021020_durando_po.html"
             }
         ]
     },
@@ -790,8 +790,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20031005_comboni_en.html"
             }
         ]
     },
@@ -805,8 +805,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20010610_scrosoppi_po.html"
             }
         ]
     },
@@ -820,8 +820,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/2002/documents/ns_lit_doc_20020414_transito_po.html"
             }
         ]
     },
@@ -835,8 +835,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011104_beat-farina_po.html"
             }
         ]
     },
@@ -850,8 +850,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011125_montal-fornes-de-calasanz_en.html"
             }
         ]
     },
@@ -895,8 +895,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/2009/ns_lit_doc_20091011_de-veuster_en.html"
             }
         ]
     },
@@ -910,8 +910,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20010429_blondin_po.html"
             }
         ]
     },
@@ -925,8 +925,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011007_beat-tommaso-fusco_po.html"
             }
         ]
     },
@@ -940,8 +940,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19991003_beat-baccilieri_po.html"
             }
         ]
     },
@@ -955,8 +955,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040425_czartoryski_po.html"
             }
         ]
     },
@@ -970,8 +970,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/2008/ns_lit_doc_20081019_martin-guerin_po.html"
             }
         ]
     },
@@ -985,8 +985,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20010429_volpicelli_po.html"
             }
         ]
     },
@@ -1000,8 +1000,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19990418_pietrantoni_po.html"
             }
         ]
     },
@@ -1015,8 +1015,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/2009/ns_lit_doc_20091011_felinski_en.html"
             }
         ]
     },
@@ -1045,8 +1045,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19981025_zeferino_po.html"
             }
         ]
     },
@@ -1060,8 +1060,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20031109_monti_po.html"
             }
         ]
     },
@@ -1075,8 +1075,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20000409_beat-Gattorno_po.html"
             }
         ]
     },
@@ -1090,8 +1090,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030427_ravasco_po.html"
             }
         ]
     },
@@ -1105,8 +1105,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20000903_tommaso-reggio_po.html"
             }
         ]
     },
@@ -1120,8 +1120,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040516_vives_po.html"
             }
         ]
     },
@@ -1135,8 +1135,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20010610_roscelli_po.html"
             }
         ]
     },
@@ -1150,8 +1150,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040321_robles_po.html"
             }
         ]
     },
@@ -1165,8 +1165,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/2009/ns_lit_doc_20090426_comensoli_po.html"
             }
         ]
     },
@@ -1195,8 +1195,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20041003_cassant_po.html"
             }
         ]
     },
@@ -1210,8 +1210,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20021020_marie-passion_po.html"
             }
         ]
     },
@@ -1240,8 +1240,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20031109_paquay_po.html"
             }
         ]
     },
@@ -1255,8 +1255,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20031109_zegri_po.html"
             }
         ]
     },
@@ -1270,8 +1270,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20031109_castro_po.html"
             }
         ]
     },
@@ -1285,8 +1285,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19971109_scalabrini_po.html"
             }
         ]
     },
@@ -1315,8 +1315,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030427_brando_po.html"
             }
         ]
     },
@@ -1330,8 +1330,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20031005_freinademetz_po.html"
             }
         ]
     },
@@ -1345,8 +1345,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20031005_janssen_po.html"
             }
         ]
     },
@@ -1360,8 +1360,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011007_beat-alfonso-fusco_po.html"
             }
         ]
     },
@@ -1390,8 +1390,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20001001_maria-jozefa-corazon-jesus_po.html"
             }
         ]
     },
@@ -1405,8 +1405,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/2009/ns_lit_doc_20090426_tadini_en.html"
             }
         ]
     },
@@ -1450,8 +1450,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19971012_piamarta_po.html"
             }
         ]
     },
@@ -1465,8 +1465,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20050424_amada_po.html"
             }
         ]
     },
@@ -1480,8 +1480,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20010610_rafqa-choboq_en.html"
             }
         ]
     },
@@ -1510,8 +1510,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011125_de-sales-aviat_en.html"
             }
         ]
     },
@@ -1525,8 +1525,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011007_beat-maloyan_po.html"
             }
         ]
     },
@@ -1540,8 +1540,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040321_real_po.html"
             }
         ]
     },
@@ -1555,8 +1555,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040425_valle_po.html"
             }
         ]
     },
@@ -1570,8 +1570,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20051113_de-foucauld_po.html"
             }
         ]
     },
@@ -1585,8 +1585,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030323_condesa_po.html"
             }
         ]
     },
@@ -1600,8 +1600,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20050514_molokai_po.html"
             }
         ]
     },
@@ -1615,8 +1615,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030323_rodriguez_po.html"
             }
         ]
     },
@@ -1630,8 +1630,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19991003_beat-oddi_po.html"
             }
         ]
     },
@@ -1645,8 +1645,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20000721_beat-francisco_po.html"
             }
         ]
     },
@@ -1660,8 +1660,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20000721_beat-jacinta_po.html"
             }
         ]
     },
@@ -1675,8 +1675,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011007_beat-picco_po.html"
             }
         ]
     },
@@ -1690,8 +1690,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20041003_charles-austria_po.html"
             }
         ]
     },
@@ -1705,8 +1705,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011104_beat-tezza_it.html"
             }
         ]
     },
@@ -1720,8 +1720,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20061015_smaldone_en.html"
             }
         ]
     },
@@ -1735,8 +1735,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20000903_columba-marmion_po.html"
             }
         ]
     },
@@ -1750,8 +1750,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/2002/documents/ns_lit_doc_20020414_variara_po.html"
             }
         ]
     },
@@ -1765,8 +1765,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030518_pelczar_po.html"
             }
         ]
     },
@@ -1780,8 +1780,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/2008/ns_lit_doc_20081012_verena_po.html"
             }
         ]
     },
@@ -1795,8 +1795,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19991003_beat-poppe_po.html"
             }
         ]
     },
@@ -1810,8 +1810,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19981025_faustino-miguez_po.html"
             }
         ]
     },
@@ -1840,8 +1840,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20000409_beat-Hoyos_po.html"
             }
         ]
     },
@@ -1855,8 +1855,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040321_talamoni_po.html"
             }
         ]
     },
@@ -1870,8 +1870,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20000409_beat-Mankidiyan_po.html"
             }
         ]
     },
@@ -1885,8 +1885,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040516_di-francia_po.html"
             }
         ]
     },
@@ -1900,8 +1900,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20060314_suor-elia_po.html"
             }
         ]
     },
@@ -1915,8 +1915,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19971012_socorro-nieves_po.html"
             }
         ]
     },
@@ -1930,8 +1930,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030622_merz_po.html"
             }
         ]
     },
@@ -1945,8 +1945,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030427_salzano_po.html"
             }
         ]
     },
@@ -1960,8 +1960,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030504_rubio-peralta_po.html"
             }
         ]
     },
@@ -1975,8 +1975,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20060917_tovini_po.html"
             }
         ]
     },
@@ -2005,8 +2005,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030323_batthyany_po.html"
             }
         ]
     },
@@ -2020,8 +2020,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030504_guerrero-gonzalez_po.html"
             }
         ]
     },
@@ -2050,8 +2050,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030427_mantovani_po.html"
             }
         ]
     },
@@ -2065,8 +2065,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040425_yenes_po.html"
             }
         ]
     },
@@ -2080,8 +2080,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19980510_pujalte_po.html"
             }
         ]
     },
@@ -2095,8 +2095,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20021020_longhin_po.html"
             }
         ]
     },
@@ -2110,8 +2110,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19980510_naveros_po.html"
             }
         ]
     },
@@ -2125,8 +2125,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030504_poveda-castroverde_en.html"
             }
         ]
     },
@@ -2140,8 +2140,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19980510_aldea_po.html"
             }
         ]
     },
@@ -2155,8 +2155,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19980510_maria-sacrario_po.html"
             }
         ]
     },
@@ -2170,8 +2170,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20050424_ginard-marti_po.html"
             }
         ]
     },
@@ -2185,8 +2185,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20060513_maria-teresa_po.html"
             }
         ]
     },
@@ -2200,8 +2200,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20061015_valencia_en.html"
             }
         ]
     },
@@ -2215,8 +2215,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20000430_faustina_po.html"
             }
         ]
     },
@@ -2230,8 +2230,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/2009/ns_lit_doc_20091011_arnaiz_en.html"
             }
         ]
     },
@@ -2245,8 +2245,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030518_ledochowska_po.html"
             }
         ]
     },
@@ -2260,8 +2260,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20050514_nicol_po.html"
             }
         ]
     },
@@ -2275,8 +2275,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040516_orione_po.html"
             }
         ]
     },
@@ -2290,8 +2290,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20010429_gonzalez-garcia_po.html"
             }
         ]
     },
@@ -2305,8 +2305,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20021020_meneguzzi_po.html"
             }
         ]
     },
@@ -2320,8 +2320,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/2002/documents/ns_lit_doc_20020519_paulina_po.html"
             }
         ]
     },
@@ -2335,8 +2335,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19981011_edith_stein_po.html"
             }
         ]
     },
@@ -2365,8 +2365,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030323_brader_po.html"
             }
         ]
     },
@@ -2380,8 +2380,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20060615_eustaquio_po.html"
             }
         ]
     },
@@ -2395,8 +2395,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20060917_salkahazi_po.html"
             }
         ]
     },
@@ -2410,8 +2410,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19971109_vilmos-apor_po.html"
             }
         ]
     },
@@ -2425,8 +2425,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011007_beat-gross_po.html"
             }
         ]
     },
@@ -2440,8 +2440,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011104_beat-izquierdo_po.html"
             }
         ]
     },
@@ -2455,8 +2455,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/2008/ns_lit_doc_20081012_alfonsa_po.html"
             }
         ]
     },
@@ -2470,8 +2470,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040905_marvelli_po.html"
             }
         ]
     },
@@ -2485,8 +2485,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20001001_giuseppina-bakhita_po.html"
             }
         ]
     },
@@ -2500,8 +2500,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19971012_fasce_po.html"
             }
         ]
     },
@@ -2545,8 +2545,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19971109_orozco_po.html"
             }
         ]
     },
@@ -2560,8 +2560,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040425_montoya_po.html"
             }
         ]
     },
@@ -2575,8 +2575,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040321_candida_po.html"
             }
         ]
     },
@@ -2590,8 +2590,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040905_tarres_po.html"
             }
         ]
     },
@@ -2605,8 +2605,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040905_suriano_po.html"
             }
         ]
     },
@@ -2620,8 +2620,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/2002/documents/ns_lit_doc_20020414_zatti_po.html"
             }
         ]
     },
@@ -2650,8 +2650,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20051113_mastena_po.html"
             }
         ]
     },
@@ -2665,8 +2665,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011104_beat-manna_po.html"
             }
         ]
     },
@@ -2680,8 +2680,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19990418_giovanni-calabria_po.html"
             }
         ]
     },
@@ -2710,8 +2710,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20001001_katharine-drexel_po.html"
             }
         ]
     },
@@ -2725,8 +2725,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040425_da-costa_po.html"
             }
         ]
     },
@@ -2740,8 +2740,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20011007_beat-uffing_po.html"
             }
         ]
     },
@@ -2755,8 +2755,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030914_schelingova_po.html"
             }
         ]
     },
@@ -2770,8 +2770,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030504_torres-morales_po.html"
             }
         ]
     },
@@ -2785,8 +2785,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20000409_beat-Hesselblat_po.html"
             }
         ]
     },
@@ -2800,8 +2800,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20050424_curcio_po.html"
             }
         ]
     },
@@ -2815,8 +2815,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_19991003_beat-gesturi_po.html"
             }
         ]
     },
@@ -2875,8 +2875,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20041003_de-angelis_po.html"
             }
         ]
     },
@@ -2890,8 +2890,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040516_beretta-molla_po.html"
             }
         ]
     },
@@ -2905,8 +2905,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20040425_zavala_po.html"
             }
         ]
     },
@@ -2920,8 +2920,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20000903_john-xxiii_po.html"
             }
         ]
     },
@@ -2935,8 +2935,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20010429_rodriguez-santiago_po.html"
             }
         ]
     },
@@ -2980,8 +2980,8 @@ const additionalSaintsData = [
         "doutrina": "A mem\u00f3ria dos santos e beatos convida a conhecer testemunhos crist\u00e3os de diferentes povos e \u00e9pocas, e a aprofundar cada trajet\u00f3ria nas fontes da Igreja.",
         "fontes": [
             {
-                "titulo": "Santa S\u00e9 \u2014 cat\u00e1logo oficial de canoniza\u00e7\u00f5es e beatifica\u00e7\u00f5es",
-                "url": "https://www.vatican.va/news_services/liturgy/saints/index_canoniz-beat_po.html"
+                "titulo": "Biografia oficial da Santa S?",
+                "url": "https://www.vatican.va/news_services/liturgy/saints/ns_lit_doc_20030606_petkovic_po.html"
             }
         ]
     },
