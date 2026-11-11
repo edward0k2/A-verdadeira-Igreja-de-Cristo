@@ -2174,19 +2174,6 @@ body {
     margin: 0;
 }
 
-.terco-studio-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--primary-hover);
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.terco-studio-link:hover {
-    text-decoration: underline;
-}
-
 .video-container {
     margin-bottom: 2rem;
     background: #000;
