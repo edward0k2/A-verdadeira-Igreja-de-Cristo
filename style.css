@@ -1839,6 +1839,65 @@ body {
     margin-bottom: 12px;
 }
 
+.library-book-cover {
+    position: relative;
+    width: 100%;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    margin-top: auto;
+    padding: 1.3rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    background: linear-gradient(145deg, #342c1e, #72541e 58%, #b28a36);
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(45, 34, 13, 0.2);
+}
+
+.library-book-cover::before {
+    position: absolute;
+    inset: 9px;
+    border: 1px solid rgba(255, 242, 205, 0.45);
+    border-radius: 5px;
+    content: '';
+    pointer-events: none;
+}
+
+.library-book-series,
+.library-book-year,
+.library-book-origin { z-index: 1; }
+
+.library-book-series {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+}
+
+.library-book-cover > i { color: #f1d68d; font-size: 1.55rem; }
+
+.library-book-cover > strong {
+    max-width: 100%;
+    font: 700 1.35rem/1.2 'Lora', serif;
+    overflow-wrap: anywhere;
+}
+
+.library-book-year { font-size: 0.78rem; }
+.library-book-origin { font-size: 0.72rem; opacity: 0.9; }
+
+.books-empty {
+    grid-column: 1 / -1;
+    padding: 2rem 1rem;
+    border: 1px dashed var(--border-light);
+    border-radius: 12px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
 .cat-origin {
     font-size: 0.8rem;
     color: #888;
