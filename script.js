@@ -256,7 +256,9 @@ function setupFontSizeControls() {
     const increase = document.getElementById('increaseFontSize');
     const reset = document.getElementById('resetFontSize');
     const status = document.getElementById('fontSizeStatus');
-    if (!decrease || !increase || !reset || !status) return;
+    const toggle = document.getElementById('fontSettingsToggle');
+    const panel = document.getElementById('fontSizePanel');
+    if (!decrease || !increase || !reset || !status || !toggle || !panel) return;
 
     const minimum = 1;
     const maximum = 1.5;
@@ -287,6 +289,26 @@ function setupFontSizeControls() {
     increase.addEventListener('click', () => applyScale(scale + step));
     reset.addEventListener('click', () => applyScale(minimum));
     applyScale(scale);
+
+    const setPanelOpen = isOpen => {
+        panel.hidden = !isOpen;
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        toggle.setAttribute('aria-label', isOpen ? 'Fechar configurações de acessibilidade' : 'Abrir configurações de acessibilidade');
+        if (isOpen) increase.focus();
+    };
+
+    toggle.addEventListener('click', () => setPanelOpen(panel.hidden));
+    panel.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+            setPanelOpen(false);
+            toggle.focus();
+        }
+    });
+    document.addEventListener('pointerdown', event => {
+        if (!panel.hidden && !panel.contains(event.target) && !toggle.contains(event.target)) {
+            setPanelOpen(false);
+        }
+    });
 }
 
 let fullBibleData = null;
