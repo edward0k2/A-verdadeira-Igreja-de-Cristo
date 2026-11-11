@@ -798,7 +798,9 @@ function setupEucharisticMiracles() {
                     <span class="miracle-card-country"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> ${item.country}</span>
                     <h3>${item.place}</h3>
                     <p class="miracle-card-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> ${item.date}</p>
-                    <span class="miracle-card-credit">Registro da exposição de São Carlo Acutis</span>
+                    <button type="button" class="miracle-read-button" data-miracle-document="${item.id}" ${item.documentSlug ? '' : 'disabled'}>
+                        <i class="fa-solid fa-book-open" aria-hidden="true"></i> Ler relato e documento completo
+                    </button>
                 </div>
             </article>`).join('');
         status.textContent = `${records.length} ${records.length === 1 ? 'registro encontrado' : 'registros encontrados'} de ${eucharisticMiraclesData.length}.`;
@@ -808,6 +810,16 @@ function setupEucharisticMiracles() {
     search.addEventListener('input', render);
     countryFilter.addEventListener('change', render);
     dateFilter.addEventListener('change', render);
+    grid.addEventListener('click', event => {
+        const button = event.target.closest('[data-miracle-document]');
+        if (!button) return;
+        const miracle = eucharisticMiraclesData.find(item => item.id === Number(button.dataset.miracleDocument));
+        if (miracle) openMiracleDocument(miracle);
+    });
+    const reader = document.getElementById('miracleReaderDialog');
+    const readerFrame = document.getElementById('miracleReaderFrame');
+    document.getElementById('closeMiracleReader')?.addEventListener('click', () => reader?.close());
+    reader?.addEventListener('close', () => { if (readerFrame) readerFrame.src = 'about:blank'; });
     document.getElementById('clearMiraclesSearch')?.addEventListener('click', () => {
         search.value = '';
         countryFilter.value = 'all';
@@ -816,6 +828,17 @@ function setupEucharisticMiracles() {
         search.focus();
     });
     render();
+}
+
+function openMiracleDocument(miracle) {
+    const reader = document.getElementById('miracleReaderDialog');
+    const frame = document.getElementById('miracleReaderFrame');
+    if (!reader || !frame || !miracle.documentSlug) return;
+    document.getElementById('miracleReaderTitle').textContent = miracle.place;
+    document.getElementById('miracleReaderMeta').textContent = `${miracle.country} · ${miracle.date}`;
+    const pdfUrl = `https://www.miracolieucaristici.org/pr/download/${encodeURIComponent(miracle.documentSlug)}.pdf#toolbar=1&navpanes=0&view=FitH`;
+    frame.src = pdfUrl;
+    reader.showModal();
 }
 
 function openStats() {
