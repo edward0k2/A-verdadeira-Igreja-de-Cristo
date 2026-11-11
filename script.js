@@ -244,6 +244,7 @@ function init() {
     renderLivros();
     renderSaints();
     setupHistoryDirectories();
+    setupSaintReaderResponsiveLayout();
     setupEventListeners();
     setupTercoLive();
     setupBackToTop();
@@ -1012,6 +1013,22 @@ function applyHistoryDirectory(type, resetPage = false) {
 
 let currentSaintPage = 0;
 let currentSaintPages = [];
+let saintPageTurnDirection = '';
+let saintReaderMobileLayout = window.matchMedia('(max-width: 768px)').matches;
+
+function setupSaintReaderResponsiveLayout() {
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(() => {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            const modal = document.getElementById('infoModal');
+            if (isMobile === saintReaderMobileLayout || !currentSaintPages.length || !modal?.getClientRects().length) return;
+            saintReaderMobileLayout = isMobile;
+            renderSaintBookContent();
+        }, 120);
+    });
+}
 
 async function showSaintDetails(id) {
     const saint = saintsData.find(s => s.id === id);
@@ -1027,14 +1044,6 @@ async function showSaintDetails(id) {
     currentSaintPages = await createDynamicPages(saint);
     
     renderSaintBookContent();
-    setupOrientationControl();
-}
-
-function setupOrientationControl() {
-    // Verifica se é mobile para sugerir rotação
-    if (window.innerWidth <= 768 && window.innerHeight > window.innerWidth) {
-        // Opcional: Mostrar um aviso visual suave
-    }
 }
 
 async function toggleFullScreen() {
@@ -1138,42 +1147,46 @@ async function createDynamicPages(saint) {
 
 function renderSaintBookContent() {
     const body = document.getElementById('modalBody');
-    const pageDataLeft = currentSaintPages[currentSaintPage * 2];
-    const pageDataRight = currentSaintPages[currentSaintPage * 2 + 1];
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    saintReaderMobileLayout = isMobile;
+    const pageStart = isMobile ? currentSaintPage : currentSaintPage - (currentSaintPage % 2);
+    currentSaintPage = pageStart;
+    const pageDataLeft = currentSaintPages[pageStart];
+    const pageDataRight = isMobile ? null : currentSaintPages[pageStart + 1];
+    const totalPages = currentSaintPages.length;
+    const pageLabel = pageDataRight
+        ? `Páginas ${pageStart + 1}–${Math.min(pageStart + 2, totalPages)} de ${totalPages}`
+        : `Página ${pageStart + 1} de ${totalPages}`;
+    const turnClass = saintPageTurnDirection ? `page-turn-${saintPageTurnDirection}` : '';
+    saintPageTurnDirection = '';
 
     body.innerHTML = `
-        <div class="book-reader">
+        <div class="book-reader ${turnClass}" aria-label="Leitor da história">
             <div class="book-container-inner" id="bookContainer">
                 <div class="book-spine"></div>
-                
-                <!-- Página Esquerda -->
-                <div class="book-page page-left ${pageDataLeft ? '' : 'page-empty'} ${currentSaintPages[0]?.hasSources ? 'pope-book-page' : ''}">
+                <article class="book-page page-left ${currentSaintPages[0]?.hasSources ? 'pope-book-page' : ''}" aria-label="${pageLabel}">
                     ${renderPageContent(pageDataLeft)}
-                    ${pageDataLeft ? `<div class="page-number">${currentSaintPage * 2 + 1}</div>` : ''}
-                </div>
+                    ${pageDataLeft ? `<div class="page-number">${pageStart + 1}</div>` : ''}
+                </article>
 
-                <!-- Página Direita -->
-                <div class="book-page page-right ${pageDataRight ? '' : 'page-empty'} ${currentSaintPages[0]?.hasSources ? 'pope-book-page' : ''}">
-                    ${renderPageContent(pageDataRight)}
-                    ${pageDataRight ? `<div class="page-number">${currentSaintPage * 2 + 2}</div>` : ''}
-                </div>
+                ${pageDataRight ? `
+                    <article class="book-page page-right ${currentSaintPages[0]?.hasSources ? 'pope-book-page' : ''}" aria-label="Página ${pageStart + 2} de ${totalPages}">
+                        ${renderPageContent(pageDataRight)}
+                        <div class="page-number">${pageStart + 2}</div>
+                    </article>` : ''}
             </div>
         </div>
         
         <div class="book-nav">
-            <button onclick="prevSaintPage()" class="btn-book-nav" ${currentSaintPage === 0 ? 'disabled style="opacity:0.5; cursor:default;"' : ''}>← Página Anterior</button>
+            <button type="button" onclick="prevSaintPage()" class="btn-book-nav" aria-label="Página anterior" ${pageStart === 0 ? 'disabled' : ''}>← Anterior</button>
             <div class="page-controls">
-                <span style="font-family: var(--font-heading); color: var(--text-muted);">Páginas ${currentSaintPage * 2 + 1}-${currentSaintPage * 2 + 2}</span>
-                <button onclick="toggleFullScreen()" class="btn-book-nav" style="margin-left: 10px;" title="Tela Cheia para melhor leitura">⛶</button>
+                <span class="book-page-status" aria-live="polite">${pageLabel}</span>
+                <button type="button" onclick="toggleFullScreen()" class="btn-book-fullscreen" aria-label="Alternar tela cheia" title="Alternar tela cheia">⛶</button>
             </div>
-            <button onclick="nextSaintPage()" class="btn-book-nav" ${currentSaintPage * 2 + 2 >= currentSaintPages.length ? 'disabled style="opacity:0.5; cursor:default;"' : ''}>Próxima Página →</button>
-        </div>
-        
-        <div class="orientation-warning">
-            <div class="warning-icon">🔄</div>
-            <p>Gire o celular para o lado para uma melhor leitura do livro.</p>
+            <button type="button" onclick="nextSaintPage()" class="btn-book-nav" aria-label="Próxima página" ${pageStart + (isMobile ? 1 : 2) >= totalPages ? 'disabled' : ''}>Próxima →</button>
         </div>
     `;
+    body.scrollTop = 0;
 }
 
 function escapeHtml(value) {
@@ -1186,16 +1199,17 @@ function renderPageContent(page) {
     if (!page) return '<div class="book-content" style="text-align:center; margin-top:50%; opacity:0.1; font-style:italic;">Finis</div>';
 
     if (page.type === 'sources') {
+        const hasPontificateData = Array.isArray(page.dados) && page.dados.length > 0;
         return `
             <div class="pope-sources">
-                <h3>Dados da Santa Sé</h3>
-                <dl>${page.dados.map(([label, value]) => `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd>`).join('')}</dl>
-                <p class="pope-date-note">Datas na notação original: meses em algarismos romanos; “ou” indica alternativas e reticências indicam informação incompleta. O início pode reunir datas de eleição, consagração ou inauguração.</p>
-                <h4>Fontes e retrato</h4>
+                <h3>${hasPontificateData ? 'Dados do pontificado' : 'Fontes da biografia'}</h3>
+                ${hasPontificateData ? `<dl>${page.dados.map(([label, value]) => `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd>`).join('')}</dl>
+                <p class="pope-date-note">Datas na notação original: meses em algarismos romanos; “ou” indica alternativas e reticências indicam informação incompleta. O início pode reunir datas de eleição, consagração ou inauguração.</p>` : ''}
+                <h4>${page.fonteFoto ? 'Fontes e retrato' : 'Fontes consultadas'}</h4>
                 <ul>${page.fontes.map(source => `<li><a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.titulo)}</a></li>`).join('')}
-                    <li><a href="${escapeHtml(page.fonteFoto)}" target="_blank" rel="noopener noreferrer">Retrato no site do Vaticano</a></li>
+                    ${page.fonteFoto ? `<li><a href="${escapeHtml(page.fonteFoto)}" target="_blank" rel="noopener noreferrer">Retrato no site do Vaticano</a></li>` : ''}
                 </ul>
-                <p class="pope-date-note">Consulta: ${escapeHtml(page.consultadoEm.split('-').reverse().join('/'))}.</p>
+                ${page.consultadoEm ? `<p class="pope-date-note">Consulta: ${escapeHtml(page.consultadoEm.split('-').reverse().join('/'))}.</p>` : ''}
             </div>`;
     }
 
@@ -1232,31 +1246,25 @@ function renderPageContent(page) {
 }
 
 function nextSaintPage() {
-    if ((currentSaintPage + 1) * 2 < currentSaintPages.length) {
-        const container = document.getElementById('bookContainer');
-        container.style.transition = "transform 0.4s ease-in-out";
-        container.style.transform = "rotateY(-5deg)";
-        
-        setTimeout(() => {
-            currentSaintPage++;
-            renderSaintBookContent();
-            container.style.transform = "rotateY(0deg)";
-        }, 200);
-    }
+    const pageStep = window.matchMedia('(max-width: 768px)').matches ? 1 : 2;
+    const currentStart = window.matchMedia('(max-width: 768px)').matches
+        ? currentSaintPage
+        : currentSaintPage - (currentSaintPage % 2);
+    if (currentStart + pageStep >= currentSaintPages.length) return;
+    saintPageTurnDirection = 'forward';
+    currentSaintPage = currentStart + pageStep;
+    renderSaintBookContent();
 }
 
 function prevSaintPage() {
-    if (currentSaintPage > 0) {
-        const container = document.getElementById('bookContainer');
-        container.style.transition = "transform 0.4s ease-in-out";
-        container.style.transform = "rotateY(5deg)";
-        
-        setTimeout(() => {
-            currentSaintPage--;
-            renderSaintBookContent();
-            container.style.transform = "rotateY(0deg)";
-        }, 200);
-    }
+    const pageStep = window.matchMedia('(max-width: 768px)').matches ? 1 : 2;
+    const currentStart = window.matchMedia('(max-width: 768px)').matches
+        ? currentSaintPage
+        : currentSaintPage - (currentSaintPage % 2);
+    if (currentStart <= 0) return;
+    saintPageTurnDirection = 'backward';
+    currentSaintPage = Math.max(0, currentStart - pageStep);
+    renderSaintBookContent();
 }
 
 function renderCatechisms() {
@@ -1816,7 +1824,6 @@ async function showPapaDetails(id) {
     currentSaintPages = await createDynamicPages(papaAsSaint);
     
     renderSaintBookContent();
-    setupOrientationControl();
 }
 
 function scrollExtreme(wrapperId, position) {
