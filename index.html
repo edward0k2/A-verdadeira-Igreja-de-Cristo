@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>História da Salvação - Livro Interativo</title>
-    <link rel="stylesheet" href="style.css?v=3.1">
+    <link rel="stylesheet" href="style.css?v=3.2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -27,6 +27,15 @@
                 <li><a href="#" id="btnLivros">Livros</a></li>
                 <li><a href="#" id="btnCatecismo">Catecismo</a></li>
                 <li><a href="#" id="btnSantos">Santos Incorruptíveis</a></li>
+                <li class="font-size-menu-item">
+                    <div class="font-size-controls" role="group" aria-label="Tamanho do texto">
+                        <span class="font-size-label">Tamanho do texto</span>
+                        <button type="button" id="decreaseFontSize" aria-label="Diminuir tamanho do texto">A−</button>
+                        <button type="button" id="increaseFontSize" aria-label="Aumentar tamanho do texto">A+</button>
+                        <button type="button" id="resetFontSize">Normal</button>
+                        <span id="fontSizeStatus" class="font-size-status" aria-live="polite">100%</span>
+                    </div>
+                </li>
             </ul>
         </nav>
         <div class="nav-right">
@@ -590,7 +599,7 @@
     <script src="santos-adicionais-data.js?v=1"></script>
     <script src="papas-data.js?v=20261110"></script>
     <script src="bible-story-data.js?v=20261111"></script>
-    <script src="script.js?v=3.3"></script>
+    <script src="script.js?v=3.4"></script>
 </body>
 
 </html>

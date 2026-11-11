@@ -236,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function init() {
+    setupFontSizeControls();
     applyBibleStoryEvents();
     setupBibleReader();
     renderSummary();
@@ -247,6 +248,45 @@ function init() {
     setupTercoLive();
     setupBackToTop();
     initProgress();
+}
+
+function setupFontSizeControls() {
+    const root = document.documentElement;
+    const decrease = document.getElementById('decreaseFontSize');
+    const increase = document.getElementById('increaseFontSize');
+    const reset = document.getElementById('resetFontSize');
+    const status = document.getElementById('fontSizeStatus');
+    if (!decrease || !increase || !reset || !status) return;
+
+    const minimum = 1;
+    const maximum = 1.5;
+    const step = 0.1;
+    let savedScale = null;
+    try {
+        savedScale = localStorage.getItem('siteFontScale');
+    } catch (error) {
+        // O controle segue disponível mesmo quando o navegador bloqueia o armazenamento local.
+    }
+    let scale = Number(savedScale);
+    if (!Number.isFinite(scale) || scale < minimum || scale > maximum) scale = minimum;
+
+    const applyScale = nextScale => {
+        scale = Math.min(maximum, Math.max(minimum, Math.round(nextScale * 10) / 10));
+        root.style.fontSize = `${scale * 100}%`;
+        status.textContent = `${Math.round(scale * 100)}%`;
+        try {
+            localStorage.setItem('siteFontScale', String(scale));
+        } catch (error) {
+            // A alteração continua aplicada à página atual.
+        }
+        decrease.disabled = scale <= minimum;
+        increase.disabled = scale >= maximum;
+    };
+
+    decrease.addEventListener('click', () => applyScale(scale - step));
+    increase.addEventListener('click', () => applyScale(scale + step));
+    reset.addEventListener('click', () => applyScale(minimum));
+    applyScale(scale);
 }
 
 let fullBibleData = null;
