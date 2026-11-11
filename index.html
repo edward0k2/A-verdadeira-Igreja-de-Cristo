@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>História da Salvação - Livro Interativo</title>
-    <link rel="stylesheet" href="style.css?v=2.9">
+    <link rel="stylesheet" href="style.css?v=3.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -188,6 +188,31 @@
                 <p class="pope-date-note">De São Pedro a Leão XIV — 267 pontificados. A numeração segue a <a href="https://www.vatican.va/content/vatican/pt.html" target="_blank" rel="noopener noreferrer">lista da Santa Sé</a>, incluindo os três períodos de Bento IX.</p>
             </div>
 
+            <div class="history-directory-tools" data-directory-tools="popes">
+                <div class="history-directory-search">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <input id="papasSearch" type="search" autocomplete="off" placeholder="Buscar papa, período ou história…" aria-label="Buscar papas por nome, período ou história">
+                    <button type="button" data-clear-directory="popes" aria-label="Limpar busca de papas"><i class="fas fa-times" aria-hidden="true"></i></button>
+                </div>
+                <label>Período
+                    <select id="papasPeriodFilter" aria-label="Filtrar papas por século">
+                        <option value="all">Todos os séculos</option>
+                    </select>
+                </label>
+                <label>Ordem
+                    <select id="papasSort" aria-label="Ordenar papas">
+                        <option value="chronological">Cronológica</option>
+                        <option value="alphabetical">Nome A–Z</option>
+                    </select>
+                </label>
+                <p id="papasDirectoryStatus" class="history-directory-status" role="status" aria-live="polite"></p>
+                <div class="history-directory-pagination" data-directory-pagination="popes">
+                    <button type="button" data-page-direction="previous" aria-label="Página anterior de papas"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+                    <span class="history-page-status"></span>
+                    <button type="button" data-page-direction="next" aria-label="Próxima página de papas"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+                </div>
+            </div>
+
             <div class="road-viewer">
                 <!-- Botões de Navegação Lateral -->
                 <div class="nav-side-group nav-side-left">
@@ -205,6 +230,11 @@
                     <button class="btn-scroll" onclick="scrollRoad('roadWrapperPapas', 1)" title="Rolar Direita">&gt;</button>
                     <button class="btn-scroll btn-extreme" onclick="scrollExtreme('roadWrapperPapas', 'end')" title="Ir ao Fim">&gt;&gt;</button>
                 </div>
+            </div>
+            <div class="history-directory-pagination history-directory-pagination-bottom" data-directory-pagination="popes">
+                <button type="button" data-page-direction="previous" aria-label="Página anterior de papas"><i class="fas fa-chevron-left" aria-hidden="true"></i> Anterior</button>
+                <span class="history-page-status"></span>
+                <button type="button" data-page-direction="next" aria-label="Próxima página de papas">Próxima <i class="fas fa-chevron-right" aria-hidden="true"></i></button>
             </div>
         </section>
 
@@ -412,6 +442,35 @@
                 <h2>Santos, Beatos e Mártires</h2>
                 <p>A história daqueles que viveram o Evangelho com radicalidade desde a origem da Igreja.</p>
             </div>
+            <div class="history-directory-tools" data-directory-tools="saints">
+                <div class="history-directory-search">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <input id="saintsSearch" type="search" autocomplete="off" placeholder="Buscar santo, data ou história…" aria-label="Buscar santos por nome, data ou história">
+                    <button type="button" data-clear-directory="saints" aria-label="Limpar busca de santos"><i class="fas fa-times" aria-hidden="true"></i></button>
+                </div>
+                <label>Período
+                    <select id="saintsPeriodFilter" aria-label="Filtrar santos por período">
+                        <option value="all">Todos os períodos</option>
+                        <option value="ancient">Antes de Cristo</option>
+                        <option value="early">Primeiros séculos</option>
+                        <option value="medieval">Idade Média</option>
+                        <option value="modern">Época moderna e contemporânea</option>
+                        <option value="unknown">Data não especificada</option>
+                    </select>
+                </label>
+                <label>Ordem
+                    <select id="saintsSort" aria-label="Ordenar santos">
+                        <option value="chronological">Cronológica</option>
+                        <option value="alphabetical">Nome A–Z</option>
+                    </select>
+                </label>
+                <p id="saintsDirectoryStatus" class="history-directory-status" role="status" aria-live="polite"></p>
+                <div class="history-directory-pagination" data-directory-pagination="saints">
+                    <button type="button" data-page-direction="previous" aria-label="Página anterior de santos"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+                    <span class="history-page-status"></span>
+                    <button type="button" data-page-direction="next" aria-label="Próxima página de santos"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+                </div>
+            </div>
             <div class="road-viewer">
                 <!-- Botões de Navegação Lateral -->
                 <div class="nav-side-group nav-side-left">
@@ -429,6 +488,11 @@
                     <button class="btn-scroll" onclick="scrollRoad('roadWrapperSaints', 1)" title="Rolar Direita">&gt;</button>
                     <button class="btn-scroll btn-extreme" onclick="scrollExtreme('roadWrapperSaints', 'end')" title="Ir ao Fim">&gt;&gt;</button>
                 </div>
+            </div>
+            <div class="history-directory-pagination history-directory-pagination-bottom" data-directory-pagination="saints">
+                <button type="button" data-page-direction="previous" aria-label="Página anterior de santos"><i class="fas fa-chevron-left" aria-hidden="true"></i> Anterior</button>
+                <span class="history-page-status"></span>
+                <button type="button" data-page-direction="next" aria-label="Próxima página de santos">Próxima <i class="fas fa-chevron-right" aria-hidden="true"></i></button>
             </div>
         </section>
     </main>
@@ -525,7 +589,7 @@
     <script src="santos-data.js"></script>
     <script src="papas-data.js?v=20261110"></script>
     <script src="bible-story-data.js?v=20261111"></script>
-    <script src="script.js?v=2.9"></script>
+    <script src="script.js?v=3.0"></script>
 </body>
 
 </html>

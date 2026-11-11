@@ -242,6 +242,7 @@ function init() {
     renderCatechisms();
     renderLivros();
     renderSaints();
+    setupHistoryDirectories();
     setupEventListeners();
     setupTercoLive();
     setupBackToTop();
@@ -741,9 +742,10 @@ function renderSaints() {
     if (!timeline) return;
     timeline.innerHTML = '';
 
-    saintsData.forEach(saint => {
+    saintsData.forEach((saint, index) => {
         const node = document.createElement('div');
         node.className = 'road-node';
+        node.dataset.directoryIndex = index;
 
         node.innerHTML = `
             <div class="personagens-wrapper">
@@ -758,6 +760,177 @@ function renderSaints() {
         `;
 
         timeline.appendChild(node);
+    });
+}
+
+const historyDirectoryState = {
+    popes: { page: 0 },
+    saints: { page: 0 }
+};
+
+function normalizeDirectoryText(value) {
+    return String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR');
+}
+
+function romanNumber(value) {
+    const roman = String(value || '').toUpperCase();
+    const values = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+    let result = 0;
+    for (let index = 0; index < roman.length; index += 1) {
+        const current = values[roman[index]] || 0;
+        const next = values[roman[index + 1]] || 0;
+        result += current < next ? -current : current;
+    }
+    return result;
+}
+
+function directoryRecordYear(record, type) {
+    const period = String(type === 'popes' ? record.periodo : record.data || '');
+    const arabicYear = period.match(/\d{1,4}/);
+    if (arabicYear) {
+        const year = Number(arabicYear[0]);
+        return /a\.?\s*C\.?/i.test(period) ? -year : year;
+    }
+    const century = period.match(/s[eé]c(?:ulo)?\.?\s*([IVXLCDM]+)/i);
+    if (century) {
+        const centuryNumber = romanNumber(century[1]);
+        const approximateYear = (centuryNumber - 1) * 100 + 50;
+        return /a\.?\s*C\.?/i.test(period) ? -approximateYear : approximateYear;
+    }
+    return null;
+}
+
+function popeCentury(record) {
+    const year = directoryRecordYear(record, 'popes');
+    return year ? Math.ceil(year / 100) : null;
+}
+
+function saintEra(record) {
+    const year = directoryRecordYear(record, 'saints');
+    if (year === null) return 'unknown';
+    if (year < 0) return 'ancient';
+    if (year < 500) return 'early';
+    if (year < 1500) return 'medieval';
+    return 'modern';
+}
+
+function directorySearchableText(record) {
+    const values = [];
+    const collect = value => {
+        if (typeof value === 'string' || typeof value === 'number') values.push(value);
+        else if (Array.isArray(value)) value.forEach(collect);
+        else if (value && typeof value === 'object') Object.values(value).forEach(collect);
+    };
+    collect(record);
+    return normalizeDirectoryText(values.join(' '));
+}
+
+function setupHistoryDirectories() {
+    ['popes', 'saints'].forEach(type => {
+        const search = document.getElementById(type === 'popes' ? 'papasSearch' : 'saintsSearch');
+        const period = document.getElementById(type === 'popes' ? 'papasPeriodFilter' : 'saintsPeriodFilter');
+        const sort = document.getElementById(type === 'popes' ? 'papasSort' : 'saintsSort');
+        if (!search || !period || !sort) return;
+
+        if (type === 'popes') {
+            const centuries = [...new Set(papasData.map(popeCentury).filter(Boolean))].sort((a, b) => a - b);
+            period.innerHTML = '<option value="all">Todos os séculos</option>' + centuries
+                .map(century => `<option value="${century}">Século ${century}</option>`).join('');
+        }
+
+        search.addEventListener('input', () => applyHistoryDirectory(type, true));
+        period.addEventListener('change', () => applyHistoryDirectory(type, true));
+        sort.addEventListener('change', () => applyHistoryDirectory(type, true));
+        document.querySelectorAll(`[data-clear-directory="${type}"]`).forEach(button => {
+            button.addEventListener('click', () => {
+                search.value = '';
+                period.value = 'all';
+                sort.value = 'chronological';
+                applyHistoryDirectory(type, true);
+                search.focus();
+            });
+        });
+        document.querySelectorAll(`[data-directory-pagination="${type}"] [data-page-direction]`).forEach(button => {
+            button.addEventListener('click', () => {
+                const pageChange = button.dataset.pageDirection === 'next' ? 1 : -1;
+                historyDirectoryState[type].page += pageChange;
+                applyHistoryDirectory(type);
+                document.querySelector(`[data-directory-tools="${type}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        applyHistoryDirectory(type, true);
+    });
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(() => {
+            applyHistoryDirectory('popes');
+            applyHistoryDirectory('saints');
+        }, 120);
+    });
+}
+
+function applyHistoryDirectory(type, resetPage = false) {
+    const isPopeDirectory = type === 'popes';
+    const records = isPopeDirectory ? papasData : saintsData;
+    const timeline = document.getElementById(isPopeDirectory ? 'papasTimeline' : 'saintsTimeline');
+    const searchInput = document.getElementById(isPopeDirectory ? 'papasSearch' : 'saintsSearch');
+    const periodSelect = document.getElementById(isPopeDirectory ? 'papasPeriodFilter' : 'saintsPeriodFilter');
+    const sortSelect = document.getElementById(isPopeDirectory ? 'papasSort' : 'saintsSort');
+    const status = document.getElementById(isPopeDirectory ? 'papasDirectoryStatus' : 'saintsDirectoryStatus');
+    if (!timeline || !searchInput || !periodSelect || !sortSelect || !status) return;
+
+    const state = historyDirectoryState[type];
+    if (resetPage) state.page = 0;
+    const query = normalizeDirectoryText(searchInput.value.trim());
+    const selectedPeriod = periodSelect.value;
+    const filtered = records.map((record, index) => ({ record, index }))
+        .filter(({ record }) => {
+            if (query && !directorySearchableText(record).includes(query)) return false;
+            if (selectedPeriod === 'all') return true;
+            if (isPopeDirectory) return popeCentury(record) === Number(selectedPeriod);
+            return saintEra(record) === selectedPeriod;
+        });
+
+    if (sortSelect.value === 'alphabetical') {
+        filtered.sort((a, b) => a.record.nome.localeCompare(b.record.nome, 'pt-BR'));
+    } else {
+        filtered.sort((a, b) => a.index - b.index);
+    }
+
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const pageSize = isMobile ? 6 : filtered.length || 1;
+    const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+    state.page = Math.min(Math.max(state.page, 0), totalPages - 1);
+    const start = state.page * pageSize;
+    const pageItems = isMobile ? filtered.slice(start, start + pageSize) : filtered;
+    const nodesByIndex = new Map([...timeline.children].map(node => [Number(node.dataset.directoryIndex), node]));
+
+    [...timeline.children].forEach(node => node.classList.add('directory-item-hidden'));
+    pageItems.forEach(item => {
+        const node = nodesByIndex.get(item.index);
+        if (!node) return;
+        node.classList.remove('directory-item-hidden');
+        timeline.appendChild(node);
+    });
+
+    const label = isPopeDirectory ? 'papas' : 'santos';
+    if (!filtered.length) status.textContent = 'Nenhum perfil encontrado. Tente outro nome ou período.';
+    else if (isMobile) status.textContent = `Exibindo ${start + 1}–${Math.min(start + pageSize, filtered.length)} de ${filtered.length} ${label}.`;
+    else status.textContent = `${filtered.length} ${label} encontrados.`;
+
+    document.querySelectorAll(`[data-directory-pagination="${type}"]`).forEach(pager => {
+        pager.hidden = !isMobile || totalPages < 2;
+        pager.querySelectorAll('.history-page-status').forEach(pageStatus => {
+            pageStatus.textContent = `Página ${state.page + 1} de ${totalPages}`;
+        });
+        pager.querySelectorAll('[data-page-direction="previous"]').forEach(button => {
+            button.disabled = state.page === 0;
+        });
+        pager.querySelectorAll('[data-page-direction="next"]').forEach(button => {
+            button.disabled = state.page >= totalPages - 1;
+        });
     });
 }
 
@@ -1515,9 +1688,10 @@ function renderPapasTimeline() {
     if (!timeline) return;
     timeline.innerHTML = '';
 
-    papasData.forEach(papa => {
+    papasData.forEach((papa, index) => {
         const node = document.createElement('div');
         node.className = 'road-node';
+        node.dataset.directoryIndex = index;
         
         node.innerHTML = `
             <div class="personagens-wrapper">
@@ -1532,6 +1706,7 @@ function renderPapasTimeline() {
         `;
         timeline.appendChild(node);
     });
+    applyHistoryDirectory('popes');
 }
 
 async function showPapaDetails(id) {
