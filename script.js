@@ -1523,7 +1523,6 @@ function renderSummary() {
                 <h3>${cap.titulo}</h3>
                 <p style="font-size: 0.85rem; color: var(--text-muted);">${cap.descricao}</p>
                 <p class="bible-card-reference"><i class="fas fa-bookmark" aria-hidden="true"></i> ${cap.eventos[0]?.referencia || 'Percurso bíblico'}</p>
-                <p class="bible-card-characters">Personagens: ${cap.eventos[0]?.personagens.map(person => person.nome).join(', ') || '—'}</p>
             `;
             card.onclick = () => openChapter(index, 'AT');
             gridAT.appendChild(card);
@@ -1542,7 +1541,6 @@ function renderSummary() {
                 <h3>${cap.titulo}</h3>
                 <p style="font-size: 0.85rem; color: var(--text-muted);">${cap.descricao}</p>
                 <p class="bible-card-reference"><i class="fas fa-bookmark" aria-hidden="true"></i> ${cap.eventos[0]?.referencia || 'Percurso bíblico'}</p>
-                <p class="bible-card-characters">Personagens: ${cap.eventos[0]?.personagens.map(person => person.nome).join(', ') || '—'}</p>
             `;
             card.onclick = () => openChapter(index, 'NT');
             gridNT.appendChild(card);
