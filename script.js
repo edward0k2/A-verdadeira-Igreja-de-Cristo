@@ -1169,10 +1169,9 @@ function renderSaintBookContent() {
                     ${pageDataLeft ? `<div class="page-number">${pageStart + 1}</div>` : ''}
                 </article>
 
-                ${pageDataRight ? `
-                    <article class="book-page page-right ${currentSaintPages[0]?.hasSources ? 'pope-book-page' : ''}" aria-label="Página ${pageStart + 2} de ${totalPages}">
-                        ${renderPageContent(pageDataRight)}
-                        <div class="page-number">${pageStart + 2}</div>
+                ${!isMobile ? `
+                    <article class="book-page page-right ${pageDataRight ? (currentSaintPages[0]?.hasSources ? 'pope-book-page' : '') : 'page-empty'}" ${pageDataRight ? `aria-label="Página ${pageStart + 2} de ${totalPages}"` : 'aria-hidden="true"'}>
+                        ${pageDataRight ? `${renderPageContent(pageDataRight)}<div class="page-number">${pageStart + 2}</div>` : ''}
                     </article>` : ''}
             </div>
         </div>

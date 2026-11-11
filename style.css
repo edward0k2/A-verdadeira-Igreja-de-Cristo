@@ -2436,7 +2436,9 @@ body {
 }
 
 .book-page {
-    flex: 1;
+    flex: 0 0 50%;
+    width: 50%;
+    max-width: 50%;
     min-width: 0;
     padding: clamp(1.5rem, 3.4vw, 3rem);
     background: #fffdf8;
@@ -2463,6 +2465,11 @@ body {
 
 .page-empty {
     background: #f9f9f9;
+}
+
+.book-page.page-empty {
+    box-shadow: none;
+    overflow: hidden;
 }
 
 .book-content {
@@ -3175,6 +3182,7 @@ body {
 
     .book-page {
         width: 100%;
+        max-width: 100%;
         min-height: min(62dvh, 560px);
         height: auto;
         padding: 1.1rem;
