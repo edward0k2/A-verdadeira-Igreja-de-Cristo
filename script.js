@@ -185,47 +185,47 @@ const catecismoData = [
 const livrosData = [
     {
         ordem: "I",
-        titulo: "Dei Verbum",
-        subtitulo: "Constituição Dogmática sobre a Revelação Divina",
-        ano: "1965",
-        origem: "Concílio Vaticano II",
-        descricao: "A Revelação divina, sua transmissão na Igreja e a inspiração e interpretação da Sagrada Escritura.",
-        historia: "Promulgada por São Paulo VI em 18 de novembro de 1965, esta constituição apresenta a compreensão católica da Revelação e de sua transmissão pela Tradição e pela Escritura.",
-        doutrina: "Ensina que a Sagrada Tradição e a Sagrada Escritura estão intimamente unidas na transmissão da Palavra de Deus, sob a guarda do Magistério.",
-        fonte: "https://www.vatican.va/archive/hist_councils/ii_vatican_council/documents/vat-ii_const_19651118_dei-verbum_po.html"
+        titulo: "Livro Genérico 1",
+        ano: "2020",
+        capa: "./capas/catecismo amarelo.jpg", // Exemplo genérico
+        origem: "Autor Desconhecido",
+        descricao: "Uma introdução inspiradora sobre desenvolvimento pessoal e fé.",
+        historia: "Escrito como um manual rápido para o dia a dia moderno, mesclando doutrina e prática.",
+        doutrina: "Focado em pequenas ações diárias para buscar a perfeição cristã.",
+        pdf: ""
     },
     {
         ordem: "II",
-        titulo: "Lumen Gentium",
-        subtitulo: "Constituição Dogmática sobre a Igreja",
-        ano: "1964",
-        origem: "Concílio Vaticano II",
-        descricao: "A natureza e a missão da Igreja, Povo de Deus, Corpo de Cristo e comunidade peregrina.",
-        historia: "Promulgada por São Paulo VI em 21 de novembro de 1964, a constituição expõe o mistério da Igreja, sua estrutura e a vocação à santidade de todos os fiéis.",
-        doutrina: "Apresenta a Igreja como sacramento de união com Deus e de unidade de todo o gênero humano, reunida em Cristo e guiada pelo Espírito Santo.",
-        fonte: "https://www.vatican.va/archive/hist_councils/ii_vatican_council/documents/vat-ii_const_19641121_lumen-gentium_po.html"
+        titulo: "O Caminho da Paz",
+        ano: "2018",
+        capa: "./capas/catecismo maior.jpg",
+        origem: "São Tomás Cap.",
+        descricao: "Reflexões profundas sobre como encontrar paz interior.",
+        historia: "Uma coletânea de cartas e sermões que guiaram muitos no último século.",
+        doutrina: "Destaca a importância da oração constante e do recolhimento.",
+        pdf: ""
     },
     {
         ordem: "III",
-        titulo: "Sacrosanctum Concilium",
-        subtitulo: "Constituição sobre a Sagrada Liturgia",
-        ano: "1963",
-        origem: "Concílio Vaticano II",
-        descricao: "A liturgia da Igreja, a participação dos fiéis e a renovação da vida litúrgica.",
-        historia: "Promulgada por São Paulo VI em 4 de dezembro de 1963, foi o primeiro documento aprovado pelo Concílio Vaticano II.",
-        doutrina: "Ensina que a liturgia é o exercício do sacerdócio de Cristo e a fonte e o cume da vida e da missão da Igreja.",
-        fonte: "https://www.vatican.va/archive/hist_councils/ii_vatican_council/documents/vat-ii_const_19631204_sacrosanctum-concilium_po.html"
+        titulo: "História e Tradição",
+        ano: "2015",
+        capa: "./capas/catecismo romano.jpg",
+        origem: "Editora Ecclesia",
+        descricao: "Um resumo da história dos costumes e tradições.",
+        historia: "Compilado para resgatar a beleza da liturgia nos séculos passados.",
+        doutrina: "A liturgia como a fonte e o ápice da vida cristã.",
+        pdf: ""
     },
     {
         ordem: "IV",
-        titulo: "Gaudium et Spes",
-        subtitulo: "Constituição Pastoral sobre a Igreja no Mundo Atual",
-        ano: "1965",
-        origem: "Concílio Vaticano II",
-        descricao: "A dignidade humana e a relação da Igreja com a sociedade e os desafios do mundo contemporâneo.",
-        historia: "Promulgada por São Paulo VI em 7 de dezembro de 1965, aborda a vocação da pessoa humana e questões sociais, culturais, econômicas e políticas.",
-        doutrina: "A Igreja acompanha as alegrias e esperanças, tristezas e angústias da humanidade e oferece a luz do Evangelho a todos.",
-        fonte: "https://www.vatican.va/archive/hist_councils/ii_vatican_council/documents/vat-ii_const_19651207_gaudium-et-spes_po.html"
+        titulo: "Virtudes Diárias",
+        ano: "2023",
+        capa: "./capas/catecismo didaque.jpg",
+        origem: "Instituto Theotokos",
+        descricao: "Guia prático para viver as virtudes cardeais.",
+        historia: "Uma resposta moderna aos desafios éticos contemporâneos.",
+        doutrina: "Explicação prática de Prudência, Justiça, Fortaleza e Temperança.",
+        pdf: ""
     }
 ];
 
@@ -1417,18 +1417,9 @@ function showCatechismDetails(cat) {
 function renderLivros() {
     const grid = document.getElementById('booksGrid');
     if (!grid) return;
-    const search = document.getElementById('searchInputLivros');
-    if (search && search.dataset.bound !== 'true') {
-        search.addEventListener('input', renderLivros);
-        search.dataset.bound = 'true';
-    }
-    const query = normalizeDirectoryText(search?.value.trim() || '');
-    const filteredBooks = livrosData.filter(livro => normalizeDirectoryText(
-        `${livro.titulo} ${livro.subtitulo} ${livro.ano} ${livro.origem} ${livro.descricao}`
-    ).includes(query));
     grid.innerHTML = '';
 
-    filteredBooks.forEach(livro => {
+    livrosData.forEach(livro => {
         const card = document.createElement('div');
         card.className = 'catechism-card';
         card.innerHTML = `
@@ -1441,40 +1432,38 @@ function renderLivros() {
                 <p>${livro.descricao}</p>
                 <div class="btn-view-node">Explorar Detalhes →</div>
             </div>
-            <div class="library-book-cover" aria-hidden="true">
-                <span class="library-book-series">DOCUMENTO DO CONCÍLIO VATICANO II</span>
-                <i class="fa-solid fa-book-open"></i>
-                <strong>${livro.titulo}</strong>
-                <span class="library-book-year">${livro.ano}</span>
-                <span class="library-book-origin">${livro.origem}</span>
-            </div>
-        `;
+        <div class="cat-cover">
+            <img src="${livro.capa}" alt="Capa ${livro.titulo}">
+                <div class="cat-origin">Origem: ${livro.origem}</div>
+        </div>
+    `;
         card.onclick = () => showLivroDetails(livro);
         grid.appendChild(card);
     });
-    if (!filteredBooks.length) {
-        grid.innerHTML = '<p class="books-empty">Nenhum documento encontrado. Tente outro título ou termo.</p>';
-    }
 }
 
 function showLivroDetails(livro) {
     const modal = document.getElementById('infoModal');
     const body = document.getElementById('modalBody');
 
-    const sourceAction = livro.fonte ? `
+    let pdfActions = '';
+    if (livro.pdf) {
+        pdfActions = `
         <div class="pdf-actions">
-            <a href="${livro.fonte}" target="_blank" rel="noopener noreferrer" class="btn-action btn-read">Ler documento integral no Vaticano</a>
-        </div>` : '';
+            <a href="${livro.pdf}" download class="btn-action btn-download">↓ Baixar PDF</a>
+            <button onclick="readPdf('${livro.pdf}')" class="btn-action btn-read">📖 Ler PDF</button>
+        </div>`;
+    }
 
     body.innerHTML = `
-        <span style="color:#d4af37; font-weight:bold;">Documento do Concílio Vaticano II</span>
-        <h3>${livro.titulo}: ${livro.subtitulo} (${livro.ano})</h3>
+        <span style="color:#d4af37; font-weight:bold;">Livro</span>
+        <h3>${livro.titulo} (${livro.ano})</h3>
         <p style="margin-top:1.5rem;"><strong>História e Contexto:</strong> ${livro.historia}</p>
         <div class="interpretation">
             <strong>Doutrina e Importância:</strong><br>
             ${livro.doutrina}
         </div>
-        ${sourceAction}
+        ${pdfActions}
     `;
 
     modal.style.display = "block";
