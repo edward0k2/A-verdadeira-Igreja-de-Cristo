@@ -746,10 +746,13 @@ function renderSaints() {
         const node = document.createElement('div');
         node.className = 'road-node';
         node.dataset.directoryIndex = index;
+        const portrait = saint.foto
+            ? `<img src="${saint.foto}" alt="Foto ${saint.nome}" class="saint-photo-timeline" onclick="event.stopPropagation(); showSaintDetails(${saint.id})">`
+            : `<div class="saint-photo-timeline saint-photo-placeholder" role="img" aria-label="Retrato não disponível" onclick="showSaintDetails(${saint.id})">${saint.nome.split(/\s+/).filter(Boolean).slice(-2).map(part => part[0]).join('')}</div>`;
 
         node.innerHTML = `
             <div class="personagens-wrapper">
-                <img src="${saint.foto}" alt="Foto ${saint.nome}" class="saint-photo-timeline" onclick="event.stopPropagation(); showSaintDetails(${saint.id})">
+                ${portrait}
             </div>
             <div class="node-box" onclick="showSaintDetails(${saint.id})">
                 <span>${saint.data}</span>
@@ -785,8 +788,12 @@ function romanNumber(value) {
 }
 
 function directoryRecordYear(record, type) {
+    if (type === 'saints' && Number.isFinite(Number(record.anoCronologico))) {
+        return Number(record.anoCronologico);
+    }
     const period = String(type === 'popes' ? record.periodo : record.data || '');
-    const arabicYear = period.match(/\d{1,4}/);
+    const years = [...period.matchAll(/\d{1,4}/g)];
+    const arabicYear = type === 'saints' && years.length > 1 ? years[years.length - 1] : years[0];
     if (arabicYear) {
         const year = Number(arabicYear[0]);
         return /a\.?\s*C\.?/i.test(period) ? -year : year;
@@ -896,7 +903,14 @@ function applyHistoryDirectory(type, resetPage = false) {
     if (sortSelect.value === 'alphabetical') {
         filtered.sort((a, b) => a.record.nome.localeCompare(b.record.nome, 'pt-BR'));
     } else {
-        filtered.sort((a, b) => a.index - b.index);
+        filtered.sort((a, b) => {
+            const yearA = directoryRecordYear(a.record, type);
+            const yearB = directoryRecordYear(b.record, type);
+            if (yearA === null && yearB === null) return a.index - b.index;
+            if (yearA === null) return 1;
+            if (yearB === null) return -1;
+            return yearA - yearB || a.index - b.index;
+        });
     }
 
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
@@ -1126,14 +1140,14 @@ function renderPageContent(page) {
     if (page.type === 'cover') {
         return `
             <div style="text-align: center; margin-bottom: 25px;">
-                <img src="${page.foto}" alt="Foto ${page.nome}" style="width: 180px; height: 180px; border-radius: 12px; object-fit: cover; object-position: top; border: 4px solid var(--primary); box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+                ${page.foto ? `<img src="${page.foto}" alt="Foto ${page.nome}" style="width: 180px; height: 180px; border-radius: 12px; object-fit: cover; object-position: top; border: 4px solid var(--primary); box-shadow: 0 10px 25px rgba(0,0,0,0.15);">` : '<div class="book-image-placeholder" style="width:180px;height:180px;margin:auto;border-radius:12px;">Retrato não disponível</div>'}
             </div>
             <h3 style="text-align:center; font-size: 2rem; margin-bottom: 5px; color: var(--primary);">${page.nome}</h3>
             <p style="text-align:center; font-weight: bold; margin-bottom: 1.2rem; font-family: 'Outfit', sans-serif; color: #666; font-size: 0.9rem;">${page.data}</p>
             <div class="book-content">
                 <p>${page.content}</p>
             </div>
-            ${page.hasSources ? '<p class="pope-date-note">Retrato: Santa Sé. Referências e datas detalhadas nas páginas seguintes.</p>' : '<div class="book-image-placeholder" style="height: 160px; margin-top: auto;">Retrato de Época</div>'}
+            ${page.hasSources ? '<p class="pope-date-note">Referências e dados biográficos estão disponíveis nas páginas seguintes.</p>' : ''}
         `;
     }
 

@@ -1856,6 +1856,18 @@ body {
     /* Deslocamento para alinhar com o traÃ§o vertical da cruz */
 }
 
+.saint-photo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-hover);
+    background: #f5edda;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 .saint-photo-timeline:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
