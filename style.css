@@ -1931,6 +1931,7 @@ body {
     }
 
     .hamburger {
+        position: relative;
         display: flex;
         flex: 0 0 44px;
         width: 44px;
@@ -1939,6 +1940,34 @@ body {
         border: 1px solid var(--border-light);
         border-radius: 8px;
         background: var(--white);
+        transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hamburger::before,
+    .hamburger::after {
+        content: '';
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        border-radius: 3px;
+        background: #ffd45a;
+        transform: translate(-50%, -50%);
+    }
+
+    .hamburger::before {
+        width: 23px;
+        height: 4px;
+    }
+
+    .hamburger::after {
+        width: 4px;
+        height: 23px;
+    }
+
+    .hamburger:focus-visible {
+        outline: 3px solid #8a6510;
+        outline-offset: 2px;
     }
 
     .hamburger span {
@@ -1989,17 +2018,21 @@ body {
         font-size: 1.2rem;
     }
 
-    /* AnimaÃ§Ã£o do Hamburger Ativo (transforma num X) */
-    .hamburger.active span:nth-child(1) {
-        transform: translateY(9px) rotate(45deg);
+    /* Cruz dourada no estado aberto, com fundo escuro para contraste. */
+    .hamburger.active {
+        border-color: #9c7923;
+        background: #342d24;
+        box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.22);
     }
 
-    .hamburger.active span:nth-child(2) {
+    .hamburger.active::before,
+    .hamburger.active::after {
+        display: block;
+    }
+
+    .hamburger.active span {
         opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-        transform: translateY(-9px) rotate(-45deg);
+        transform: none;
     }
 
     .chapters-grid {

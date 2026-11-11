@@ -1652,17 +1652,22 @@ function setupEventListeners() {
     const menu = document.querySelector('.menu');
 
     if (hamburger && menu) {
+        const setMenuOpen = isOpen => {
+            hamburger.classList.toggle('active', isOpen);
+            menu.classList.toggle('active', isOpen);
+            hamburger.setAttribute('aria-expanded', String(isOpen));
+            hamburger.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+        };
+
         hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            menu.classList.toggle('active');
+            setMenuOpen(!hamburger.classList.contains('active'));
         });
 
         // Fechar menu ao clicar em um link (mobile)
         const menuLinks = menu.querySelectorAll('a');
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                menu.classList.remove('active');
+                setMenuOpen(false);
             });
         });
     }
