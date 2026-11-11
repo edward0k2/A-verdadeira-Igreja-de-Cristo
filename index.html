@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>História da Salvação - Livro Interativo</title>
-    <link rel="stylesheet" href="style.css?v=3.5">
+    <link rel="stylesheet" href="style.css?v=3.6">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -546,7 +546,10 @@
                         <p id="miracleReaderMeta" class="miracle-reader-meta"></p>
                         <h2 id="miracleReaderTitle">Relato do milagre</h2>
                     </div>
-                    <button type="button" id="closeMiracleReader" class="miracle-reader-close" aria-label="Fechar leitura"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                    <div class="miracle-reader-actions">
+                        <a id="downloadMiracleDocument" class="miracle-download-button" href="#" download target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-download" aria-hidden="true"></i> Baixar PDF</a>
+                        <button type="button" id="closeMiracleReader" class="miracle-reader-close" aria-label="Fechar leitura"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                    </div>
                 </div>
                 <p class="miracle-reader-note">Documento integral da exposição. A leitura abre aqui mesmo, sem sair desta página.</p>
                 <iframe id="miracleReaderFrame" title="Documento e relato do milagre eucarístico" loading="lazy"></iframe>
@@ -648,7 +651,7 @@
     <script src="papas-data.js?v=20261110"></script>
     <script src="bible-story-data.js?v=20261111"></script>
     <script src="milagres-eucaristicos-data.js?v=3"></script>
-    <script src="script.js?v=4.0"></script>
+    <script src="script.js?v=4.1"></script>
 </body>
 
 </html>

@@ -833,11 +833,16 @@ function setupEucharisticMiracles() {
 function openMiracleDocument(miracle) {
     const reader = document.getElementById('miracleReaderDialog');
     const frame = document.getElementById('miracleReaderFrame');
+    const download = document.getElementById('downloadMiracleDocument');
     if (!reader || !frame || !miracle.documentSlug) return;
     document.getElementById('miracleReaderTitle').textContent = miracle.place;
     document.getElementById('miracleReaderMeta').textContent = `${miracle.country} · ${miracle.date}`;
     const pdfUrl = `https://www.miracolieucaristici.org/pr/download/${encodeURIComponent(miracle.documentSlug)}.pdf#toolbar=1&navpanes=0&view=FitH`;
     frame.src = pdfUrl;
+    if (download) {
+        download.href = pdfUrl.split('#')[0];
+        download.download = `${miracle.documentSlug}.pdf`;
+    }
     reader.showModal();
 }
 
