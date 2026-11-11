@@ -241,8 +241,90 @@ function init() {
     renderLivros();
     renderSaints();
     setupEventListeners();
+    setupTercoLive();
     setupBackToTop();
     initProgress();
+}
+
+function setupTercoLive() {
+    const form = document.getElementById('tercoLiveForm');
+    const input = document.getElementById('tercoLiveInput');
+    const frame = document.getElementById('tercoLiveFrame');
+    const placeholder = document.getElementById('tercoLivePlaceholder');
+    const status = document.getElementById('tercoLiveStatus');
+    const clearButton = document.getElementById('clearTercoLive');
+    if (!form || !input || !frame || !placeholder || !status || !clearButton) return;
+
+    const loadLive = (live, announce = true) => {
+        const embedUrl = live.type === 'channel'
+            ? `https://www.youtube.com/embed/live_stream?channel=${encodeURIComponent(live.id)}`
+            : `https://www.youtube-nocookie.com/embed/${encodeURIComponent(live.id)}`;
+        frame.src = embedUrl;
+        frame.hidden = false;
+        placeholder.hidden = true;
+        input.value = live.original || live.id;
+        if (announce) status.textContent = live.type === 'channel'
+            ? 'Canal salvo. O vídeo será exibido quando a transmissão estiver ao vivo.'
+            : 'Transmissão carregada e salva neste navegador.';
+    };
+
+    const parseLive = value => {
+        const text = value.trim();
+        const channelId = text.match(/^UC[A-Za-z0-9_-]{22}$/);
+        if (channelId) return { type: 'channel', id: channelId[0], original: text };
+        if (/^[A-Za-z0-9_-]{11}$/.test(text)) return { type: 'video', id: text, original: text };
+
+        let url;
+        try {
+            url = new URL(/^https?:\/\//i.test(text) ? text : `https://${text}`);
+        } catch {
+            return null;
+        }
+        if (!['youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtu.be', 'www.youtu.be'].includes(url.hostname)) return null;
+
+        const videoId = url.hostname.includes('youtu.be')
+            ? url.pathname.split('/').filter(Boolean)[0]
+            : url.searchParams.get('v') || url.pathname.match(/^\/(?:live|embed|shorts)\/([^/?]+)/)?.[1];
+        if (videoId && /^[A-Za-z0-9_-]{11}$/.test(videoId)) return { type: 'video', id: videoId, original: text };
+
+        const pathChannelId = url.pathname.match(/^\/channel\/(UC[A-Za-z0-9_-]{22})(?:\/|$)/)?.[1];
+        if (pathChannelId) return { type: 'channel', id: pathChannelId, original: text };
+        return null;
+    };
+
+    try {
+        const saved = JSON.parse(localStorage.getItem('tercoYoutubeLive') || 'null');
+        if (saved && ['video', 'channel'].includes(saved.type) && /^[A-Za-z0-9_-]{11}$/.test(saved.id) || saved && saved.type === 'channel' && /^UC[A-Za-z0-9_-]{22}$/.test(saved.id)) {
+            loadLive(saved, false);
+        }
+    } catch {
+        status.textContent = 'Não foi possível recuperar a live salva. Cole o link novamente.';
+    }
+
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        const live = parseLive(input.value);
+        if (!live) {
+            status.textContent = 'Link inválido. Use um link de vídeo/live do YouTube, o ID do vídeo ou um ID de canal que comece com UC.';
+            return;
+        }
+        try {
+            localStorage.setItem('tercoYoutubeLive', JSON.stringify(live));
+            loadLive(live);
+        } catch {
+            loadLive(live);
+            status.textContent = 'Live carregada, mas não foi possível salvá-la neste navegador.';
+        }
+    });
+
+    clearButton.addEventListener('click', () => {
+        localStorage.removeItem('tercoYoutubeLive');
+        frame.src = '';
+        frame.hidden = true;
+        placeholder.hidden = false;
+        input.value = '';
+        status.textContent = 'Live removida deste navegador.';
+    });
 }
 
 // Lógica de Progresso e Estatísticas
