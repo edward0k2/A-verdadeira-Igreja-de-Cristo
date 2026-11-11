@@ -798,7 +798,7 @@ function setupEucharisticMiracles() {
                     <span class="miracle-card-country"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> ${item.country}</span>
                     <h3>${item.place}</h3>
                     <p class="miracle-card-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> ${item.date}</p>
-                    <a href="${item.source}" target="_blank" rel="noopener noreferrer">Ver no catálogo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                    <span class="miracle-card-credit">Registro da exposição de São Carlo Acutis</span>
                 </div>
             </article>`).join('');
         status.textContent = `${records.length} ${records.length === 1 ? 'registro encontrado' : 'registros encontrados'} de ${eucharisticMiraclesData.length}.`;

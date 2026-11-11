@@ -123,7 +123,6 @@ Portugal|Fátima (Anjo da Paz)|1916
         country,
         place,
         date,
-        year,
-        source: 'https://www.miracolieucaristici.org/pr/Liste/list.html'
+        year
     };
 });
