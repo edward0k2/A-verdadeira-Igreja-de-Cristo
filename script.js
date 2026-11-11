@@ -250,6 +250,8 @@ function init() {
 
 let fullBibleData = null;
 let fullBibleLoadPromise = null;
+let biblePassagesData = null;
+let biblePassagesLoadPromise = null;
 let bibleHighlightMode = false;
 let bibleHighlights = {};
 let activeBibleBook = null;
@@ -273,6 +275,7 @@ function applyBibleStoryEvents() {
                         interpretacao: 'Percurso de leitura bíblica. A passagem indicada é a fonte principal; esta apresentação serve apenas como orientação.',
                         bibleTestament: type,
                         bibleBookIndex: bookIndex,
+                        bibleEventIndex: book.eventos.length,
                         bibleChapter: chapter,
                         bibleVerse: Number(reference.match(/\d+[,.:](\d+)/)?.[1] || 1),
                         personagens: names.map(nome => ({
@@ -292,6 +295,7 @@ function applyBibleStoryEvents() {
                 event.referencia = reference;
                 event.bibleTestament = type;
                 event.bibleBookIndex = bookIndex;
+                event.bibleEventIndex = eventIndex;
                 event.bibleChapter = Number(reference.match(/\b(\d+)[,.:]/)?.[1] || 1);
                 event.bibleVerse = Number(reference.match(/\d+[,.:](\d+)/)?.[1] || 1);
             });
@@ -1293,7 +1297,7 @@ function renderChapterContent() {
     document.getElementById('nextChapter').style.display = currentChapterIndex < totalInSource - 1 ? 'inline-block' : 'none';
 }
 
-function showDetails(titulo) {
+async function showDetails(titulo) {
     const dataSource = currentChapterSource === 'AT' ? salvaçãoData : novoTestamentoData;
     const ev = dataSource[currentChapterIndex].eventos.find(e => e.titulo === titulo);
     const modal = document.getElementById('infoModal');
@@ -1306,14 +1310,90 @@ function showDetails(titulo) {
         <span style="color:#d4af37; font-weight:bold;">${ev.data}</span>
         <h3>${ev.titulo}</h3>
         ${readReference}
-        <p style="margin-top:1.5rem; font-size:1.1rem;">${ev.texto}</p>
+        <section id="eventScriptureText" class="event-scripture-text" aria-live="polite">
+            <h4>Texto bíblico</h4>
+            <p>Carregando os versículos citados…</p>
+        </section>
+        <p class="event-summary"><strong>Contexto do percurso</strong><br>${ev.texto}</p>
         <div class="interpretation">
-            <strong>Interpretação da Igreja Católica:</strong><br>
+            <strong>Nota de leitura:</strong><br>
             ${ev.interpretacao}
         </div>
     `;
 
     modal.style.display = "block";
+    body.scrollTop = 0;
+    await appendEventScripture(ev);
+}
+
+async function appendEventScripture(event) {
+    const section = document.getElementById('eventScriptureText');
+    if (!section) return;
+    try {
+        if (!biblePassagesData) {
+            if (!biblePassagesLoadPromise) {
+                biblePassagesLoadPromise = fetch('./bible-passages.json')
+                    .then(response => {
+                        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                        return response.json();
+                    })
+                    .then(data => {
+                        biblePassagesData = data;
+                        return data;
+                    })
+                    .catch(error => {
+                        biblePassagesLoadPromise = null;
+                        throw error;
+                    });
+            }
+            biblePassagesData = await biblePassagesLoadPromise;
+        }
+
+        const passage = biblePassagesData.events[event.bibleTestament]?.[event.bibleBookIndex]?.[event.bibleEventIndex];
+        if (!passage) throw new Error('A passagem não foi encontrada.');
+        section.replaceChildren();
+
+        const heading = document.createElement('h4');
+        heading.textContent = `Texto bíblico · ${passage.reference}`;
+        section.appendChild(heading);
+
+        passage.chapters.forEach(chapter => {
+            const chapterSection = document.createElement('section');
+            chapterSection.className = 'event-scripture-chapter';
+            const chapterHeading = document.createElement('h5');
+            chapterHeading.textContent = `${passage.book} ${chapter.chapter}`;
+            chapterSection.appendChild(chapterHeading);
+
+            const paragraph = document.createElement('p');
+            paragraph.className = 'event-scripture-verses';
+            chapter.verses.forEach(verse => {
+                const verseText = document.createElement('span');
+                verseText.className = 'event-scripture-verse';
+                const number = document.createElement('sup');
+                number.textContent = verse.number;
+                verseText.append(number, document.createTextNode(` ${verse.text} `));
+                paragraph.appendChild(verseText);
+            });
+            chapterSection.appendChild(paragraph);
+
+            const openChapter = document.createElement('button');
+            openChapter.type = 'button';
+            openChapter.className = 'chapter-reference-link';
+            openChapter.innerHTML = '<i class="fas fa-book-open" aria-hidden="true"></i> Continuar lendo o capítulo';
+            openChapter.addEventListener('click', () => {
+                openBiblePassage(event.bibleTestament, event.bibleBookIndex, chapter.chapter, chapter.verses[0]?.number || 1);
+            });
+            chapterSection.appendChild(openChapter);
+            section.appendChild(chapterSection);
+        });
+        const edition = document.createElement('p');
+        edition.className = 'event-scripture-edition';
+        edition.textContent = 'Tradução católica do Pe. Manuel de Matos Soares.';
+        section.appendChild(edition);
+    } catch (error) {
+        section.innerHTML = '<h4>Texto bíblico</h4><p>Não foi possível carregar agora os versículos. Use o botão acima para abrir a referência no leitor completo.</p>';
+        console.error('Falha ao carregar a passagem bíblica:', error);
+    }
 }
 
 function showPersonagem(nome, origem, historia, doutrina) {

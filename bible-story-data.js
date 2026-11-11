@@ -57,7 +57,7 @@ const bibleStoryEvents = {
         [['Sofonias 3,14–20', 'A promessa de restauração', ['Sofonias', 'Israel'], 'Sofonias convida Jerusalém à alegria e anuncia que Deus reunirá e restaurará seu povo.']],
         [['Ageu 1,1–8; 2,1–9', 'A reconstrução do Templo', ['Ageu', 'Zorobabel', 'Josué'], 'Ageu exorta os repatriados a reconstruir o Templo e anuncia a esperança de uma glória futura.']],
         [['Zacarias 9,9–10; 12,10–13,1', 'O rei humilde e a fonte de purificação', ['Zacarias', 'Israel'], 'Zacarias anuncia um rei humilde e a esperança de purificação para a casa de Davi e Jerusalém.']],
-        [['Malaquias 3,1–5; 3,19–24', 'O mensageiro do Senhor', ['Malaquias', 'Israel'], 'O profeta anuncia um mensageiro que prepara o caminho e chama o povo à fidelidade.']]
+        [['Malaquias 3,1–5; 4,1–6', 'O mensageiro do Senhor', ['Malaquias', 'Israel'], 'O profeta anuncia um mensageiro que prepara o caminho e chama o povo à fidelidade.']]
     ],
     NT: [
         [['Mateus 1,18–25; 2,1–12', 'O nascimento de Jesus', ['Jesus', 'Maria', 'José', 'Magos'], 'Mateus narra a concepção de Jesus, a missão de José e a visita dos magos.']],
