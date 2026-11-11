@@ -1958,6 +1958,7 @@ body {
     .hamburger::before {
         width: 23px;
         height: 4px;
+        top: 42%;
     }
 
     .hamburger::after {
