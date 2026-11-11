@@ -914,7 +914,7 @@ function applyHistoryDirectory(type, resetPage = false) {
     }
 
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    const pageSize = isMobile ? (isPopeDirectory ? 6 : 10) : filtered.length || 1;
+    const pageSize = isMobile ? (isPopeDirectory ? 8 : 10) : filtered.length || 1;
     const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
     state.page = Math.min(Math.max(state.page, 0), totalPages - 1);
     const start = state.page * pageSize;
