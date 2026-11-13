@@ -66,11 +66,16 @@ body {
     margin-top: 2px;
 }
 
+.menu {
+    flex: 1 1 auto;
+}
+
 .menu ul {
     display: flex;
     list-style: none;
     gap: 2.5rem;
     margin-left: 0;
+    justify-content: center;
     /* PadrÃ£o */
 }
 
