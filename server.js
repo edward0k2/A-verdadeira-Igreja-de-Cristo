@@ -2,6 +2,8 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const dailyContentHandler = require('./api/daily-content');
+const adminAuthHandler = require('./api/admin-auth');
+const adminContentHandler = require('./api/admin-content');
 
 const PORT = 3000;
 
@@ -23,6 +25,12 @@ const server = http.createServer((req, res) => {
     const urlPath = decodeURIComponent(req.url.split('?')[0]);
     if (urlPath === '/api/daily-content') {
         return dailyContentHandler(req, res);
+    }
+    if (urlPath === '/api/admin-auth') {
+        return adminAuthHandler(req, res);
+    }
+    if (urlPath === '/api/admin-content') {
+        return adminContentHandler(req, res);
     }
     let filePath = '.' + urlPath;
     

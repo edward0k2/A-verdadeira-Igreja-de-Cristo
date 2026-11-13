@@ -2308,6 +2308,51 @@ body {
 .blog-post-card-actions { border-top: 1px solid #eee6d8; padding-top: 0.7rem; }
 .blog-post-card-actions button { min-height: 36px; }
 
+.admin-login-prompt {
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    background: var(--bg-card);
+    color: var(--text-main);
+    line-height: 1.55;
+    text-align: center;
+}
+
+.admin-login-trigger {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    margin: 0.35rem;
+    padding: 0.55rem 0.85rem;
+    border: 1px solid #795400;
+    border-radius: 9px;
+    background: #795400;
+    color: #fff;
+    font: 700 0.84rem var(--font-main);
+    cursor: pointer;
+}
+
+.admin-login-trigger:hover, .admin-login-trigger:focus-visible { background: #5e4100; outline: 3px solid rgba(220, 169, 44, 0.3); outline-offset: 2px; }
+.admin-login-trigger[hidden], #adminSessionBar[hidden], #blogEditorPanel[hidden], #blogAdminLoginPrompt[hidden], #tercoLiveAdminControls[hidden], .blog-form-actions [hidden] { display: none !important; }
+.admin-login-dialog { width: min(430px, calc(100vw - 1.5rem)); max-width: none; padding: 0; border: 1px solid var(--border-light); border-radius: 16px; background: var(--bg-main); color: var(--text-main); box-shadow: 0 22px 80px rgba(0, 0, 0, 0.35); }
+.admin-login-dialog::backdrop { background: rgba(28, 24, 18, 0.72); }
+.admin-login-dialog[open] { position: fixed; inset: 50% auto auto 50%; transform: translate(-50%, -50%); }
+.admin-login-form { position: relative; display: grid; gap: 0.55rem; padding: 1.5rem; }
+.admin-login-form h2 { margin: 0 0 0.45rem; color: var(--primary-hover); font: 700 1.5rem/1.25 'Lora', serif; }
+.admin-login-form label { margin-top: 0.25rem; font-size: 0.85rem; font-weight: 700; }
+.admin-login-form input { width: 100%; min-height: 44px; padding: 0.6rem 0.7rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--white); color: var(--text-main); font: 400 1rem var(--font-main); }
+.admin-login-form > button[type="submit"] { min-height: 44px; margin-top: 0.6rem; border: 0; border-radius: 9px; background: #795400; color: #fff; font-weight: 700; cursor: pointer; }
+.admin-login-form > button[type="submit"]:disabled { opacity: 0.65; cursor: wait; }
+.admin-login-form > p { min-height: 1.3em; margin: 0.2rem 0 0; color: #795400; font-size: 0.82rem; line-height: 1.5; }
+.admin-login-close { position: absolute; top: 0.7rem; right: 0.7rem; }
+.admin-session-bar { position: fixed; z-index: 1450; right: 1rem; bottom: 1rem; display: flex; align-items: center; gap: 0.7rem; padding: 0.45rem 0.55rem 0.45rem 0.8rem; border: 1px solid var(--border-light); border-radius: 12px; background: var(--bg-main); box-shadow: 0 5px 22px rgba(50, 38, 20, 0.17); color: var(--text-main); font-size: 0.78rem; }
+.admin-session-bar span { display: flex; align-items: center; gap: 0.4rem; }
+.admin-session-bar span i { color: #795400; }
+.admin-session-bar button { min-height: 34px; padding: 0.35rem 0.55rem; border: 1px solid var(--border-light); border-radius: 8px; background: #fff; color: var(--text-main); cursor: pointer; }
+
 .miracles-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr));

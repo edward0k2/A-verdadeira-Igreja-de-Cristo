@@ -230,6 +230,7 @@ const livrosData = [
 ];
 
 let currentChapterIndex = 0;
+let siteAdminAuthenticated = false;
 
 document.addEventListener('DOMContentLoaded', () => {
     init();
@@ -246,6 +247,7 @@ function init() {
     setupHistoryDirectories();
     setupEucharisticMiracles();
     setupApparitions();
+    setupAdminAuth();
     setupPersonalBlog();
     setupDailyPages();
     setupSaintReaderResponsiveLayout();
@@ -596,6 +598,59 @@ async function openBiblePassage(testament, bookIndex, chapter, verse = 1) {
     }, 50);
 }
 
+function setupAdminAuth() {
+    const dialog = document.getElementById('adminLoginDialog');
+    const form = document.getElementById('adminLoginForm');
+    const status = document.getElementById('adminLoginStatus');
+    if (!dialog || !form || !status) return;
+
+    const applyAdminState = authenticated => {
+        siteAdminAuthenticated = authenticated;
+        document.getElementById('blogEditorPanel').hidden = !authenticated;
+        document.getElementById('blogAdminLoginPrompt').hidden = authenticated;
+        document.getElementById('tercoLiveAdminControls').hidden = !authenticated;
+        document.querySelectorAll('[data-open-admin-login]').forEach(button => { button.hidden = authenticated; });
+        document.getElementById('adminSessionBar').hidden = !authenticated;
+        document.dispatchEvent(new CustomEvent('site-admin-auth-changed', { detail: { authenticated } }));
+    };
+    const openDialog = () => {
+        status.textContent = '';
+        form.reset();
+        if (!dialog.open) dialog.showModal();
+        window.setTimeout(() => document.getElementById('adminUsername').focus(), 0);
+    };
+    document.querySelectorAll('[data-open-admin-login]').forEach(button => button.addEventListener('click', openDialog));
+    document.getElementById('closeAdminLogin').addEventListener('click', () => dialog.close());
+    document.getElementById('adminLogout').addEventListener('click', async () => {
+        await fetch('/api/admin-auth', { method: 'DELETE', credentials: 'same-origin' });
+        applyAdminState(false);
+    });
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
+        const submit = document.getElementById('adminLoginSubmit');
+        submit.disabled = true;
+        status.textContent = 'Verificando acesso…';
+        try {
+            const response = await fetch('/api/admin-auth', {
+                method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: document.getElementById('adminUsername').value.trim(), password: document.getElementById('adminPassword').value })
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Não foi possível entrar.');
+            applyAdminState(true);
+            dialog.close();
+        } catch (error) { status.textContent = error.message; }
+        finally { submit.disabled = false; }
+    });
+    fetch('/api/admin-auth', { credentials: 'same-origin', cache: 'no-store' })
+        .then(response => response.json())
+        .then(result => {
+            applyAdminState(Boolean(result.authenticated));
+            if (!result.configured) status.textContent = 'A área administrativa precisa ser configurada no ambiente seguro da Vercel. Consulte docs/CONFIGURAR-ADMIN.md.';
+        })
+        .catch(() => applyAdminState(false));
+}
+
 function setupTercoLive() {
     const form = document.getElementById('tercoLiveForm');
     const input = document.getElementById('tercoLiveInput');
@@ -605,7 +660,13 @@ function setupTercoLive() {
     const clearButton = document.getElementById('clearTercoLive');
     if (!form || !input || !frame || !placeholder || !status || !clearButton) return;
 
-    const loadLive = (live, announce = true) => {
+    const showLive = live => {
+        if (!live) {
+            frame.src = '';
+            frame.hidden = true;
+            placeholder.hidden = false;
+            return;
+        }
         const embedUrl = live.type === 'channel'
             ? `https://www.youtube.com/embed/live_stream?channel=${encodeURIComponent(live.id)}`
             : `https://www.youtube-nocookie.com/embed/${encodeURIComponent(live.id)}`;
@@ -613,68 +674,66 @@ function setupTercoLive() {
         frame.hidden = false;
         placeholder.hidden = true;
         input.value = live.original || live.id;
-        if (announce) status.textContent = live.type === 'channel'
-            ? 'Canal salvo. O vídeo será exibido quando a transmissão estiver ao vivo.'
-            : 'Transmissão carregada e salva neste navegador.';
+        status.textContent = live.type === 'channel'
+            ? 'Canal configurado. A transmissão aparecerá aqui quando estiver ao vivo.'
+            : 'Transmissão publicada no player.';
     };
-
     const parseLive = value => {
         const text = value.trim();
         const channelId = text.match(/^UC[A-Za-z0-9_-]{22}$/);
         if (channelId) return { type: 'channel', id: channelId[0], original: text };
         if (/^[A-Za-z0-9_-]{11}$/.test(text)) return { type: 'video', id: text, original: text };
-
         let url;
-        try {
-            url = new URL(/^https?:\/\//i.test(text) ? text : `https://${text}`);
-        } catch {
-            return null;
-        }
+        try { url = new URL(/^https?:\/\//i.test(text) ? text : `https://${text}`); } catch { return null; }
         if (!['youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtu.be', 'www.youtu.be'].includes(url.hostname)) return null;
-
-        const videoId = url.hostname.includes('youtu.be')
-            ? url.pathname.split('/').filter(Boolean)[0]
-            : url.searchParams.get('v') || url.pathname.match(/^\/(?:live|embed|shorts)\/([^/?]+)/)?.[1];
+        const videoId = url.hostname.includes('youtu.be') ? url.pathname.split('/').filter(Boolean)[0] : url.searchParams.get('v') || url.pathname.match(/^\/(?:live|embed|shorts)\/([^/?]+)/)?.[1];
         if (videoId && /^[A-Za-z0-9_-]{11}$/.test(videoId)) return { type: 'video', id: videoId, original: text };
-
-        const pathChannelId = url.pathname.match(/^\/channel\/(UC[A-Za-z0-9_-]{22})(?:\/|$)/)?.[1];
-        if (pathChannelId) return { type: 'channel', id: pathChannelId, original: text };
-        return null;
+        const channel = url.pathname.match(/^\/channel\/(UC[A-Za-z0-9_-]{22})(?:\/|$)/)?.[1];
+        return channel ? { type: 'channel', id: channel, original: text } : null;
     };
 
-    try {
-        const saved = JSON.parse(localStorage.getItem('tercoYoutubeLive') || 'null');
-        if (saved && ['video', 'channel'].includes(saved.type) && /^[A-Za-z0-9_-]{11}$/.test(saved.id) || saved && saved.type === 'channel' && /^UC[A-Za-z0-9_-]{22}$/.test(saved.id)) {
-            loadLive(saved, false);
-        }
-    } catch {
-        status.textContent = 'Não foi possível recuperar a live salva. Cole o link novamente.';
-    }
-
-    form.addEventListener('submit', event => {
-        event.preventDefault();
-        const live = parseLive(input.value);
-        if (!live) {
-            status.textContent = 'Link inválido. Use um link de vídeo/live do YouTube, o ID do vídeo ou um ID de canal que comece com UC.';
-            return;
-        }
+    const loadSavedLive = async () => {
         try {
-            localStorage.setItem('tercoYoutubeLive', JSON.stringify(live));
-            loadLive(live);
-        } catch {
-            loadLive(live);
-            status.textContent = 'Live carregada, mas não foi possível salvá-la neste navegador.';
-        }
-    });
+            const response = await fetch('/api/admin-content?resource=live', { cache: 'no-store' });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Erro ao carregar a transmissão.');
+            showLive(result.live);
+            if (!result.live) {
+                status.textContent = 'Nenhuma transmissão configurada no momento.';
+                if (siteAdminAuthenticated) {
+                    try {
+                        const oldLive = JSON.parse(localStorage.getItem('tercoYoutubeLive') || 'null');
+                        if (oldLive?.original) { input.value = oldLive.original; status.textContent = 'Live antiga encontrada neste navegador. Clique em “Publicar live” para compartilhá-la.'; }
+                    } catch (_) { /* Configuração antiga inválida: mantém o campo vazio. */ }
+                }
+            }
+        } catch (error) { status.textContent = error.message; }
+    };
 
-    clearButton.addEventListener('click', () => {
-        localStorage.removeItem('tercoYoutubeLive');
-        frame.src = '';
-        frame.hidden = true;
-        placeholder.hidden = false;
-        input.value = '';
-        status.textContent = 'Live removida deste navegador.';
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!siteAdminAuthenticated) { status.textContent = 'Entre como administrador para publicar a live.'; return; }
+        const live = parseLive(input.value);
+        if (!live) { status.textContent = 'Link inválido. Use link de vídeo/live, ID de vídeo ou ID de canal do YouTube.'; return; }
+        status.textContent = 'Salvando configuração…';
+        try {
+            const response = await fetch('/api/admin-content?resource=live', { method: 'PUT', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ live }) });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Não foi possível publicar a live.');
+            showLive(result.live);
+        } catch (error) { status.textContent = error.message; }
     });
+    clearButton.addEventListener('click', async () => {
+        if (!siteAdminAuthenticated) return;
+        status.textContent = 'Removendo transmissão…';
+        try {
+            const response = await fetch('/api/admin-content?resource=live', { method: 'PUT', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ live: null }) });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Não foi possível remover a live.');
+            showLive(null); input.value = ''; status.textContent = 'Transmissão removida para todos os visitantes.';
+        } catch (error) { status.textContent = error.message; }
+    });
+    loadSavedLive();
 }
 
 // Lógica de Progresso e Estatísticas
@@ -937,80 +996,122 @@ function setupPersonalBlog() {
     const storageKey = 'historiaSalvacaoPersonalBlogV1';
     let posts = [];
     try { posts = JSON.parse(localStorage.getItem(storageKey) || '[]'); } catch { posts = []; }
+    const localBackup = posts;
+    posts = [];
     let editingId = null;
-    let selectedImage = '';
+    let selectedImage = null;
     const titleInput = document.getElementById('blogPostTitle');
     const bodyInput = document.getElementById('blogPostBody');
     const imageInput = document.getElementById('blogPostImage');
     const status = document.getElementById('blogStatus');
-    const persist = () => {
-        try { localStorage.setItem(storageKey, JSON.stringify(posts)); return true; }
-        catch { status.textContent = 'Não foi possível salvar: remova uma foto grande ou exporte e libere espaço.'; return false; }
-    };
+    let migrationAttempted = false;
     const render = () => {
         posts.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-        grid.innerHTML = posts.length ? posts.map(post => `<article class="blog-post-card">${post.image ? `<img src="${escapeHtml(post.image)}" alt="${escapeHtml(post.title)}" loading="lazy">` : ''}<div class="blog-post-content"><time datetime="${escapeHtml(post.createdAt)}">${new Date(post.createdAt).toLocaleDateString('pt-BR')}</time><h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.body)}</p><div class="blog-post-card-actions"><button type="button" data-edit-post="${escapeHtml(post.id)}"><i class="fa-solid fa-pen" aria-hidden="true"></i> Editar</button><button type="button" data-delete-post="${escapeHtml(post.id)}"><i class="fa-solid fa-trash" aria-hidden="true"></i> Excluir</button></div></div></article>`).join('') : '<p class="miracles-empty">Ainda não há publicações. Use o formulário acima para criar a primeira.</p>';
+        grid.innerHTML = posts.length ? posts.map(post => `<article class="blog-post-card">${post.image ? `<img src="${escapeHtml(post.image)}" alt="${escapeHtml(post.title)}" loading="lazy">` : ''}<div class="blog-post-content"><time datetime="${escapeHtml(post.createdAt)}">${new Date(post.createdAt).toLocaleDateString('pt-BR')}</time><h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.body)}</p>${siteAdminAuthenticated ? `<div class="blog-post-card-actions"><button type="button" data-edit-post="${escapeHtml(post.id)}"><i class="fa-solid fa-pen" aria-hidden="true"></i> Editar</button><button type="button" data-delete-post="${escapeHtml(post.id)}"><i class="fa-solid fa-trash" aria-hidden="true"></i> Excluir</button></div>` : ''}</div></article>`).join('') : '<p class="miracles-empty">Ainda não há publicações.</p>';
     };
+
+    const savePosts = async () => {
+        const response = await fetch('/api/admin-content?resource=blog', { method: 'PUT', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ posts }) });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Não foi possível salvar as publicações.');
+        posts = result.posts || posts;
+        render();
+    };
+    const loadPosts = async () => {
+        try {
+            const response = await fetch('/api/admin-content?resource=blog', { cache: 'no-store' });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Não foi possível carregar o blog.');
+            posts = Array.isArray(result.posts) ? result.posts : [];
+            if (siteAdminAuthenticated && !posts.length && localBackup.length && !migrationAttempted) {
+                migrationAttempted = true;
+                posts = localBackup;
+                try { await savePosts(); status.textContent = 'Publicações locais antigas foram enviadas ao blog compartilhado.'; }
+                catch (error) { status.textContent = `Não foi possível migrar as publicações antigas: ${error.message}`; }
+            }
+            render();
+        } catch (error) {
+            grid.innerHTML = `<p class="miracles-empty">${escapeHtml(error.message)}</p>`;
+        }
+    };
+    document.addEventListener('site-admin-auth-changed', event => {
+        if (event.detail.authenticated) status.textContent = 'Sessão administrativa ativa. Publicações serão compartilhadas com os visitantes.';
+        loadPosts();
+        render();
+    });
     imageInput.addEventListener('change', () => {
         const file = imageInput.files?.[0];
-        if (!file) { selectedImage = ''; return; }
+        if (!file) { selectedImage = null; return; }
         if (!file.type.startsWith('image/')) { status.textContent = 'Selecione um arquivo de imagem.'; imageInput.value = ''; return; }
         const reader = new FileReader();
         reader.onload = () => {
             const image = new Image();
             image.onload = () => {
-                const scale = Math.min(1, 1400 / Math.max(image.width, image.height));
+                const scale = Math.min(1, 1200 / Math.max(image.width, image.height));
                 const canvas = document.createElement('canvas');
                 canvas.width = Math.round(image.width * scale); canvas.height = Math.round(image.height * scale);
                 canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
-                selectedImage = canvas.toDataURL('image/jpeg', 0.78);
+                selectedImage = canvas.toDataURL('image/jpeg', 0.7);
                 status.textContent = 'Foto pronta para publicação.';
             };
             image.src = reader.result;
         };
         reader.readAsDataURL(file);
     });
-    form.addEventListener('submit', event => {
+    form.addEventListener('submit', async event => {
         event.preventDefault();
+        if (!siteAdminAuthenticated) { status.textContent = 'Entre como administrador para publicar.'; return; }
+        const previousPosts = JSON.parse(JSON.stringify(posts));
         const now = new Date().toISOString();
         if (editingId) {
             const post = posts.find(item => item.id === editingId);
-            if (post) Object.assign(post, { title: titleInput.value.trim(), body: bodyInput.value.trim(), image: selectedImage || post.image, updatedAt: now });
-        } else posts.push({ id: `${Date.now()}`, title: titleInput.value.trim(), body: bodyInput.value.trim(), image: selectedImage, createdAt: now });
-        if (!persist()) return;
-        form.reset(); selectedImage = ''; editingId = null;
-        document.getElementById('saveBlogPost').innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Publicar';
-        document.getElementById('cancelBlogEdit').hidden = true;
-        status.textContent = 'Publicação salva neste navegador.';
-        render();
+            if (post) Object.assign(post, { title: titleInput.value.trim(), body: bodyInput.value.trim(), image: selectedImage === null ? post.image : selectedImage, updatedAt: now });
+        } else posts.push({ id: `${Date.now()}`, title: titleInput.value.trim(), body: bodyInput.value.trim(), image: selectedImage || '', createdAt: now });
+        status.textContent = 'Publicando…';
+        try {
+            await savePosts();
+            form.reset(); selectedImage = null; editingId = null;
+            document.getElementById('saveBlogPost').innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Publicar';
+            document.getElementById('cancelBlogEdit').hidden = true;
+            status.textContent = 'Publicação visível para todos os visitantes.';
+        } catch (error) { posts = previousPosts; render(); status.textContent = error.message; }
     });
-    grid.addEventListener('click', event => {
+    grid.addEventListener('click', async event => {
+        if (!siteAdminAuthenticated) return;
         const edit = event.target.closest('[data-edit-post]');
         const remove = event.target.closest('[data-delete-post]');
         if (edit) {
             const post = posts.find(item => item.id === edit.dataset.editPost);
             if (!post) return;
-            editingId = post.id; selectedImage = ''; titleInput.value = post.title; bodyInput.value = post.body;
+            editingId = post.id; selectedImage = null; titleInput.value = post.title; bodyInput.value = post.body;
             document.getElementById('saveBlogPost').innerHTML = '<i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Salvar alterações';
             document.getElementById('cancelBlogEdit').hidden = false; titleInput.focus();
         }
-        if (remove && window.confirm('Excluir esta publicação?')) { posts = posts.filter(post => post.id !== remove.dataset.deletePost); persist(); render(); }
+        if (remove && window.confirm('Excluir esta publicação para todos os visitantes?')) {
+            const previous = posts;
+            posts = posts.filter(post => post.id !== remove.dataset.deletePost);
+            try { await savePosts(); status.textContent = 'Publicação excluída.'; }
+            catch (error) { posts = previous; render(); status.textContent = error.message; }
+        }
     });
-    document.getElementById('cancelBlogEdit').addEventListener('click', () => { editingId = null; selectedImage = ''; form.reset(); document.getElementById('saveBlogPost').innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Publicar'; document.getElementById('cancelBlogEdit').hidden = true; status.textContent = ''; });
+    document.getElementById('cancelBlogEdit').addEventListener('click', () => { editingId = null; selectedImage = null; form.reset(); document.getElementById('saveBlogPost').innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Publicar'; document.getElementById('cancelBlogEdit').hidden = true; status.textContent = ''; });
     document.getElementById('exportBlogPosts').addEventListener('click', () => {
         const blob = new Blob([JSON.stringify(posts, null, 2)], { type: 'application/json' });
         const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'blog-pessoal-backup.json'; link.click(); URL.revokeObjectURL(link.href);
     });
     document.getElementById('importBlogPosts').addEventListener('change', async event => {
         try {
+            if (!siteAdminAuthenticated) throw new Error('Entre como administrador antes de importar.');
             const imported = JSON.parse(await event.target.files[0].text());
-            if (!Array.isArray(imported) || imported.some(post => typeof post.title !== 'string' || typeof post.body !== 'string' || !post.id || (post.image && !/^data:image\/(png|jpeg|webp|gif);base64,/i.test(post.image)))) throw new Error('Formato inválido');
+            if (!Array.isArray(imported) || imported.some(post => typeof post.title !== 'string' || typeof post.body !== 'string' || !post.id || (post.image && !/^data:image\/(png|jpeg|webp);base64,/i.test(post.image)))) throw new Error('Formato inválido');
+            const previousPosts = posts;
             posts = [...imported, ...posts.filter(existing => !imported.some(item => item.id === existing.id))];
-            if (persist()) { render(); status.textContent = 'Backup importado.'; }
-        } catch { status.textContent = 'Não foi possível importar esse arquivo JSON.'; }
+            try { await savePosts(); status.textContent = 'Backup importado e publicado.'; }
+            catch (error) { posts = previousPosts; render(); throw error; }
+        } catch (error) { status.textContent = error.message || 'Não foi possível importar esse arquivo JSON.'; }
         event.target.value = '';
     });
-    render();
+    loadPosts();
 }
 
 function openMiracleDocument(miracle) {

@@ -129,9 +129,9 @@ As tags `<script>` no final de `index.html` definem a ordem de carregamento dos 
 | --- | --- |
 | `siteFontScale` | Preferência da escala global do texto. |
 | `bibleHighlightsV1` | Marcações de versículos da Bíblia. |
-| `tercoYoutubeLive` | Link/ID do YouTube salvo localmente para o player do Terço. |
+| `tercoYoutubeLive` | Chave legada; uma live antiga pode ser copiada para a configuração compartilhada pelo administrador. |
 | `historiaSalvacaoProgress` | Progresso e último ponto de leitura. |
-| `historiaSalvacaoPersonalBlogV1` | Publicações do blog pessoal salvas no navegador atual (texto e fotos compactadas). |
+| `historiaSalvacaoPersonalBlogV1` | Chave legada do editor anterior; posts antigos podem ser migrados para a API na primeira sessão administrativa. |
 
 `localStorage` é por navegador e dispositivo; não sincroniza entre usuários e não é um mecanismo de autenticação.
 
@@ -144,6 +144,15 @@ Na criação deste documento (13 de novembro de 2026), os últimos commits inclu
 - O menu de extensão contém agora **Novidades**, **Orações diárias**, **Aparições de Nossa Senhora** e **Blog pessoal**.
 - `aparicoes-marianas-data.js` reúne 156 locais listados no catálogo da exposição mariana de São Carlo Acutis. Filtros e busca operam localmente; cada card abre a página original correspondente em uma janela incorporada e mantém um botão para abrir a fonte se ela bloquear incorporação. O catálogo de origem é `https://www.carloacutis.com/en/avm/download`.
 - As abas de Milagres Eucarísticos e Aparições incluem mapas interativos Leaflet/OpenStreetMap. Os círculos mostram a quantidade de registros por país e filtram a lista. As coordenadas são aproximadas ao país; não representam o local exato de cada acontecimento. O mapa mantém o crédito do OpenStreetMap.
-- O blog permite criar, editar e excluir publicações com foto, além de exportar/importar backup JSON. Fotos são redimensionadas/compactadas antes de salvar. **Persistência atual é somente no localStorage do navegador/dispositivo em uso**: visitantes não compartilham as publicações e elas não são enviadas ao site/Vercel. Para publicação pública entre dispositivos será necessário ligar o editor a um backend/serviço persistente com autenticação do autor.
+- A primeira versão do editor de blog guardava posts no localStorage; essa implementação foi substituída pela administração autenticada e persistência no GitHub descritas abaixo.
 - Referência de implementação do mapa: Leaflet 1.9.4 via CDN e tiles OpenStreetMap com atribuição visível.
+
+## Administração autenticada
+
+- Login único via variáveis secretas da Vercel (`ADMIN_USERNAME`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`); cookie assinado, `HttpOnly`, `SameSite=Strict`, `Secure` em produção, 12 horas.
+- Endpoints `api/admin-auth.js` e `api/admin-content.js` validam login e permissão no servidor. O usuário anônimo consegue apenas ler o blog e a live publicada; os controles de publicação/edição/exclusão ficam ocultos até autenticar.
+- Conteúdo compartilhado persistido nos arquivos `data/blog-posts.json` e `data/terco-live.json` do repositório por token do GitHub (`GITHUB_TOKEN`, Contents read/write). Salvamentos criam commits no branch configurado e acionam o deploy normal.
+- A API depende de configurar as variáveis conforme `docs/CONFIGURAR-ADMIN.md`. Sem isso, o site público continua mostrando o conteúdo inicial, mas não permite login nem publicação.
+- O formulário de live só configura o player com uma URL/ID de vídeo ou canal; não cria nem inicia transmissões do YouTube. A transmissão é iniciada pelo YouTube Studio.
+- Pedido mais recente: manter a publicação de posts e a configuração da live disponíveis somente ao administrador. O código aplica o controle tanto na interface quanto no servidor; falta cadastrar os segredos de produção na Vercel para ativar o login.
 

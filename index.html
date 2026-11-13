@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>História da Salvação - Livro Interativo</title>
-    <link rel="stylesheet" href="style.css?v=5.1">
+    <link rel="stylesheet" href="style.css?v=5.2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -424,16 +424,19 @@
             <div class="terco-media-grid">
                 <div class="media-column">
                     <h3>Live do Santo Terço</h3>
-                    <form id="tercoLiveForm" class="terco-live-form">
-                        <label for="tercoLiveInput">Link da live de hoje ou ID do canal do YouTube</label>
-                        <div class="terco-live-controls">
-                            <input id="tercoLiveInput" type="text" inputmode="url" autocomplete="url" placeholder="Cole o link da transmissão ou ID do canal" aria-describedby="tercoLiveHelp">
-                            <button type="submit"><i class="fab fa-youtube" aria-hidden="true"></i> Carregar</button>
-                            <button type="button" id="clearTercoLive" class="terco-live-clear">Limpar</button>
-                        </div>
-                        <p id="tercoLiveHelp" class="terco-live-help">A configuração fica salva somente neste navegador. Este player apenas exibe vídeos: não inicia nem agenda transmissões. Para transmitir, entre na conta autorizada do canal pelo YouTube Studio.</p>
-                        <p id="tercoLiveStatus" class="terco-live-status" role="status" aria-live="polite">Cole um link para carregar a transmissão.</p>
-                    </form>
+                    <button type="button" id="openTercoAdminLogin" class="admin-login-trigger" data-open-admin-login><i class="fa-solid fa-lock" aria-hidden="true"></i> Entrar como administrador</button>
+                    <div id="tercoLiveAdminControls" hidden>
+                        <form id="tercoLiveForm" class="terco-live-form">
+                            <label for="tercoLiveInput">Link da live ou ID do canal do YouTube</label>
+                            <div class="terco-live-controls">
+                                <input id="tercoLiveInput" type="text" inputmode="url" autocomplete="url" placeholder="Cole o link da transmissão ou ID do canal" aria-describedby="tercoLiveHelp">
+                                <button type="submit"><i class="fab fa-youtube" aria-hidden="true"></i> Publicar live</button>
+                                <button type="button" id="clearTercoLive" class="terco-live-clear">Remover</button>
+                            </div>
+                            <p id="tercoLiveHelp" class="terco-live-help">Somente o administrador pode configurar o player. Para iniciar uma transmissão, use o YouTube Studio.</p>
+                        </form>
+                    </div>
+                    <p id="tercoLiveStatus" class="terco-live-status" role="status" aria-live="polite">Carregando transmissão…</p>
                     <div class="video-container">
                         <div id="tercoLivePlaceholder" class="terco-live-placeholder">
                             <i class="fab fa-youtube" aria-hidden="true"></i>
@@ -693,8 +696,9 @@
 
         <section id="personalBlogView" class="view daily-content-view catalog-view">
             <header class="daily-content-header"><span class="daily-content-kicker"><i class="fa-solid fa-camera-retro" aria-hidden="true"></i> Diário do projeto</span><h2>Blog pessoal</h2><p>Publique fotos, relatos e novidades do projeto em um espaço próprio.</p></header>
-            <section class="blog-editor-panel" aria-labelledby="blogEditorHeading">
-                <div class="catalog-map-heading"><div><h3 id="blogEditorHeading">Nova publicação</h3><p>As publicações ficam salvas somente neste navegador/dispositivo e não aparecem para outros visitantes. Exporte um backup para guardar seus textos.</p></div><div class="blog-editor-actions"><button type="button" id="exportBlogPosts"><i class="fa-solid fa-download" aria-hidden="true"></i> Exportar backup</button><label class="blog-import-button"><i class="fa-solid fa-upload" aria-hidden="true"></i> Importar backup<input id="importBlogPosts" type="file" accept="application/json,.json" hidden></label></div></div>
+            <p id="blogAdminLoginPrompt" class="admin-login-prompt">Apenas o administrador pode criar, editar ou publicar posts. <button type="button" class="admin-login-trigger" data-open-admin-login><i class="fa-solid fa-lock" aria-hidden="true"></i> Entrar como administrador</button></p>
+            <section id="blogEditorPanel" class="blog-editor-panel" aria-labelledby="blogEditorHeading" hidden>
+                <div class="catalog-map-heading"><div><h3 id="blogEditorHeading">Nova publicação</h3><p>Publicações salvas aqui são compartilhadas com todos os visitantes. Exporte backups para guardar uma cópia.</p></div><div class="blog-editor-actions"><button type="button" id="exportBlogPosts"><i class="fa-solid fa-download" aria-hidden="true"></i> Exportar backup</button><label class="blog-import-button"><i class="fa-solid fa-upload" aria-hidden="true"></i> Importar backup<input id="importBlogPosts" type="file" accept="application/json,.json" hidden></label></div></div>
                 <form id="blogPostForm" class="blog-post-form">
                     <label>Título<input id="blogPostTitle" type="text" maxlength="120" required placeholder="Título da publicação"></label>
                     <label>Texto<textarea id="blogPostBody" rows="5" maxlength="12000" required placeholder="Escreva sua novidade…"></textarea></label>
@@ -705,6 +709,19 @@
             <div id="blogPostsGrid" class="blog-posts-grid" aria-live="polite"></div>
         </section>
     </main>
+
+    <dialog id="adminLoginDialog" class="admin-login-dialog" aria-labelledby="adminLoginHeading">
+        <form id="adminLoginForm" class="admin-login-form">
+            <button type="button" id="closeAdminLogin" class="miracle-reader-close admin-login-close" aria-label="Fechar login"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            <span class="daily-content-kicker"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Área restrita</span>
+            <h2 id="adminLoginHeading">Login do administrador</h2>
+            <label for="adminUsername">Usuário</label><input id="adminUsername" name="username" autocomplete="username" required>
+            <label for="adminPassword">Senha</label><input id="adminPassword" name="password" type="password" autocomplete="current-password" required>
+            <button type="submit" id="adminLoginSubmit"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i> Entrar</button>
+            <p id="adminLoginStatus" role="status" aria-live="polite"></p>
+        </form>
+    </dialog>
+    <div id="adminSessionBar" class="admin-session-bar" hidden><span><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Administrador conectado</span><button type="button" id="adminLogout"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Sair</button></div>
 
     <!-- Modal de Informações Detalhadas -->
     <div id="infoModal" class="modal">
@@ -803,7 +820,7 @@
     <script src="milagres-eucaristicos-data.js?v=3"></script>
     <script src="aparicoes-marianas-data.js?v=1"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="script.js?v=4.4"></script>
+    <script src="script.js?v=4.5"></script>
 </body>
 
 </html>
