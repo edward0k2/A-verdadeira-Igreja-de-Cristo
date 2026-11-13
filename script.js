@@ -245,6 +245,7 @@ function init() {
     renderSaints();
     setupHistoryDirectories();
     setupEucharisticMiracles();
+    setupDailyPages();
     setupSaintReaderResponsiveLayout();
     setupEventListeners();
     setupTercoLive();
@@ -732,7 +733,7 @@ function updateProgressUI() {
 }
 
 function switchView(viewId) {
-    const views = ['summaryView', 'chapterView', 'catechismView', 'booksView', 'saintsView', 'eucharisticMiraclesView', 'tercoView', 'aboutView'];
+    const views = ['summaryView', 'chapterView', 'catechismView', 'booksView', 'saintsView', 'eucharisticMiraclesView', 'newsView', 'dailyPrayersView', 'tercoView', 'aboutView'];
     views.forEach(id => {
         const view = document.getElementById(id);
         if (view) {
@@ -844,6 +845,147 @@ function openMiracleDocument(miracle) {
         download.download = `${miracle.documentSlug}.pdf`;
     }
     reader.showModal();
+}
+
+let dailyContentCache = null;
+let dailyContentCacheDate = '';
+let dailyContentLoadedAt = 0;
+let dailyContentRequest = null;
+
+function localDateKey() {
+    const parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit'
+    }).formatToParts(new Date());
+    const values = Object.fromEntries(parts.map(part => [part.type, part.value]));
+    return `${values.year}-${values.month}-${values.day}`;
+}
+
+function setupDailyPages() {
+    const dateKey = localDateKey();
+    const date = new Date(`${dateKey}T12:00:00-03:00`);
+    const dateLabel = new Intl.DateTimeFormat('pt-BR', {
+        timeZone: 'America/Sao_Paulo', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    }).format(date);
+    const prayerDate = document.getElementById('dailyPrayerDate');
+    if (prayerDate) prayerDate.textContent = dateLabel.charAt(0).toUpperCase() + dateLabel.slice(1);
+
+    const prayerGrid = document.getElementById('dailyPrayersGrid');
+    if (prayerGrid) {
+        prayerGrid.innerHTML = [
+            {
+                title: 'Oferecimento da manhã',
+                text: 'Senhor, eu vos ofereço este novo dia, meu trabalho, minhas alegrias e dificuldades. Conduzi meus pensamentos e ações para o bem e ensinai-me a servir com amor. Amém.'
+            },
+            {
+                title: 'Pai-Nosso',
+                text: 'Pai nosso que estais nos céus, santificado seja o vosso nome; venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu. O pão nosso de cada dia nos dai hoje; perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido; e não nos deixeis cair em tentação, mas livrai-nos do mal. Amém.'
+            },
+            {
+                title: 'Angelus',
+                text: 'O Anjo do Senhor anunciou a Maria. E Ela concebeu do Espírito Santo. Ave Maria.\n\nEis aqui a serva do Senhor. Faça-se em mim segundo a vossa palavra. Ave Maria.\n\nE o Verbo se fez carne. E habitou entre nós. Ave Maria.\n\nRogai por nós, Santa Mãe de Deus, para que sejamos dignos das promessas de Cristo.\n\nOremos: Infundi, Senhor, como vos pedimos, a vossa graça em nossas almas, para que nós, que pela anunciação do Anjo conhecemos a encarnação de Cristo, vosso Filho, cheguemos por sua paixão e cruz à glória da ressurreição. Pelo mesmo Cristo, nosso Senhor. Amém.'
+            },
+            {
+                title: 'Oração da noite',
+                text: 'Senhor, agradeço-vos por este dia e por todo bem que recebi. Perdoai minhas faltas, guardai minha família e concedei descanso e paz a todos. Que eu desperte amanhã disposto a fazer a vossa vontade. Amém.'
+            }
+        ].map((prayer, index) => `
+            <details class="daily-prayer-card" ${index === 0 ? 'open' : ''}>
+                <summary>${escapeHtml(prayer.title)}</summary>
+                <div class="daily-prayer-text">${escapeHtml(prayer.text)}</div>
+            </details>`).join('');
+    }
+
+    document.getElementById('refreshNews')?.addEventListener('click', () => loadDailyContent(true));
+}
+
+async function loadDailyContent(force = false) {
+    const dateKey = localDateKey();
+    if (!force && dailyContentCache && dailyContentCacheDate === dateKey && Date.now() - dailyContentLoadedAt < 15 * 60 * 1000) {
+        renderDailyContent(dailyContentCache);
+        return;
+    }
+    if (dailyContentRequest) return dailyContentRequest;
+
+    const newsUpdatedAt = document.getElementById('newsUpdatedAt');
+    const newsGrid = document.getElementById('newsGrid');
+    const saintContent = document.getElementById('saintOfDayContent');
+    const refreshButton = document.getElementById('refreshNews');
+    if (newsUpdatedAt && !dailyContentCache) newsUpdatedAt.textContent = 'Carregando as notícias…';
+    if (newsGrid && !dailyContentCache) newsGrid.innerHTML = '<p class="news-empty">Buscando as últimas notícias da Igreja…</p>';
+    if (saintContent && !dailyContentCache) saintContent.innerHTML = '<p>Carregando o calendário de hoje…</p>';
+    if (refreshButton) refreshButton.disabled = true;
+
+    dailyContentRequest = (async () => {
+        try {
+            const response = await fetch(`/api/daily-content?date=${encodeURIComponent(dateKey)}`, { cache: 'no-store' });
+            const data = await response.json();
+            if (!response.ok && !data.news?.length && !data.saints?.length) throw new Error(data.error || 'Falha ao atualizar o conteúdo.');
+            dailyContentCache = data;
+            dailyContentCacheDate = dateKey;
+            dailyContentLoadedAt = Date.now();
+            renderDailyContent(data);
+        } catch (error) {
+            if (newsUpdatedAt) newsUpdatedAt.textContent = 'Não foi possível atualizar as notícias agora.';
+            if (newsGrid) newsGrid.innerHTML = `<p class="news-empty">${escapeHtml(error.message)} Tente novamente mais tarde.</p>`;
+            if (saintContent) saintContent.innerHTML = '<p>O calendário do dia não pôde ser carregado agora. Consulte a fonte oficial pelo link abaixo.</p>';
+        } finally {
+            if (refreshButton) refreshButton.disabled = false;
+            dailyContentRequest = null;
+        }
+    })();
+    return dailyContentRequest;
+}
+
+function renderDailyContent(data) {
+    const newsGrid = document.getElementById('newsGrid');
+    const newsUpdatedAt = document.getElementById('newsUpdatedAt');
+    const saintContent = document.getElementById('saintOfDayContent');
+    const saintSource = document.getElementById('saintOfDaySource');
+    const news = Array.isArray(data.news) ? data.news : [];
+    const saints = Array.isArray(data.saints) ? data.saints : [];
+
+    if (newsGrid) {
+        newsGrid.innerHTML = news.length ? news.map(item => {
+            const published = item.publishedAt ? new Date(item.publishedAt) : null;
+            const publishedLabel = published && !Number.isNaN(published.getTime())
+                ? new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'America/Sao_Paulo' }).format(published)
+                : 'Vatican News';
+            return `<article class="news-card">
+                <span class="news-card-date">${escapeHtml(publishedLabel)}</span>
+                <h3>${escapeHtml(item.title)}</h3>
+                ${item.description ? `<p>${escapeHtml(item.description)}</p>` : ''}
+                <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">Ler notícia completa <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            </article>`;
+        }).join('') : '<p class="news-empty">Nenhuma notícia está disponível neste momento. Tente atualizar novamente.</p>';
+    }
+
+    if (newsUpdatedAt) {
+        const updatedAt = data.updatedAt ? new Date(data.updatedAt) : new Date();
+        const time = Number.isNaN(updatedAt.getTime()) ? '' : new Intl.DateTimeFormat('pt-BR', {
+            hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo'
+        }).format(updatedAt);
+        newsUpdatedAt.textContent = `${news.length} notícias recentes · atualização ${time ? `às ${time}` : 'concluída'}`;
+    }
+
+    if (saintContent) {
+        saintContent.innerHTML = saints.length ? saints.map(saint => `
+            <article class="saint-of-day-entry">
+                <h4>${escapeHtml(saint.name)}</h4>
+                <p>${escapeHtml(saint.description)}</p>
+            </article>`).join('') : '<p>Não foi possível carregar os nomes do calendário hoje. Consulte a página oficial pelo link abaixo.</p>';
+    }
+    if (saintSource) saintSource.href = data.sources?.saints || `https://www.vaticannews.va/pt/santo-do-dia.html`;
+
+    const prayerGrid = document.getElementById('dailyPrayersGrid');
+    if (prayerGrid && saints.length) {
+        prayerGrid.querySelector('[data-daily-saints-prayer]')?.remove();
+        const prayer = document.createElement('details');
+        prayer.className = 'daily-prayer-card';
+        prayer.dataset.dailySaintsPrayer = 'true';
+        const names = saints.map(saint => saint.name).join('; ');
+        prayer.innerHTML = `<summary>Prece de intercessão pelos santos de hoje</summary><div class="daily-prayer-text">Santos e santas celebrados neste dia — ${escapeHtml(names)} — rogai por nós. Ajudai-nos a seguir fielmente o Evangelho e a servir a Deus em nossos irmãos. Amém.</div>`;
+        prayerGrid.appendChild(prayer);
+    }
 }
 
 function openStats() {
@@ -1797,6 +1939,41 @@ function setupEventListeners() {
         switchView('eucharisticMiraclesView');
     };
 
+    const extensionButton = document.getElementById('btnDailyExtension');
+    const extension = document.querySelector('.menu-extension');
+    const extensionMenu = document.getElementById('dailyExtensionMenu');
+    const setExtensionOpen = isOpen => {
+        if (!extension || !extensionButton || !extensionMenu) return;
+        extension.classList.toggle('is-open', isOpen);
+        extensionButton.setAttribute('aria-expanded', String(isOpen));
+        extensionMenu.hidden = !isOpen;
+    };
+
+    extensionButton?.addEventListener('click', event => {
+        event.stopPropagation();
+        setExtensionOpen(extensionButton.getAttribute('aria-expanded') !== 'true');
+    });
+    document.addEventListener('click', event => {
+        if (extension && !extension.contains(event.target)) setExtensionOpen(false);
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') setExtensionOpen(false);
+    });
+
+    document.getElementById('btnNews').onclick = event => {
+        event.preventDefault();
+        setExtensionOpen(false);
+        switchView('newsView');
+        loadDailyContent();
+    };
+
+    document.getElementById('btnDailyPrayers').onclick = event => {
+        event.preventDefault();
+        setExtensionOpen(false);
+        switchView('dailyPrayersView');
+        loadDailyContent();
+    };
+
     document.getElementById('btnAbout').onclick = (e) => {
         e.preventDefault();
         switchView('aboutView');
@@ -1853,6 +2030,7 @@ function setupEventListeners() {
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 setMenuOpen(false);
+                setExtensionOpen(false);
             });
         });
     }

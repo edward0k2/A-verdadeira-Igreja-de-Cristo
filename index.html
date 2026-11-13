@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>História da Salvação - Livro Interativo</title>
-    <link rel="stylesheet" href="style.css?v=3.6">
+    <link rel="stylesheet" href="style.css?v=3.7">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -28,6 +28,15 @@
                 <li><a href="#" id="btnCatecismo">Catecismo</a></li>
                 <li><a href="#" id="btnSantos">Santos Incorruptíveis</a></li>
                 <li><a href="#" id="btnMilagres">Milagres Eucarísticos</a></li>
+                <li class="menu-extension">
+                    <button type="button" id="btnDailyExtension" class="menu-extension-toggle" aria-label="Abrir Novidades e Orações" aria-controls="dailyExtensionMenu" aria-expanded="false" title="Novidades e Orações">
+                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <div id="dailyExtensionMenu" class="menu-extension-submenu" hidden>
+                        <a href="#" id="btnNews"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Novidades</a>
+                        <a href="#" id="btnDailyPrayers"><i class="fa-solid fa-hands-praying" aria-hidden="true"></i> Orações diárias</a>
+                    </div>
+                </li>
             </ul>
         </nav>
         <div class="nav-right">
@@ -555,6 +564,45 @@
                 <iframe id="miracleReaderFrame" title="Documento e relato do milagre eucarístico" loading="lazy"></iframe>
             </dialog>
         </section>
+
+        <section id="newsView" class="view daily-content-view">
+            <header class="daily-content-header">
+                <span class="daily-content-kicker"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Notícias da Igreja</span>
+                <h2>Novidades do dia</h2>
+                <p>Notícias recentes sobre o Papa, o Vaticano e a Igreja no mundo, atualizadas a partir do Vatican News.</p>
+            </header>
+            <div class="daily-content-toolbar">
+                <p id="newsUpdatedAt" role="status" aria-live="polite">Carregando as notícias…</p>
+                <button type="button" id="refreshNews"><i class="fa-solid fa-rotate" aria-hidden="true"></i> Atualizar</button>
+            </div>
+            <div id="newsGrid" class="news-grid" aria-live="polite"></div>
+            <p class="daily-content-attribution">Notícias e links: <a href="https://www.vaticannews.va/pt.html" target="_blank" rel="noopener noreferrer">Vatican News</a>. As matérias completas permanecem na publicação original.</p>
+        </section>
+
+        <section id="dailyPrayersView" class="view daily-content-view">
+            <header class="daily-content-header">
+                <span class="daily-content-kicker"><i class="fa-solid fa-hands-praying" aria-hidden="true"></i> Vida de oração</span>
+                <h2>Orações diárias</h2>
+                <p id="dailyPrayerDate"></p>
+            </header>
+            <section class="saint-of-day-panel" aria-labelledby="saintOfDayHeading">
+                <div class="saint-of-day-heading-row">
+                    <div>
+                        <span class="daily-content-kicker">Calendário litúrgico</span>
+                        <h3 id="saintOfDayHeading">Santo(s) do dia</h3>
+                    </div>
+                    <span class="saint-of-day-icon" aria-hidden="true"><i class="fa-solid fa-cross"></i></span>
+                </div>
+                <div id="saintOfDayContent" aria-live="polite"><p>Carregando o calendário de hoje…</p></div>
+                <a id="saintOfDaySource" class="daily-source-link" href="https://www.vaticannews.va/pt/santo-do-dia.html" target="_blank" rel="noopener noreferrer">Calendário dos santos no Vatican News <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            </section>
+            <div class="daily-prayer-section-heading">
+                <h3>Reze ao longo do dia</h3>
+                <p>Orações tradicionais para começar o dia, rezar o Angelus e encerrá-lo em oração.</p>
+            </div>
+            <div id="dailyPrayersGrid" class="daily-prayers-grid"></div>
+            <p class="daily-content-attribution">Consulte também o acervo de <a href="https://www.vaticannews.va/pt/oracoes.html" target="_blank" rel="noopener noreferrer">orações do Vatican News</a>.</p>
+        </section>
     </main>
 
     <!-- Modal de Informações Detalhadas -->
@@ -651,7 +699,7 @@
     <script src="papas-data.js?v=20261110"></script>
     <script src="bible-story-data.js?v=20261111"></script>
     <script src="milagres-eucaristicos-data.js?v=3"></script>
-    <script src="script.js?v=4.2"></script>
+    <script src="script.js?v=4.3"></script>
 </body>
 
 </html>

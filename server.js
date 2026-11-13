@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const dailyContentHandler = require('./api/daily-content');
 
 const PORT = 3000;
 
@@ -20,6 +21,9 @@ const MIME_TYPES = {
 const server = http.createServer((req, res) => {
     // Extrai o caminho do arquivo ignorando a query string (?v=1.4) e decodifica caracteres como %20
     const urlPath = decodeURIComponent(req.url.split('?')[0]);
+    if (urlPath === '/api/daily-content') {
+        return dailyContentHandler(req, res);
+    }
     let filePath = '.' + urlPath;
     
     if (filePath === './') {
