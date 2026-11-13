@@ -1415,6 +1415,17 @@ body {
     margin-inline: auto;
 }
 
+.road-container.road-container-single .personagens-wrapper {
+    flex-wrap: nowrap;
+    gap: clamp(0.25rem, 1vw, 0.75rem);
+}
+
+.road-container.road-container-single .personagem-mini {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: clamp(0.25rem, 1vw, 0.75rem);
+}
+
 /* A linha da estrada - ConexÃ£o central */
 .road-container::before {
     content: '';
@@ -2763,6 +2774,10 @@ body {
         width: 100%;
         max-width: 100%;
         flex-wrap: wrap;
+    }
+
+    .road-container.road-container-single .personagens-wrapper {
+        flex-wrap: nowrap;
     }
 
     .saint-photo-timeline {
