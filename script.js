@@ -245,6 +245,8 @@ function init() {
     renderSaints();
     setupHistoryDirectories();
     setupEucharisticMiracles();
+    setupApparitions();
+    setupPersonalBlog();
     setupDailyPages();
     setupSaintReaderResponsiveLayout();
     setupEventListeners();
@@ -733,7 +735,7 @@ function updateProgressUI() {
 }
 
 function switchView(viewId) {
-    const views = ['summaryView', 'chapterView', 'catechismView', 'booksView', 'saintsView', 'eucharisticMiraclesView', 'newsView', 'dailyPrayersView', 'tercoView', 'aboutView'];
+    const views = ['summaryView', 'chapterView', 'catechismView', 'booksView', 'saintsView', 'eucharisticMiraclesView', 'apparitionsView', 'personalBlogView', 'newsView', 'dailyPrayersView', 'tercoView', 'aboutView'];
     views.forEach(id => {
         const view = document.getElementById(id);
         if (view) {
@@ -745,6 +747,9 @@ function switchView(viewId) {
             }
         }
     });
+    window.setTimeout(() => {
+        document.querySelectorAll('.catalog-map').forEach(element => element._leafletMap?.invalidateSize());
+    }, 80);
     // Reset scroll ao trocar de aba principal
     window.scrollTo(0, 0);
 }
@@ -811,6 +816,7 @@ function setupEucharisticMiracles() {
     search.addEventListener('input', render);
     countryFilter.addEventListener('change', render);
     dateFilter.addEventListener('change', render);
+    const map = createCatalogMap('miraclesMap', eucharisticMiraclesData, 'country', countryFilter, 'Milagres eucarísticos');
     grid.addEventListener('click', event => {
         const button = event.target.closest('[data-miracle-document]');
         if (!button) return;
@@ -827,6 +833,182 @@ function setupEucharisticMiracles() {
         dateFilter.value = 'all';
         render();
         search.focus();
+    });
+    render();
+    if (map) renderCatalogMapMarkers(map, eucharisticMiraclesData, 'country', countryFilter, 'Milagres eucarísticos');
+}
+
+const catalogCountryCoordinates = {
+    'África do Sul': [-29, 24], 'Alemanha': [51, 10], 'Argentina': [-36, -64], 'Áustria': [47.5, 14.5], 'Bélgica': [50.6, 4.7],
+    'Bolívia': [-17, -64], 'Brasil': [-10, -52], 'Chile': [-30, -71], 'China': [35, 103], 'Colômbia': [4, -72], 'Coreia do Sul': [36, 128],
+    'Costa Rica': [10, -84], 'Croácia': [45, 16], 'Cuba': [22, -79], 'Egito': [26, 30], 'Equador': [-2, -77.5], 'Espanha': [40, -4],
+    'Estados Unidos': [39, -98], 'Filipinas': [12, 122], 'França': [46, 2], 'Hungria': [47, 19], 'Índia': [22, 79], 'Irlanda': [53, -8],
+    'Itália': [42.5, 12.5], 'Japão': [36, 138], 'Líbano': [33.9, 35.8], 'Lituânia': [55, 24], 'Malta': [35.9, 14.4], 'México': [23, -102],
+    'Nigéria': [9, 8], 'Nicarágua': [13, -85], 'Países Baixos': [52, 5], 'Holanda': [52, 5], 'Ilha de Martinica': [14.6, -61], 'Ilha Reunião': [-21.1, 55.5],
+    'Suíça': [46.8, 8.2], 'Paraguai': [-23, -58], 'Peru': [-9, -75], 'Polônia': [52, 19],
+    'Portugal': [39.5, -8], 'Reino Unido': [54, -2], 'República Tcheca': [49.8, 15.5], 'Ruanda': [-2, 30], 'Sérvia': [44, 21],
+    'Eslovênia': [46, 15], 'Venezuela': [8, -66], 'Vietnã': [16, 108], 'Japão': [36, 138]
+};
+
+function createCatalogMap(elementId, data, groupKey, filter, label) {
+    const element = document.getElementById(elementId);
+    if (!element || !window.L) return null;
+    if (element._leafletMap) return element._leafletMap;
+    const map = L.map(element, { scrollWheelZoom: false, worldCopyJump: true }).setView([18, 8], 2);
+    element._leafletMap = map;
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    map._catalogData = data;
+    map._catalogGroupKey = groupKey;
+    map._catalogFilter = filter;
+    map._catalogLabel = label;
+    return map;
+}
+
+function renderCatalogMapMarkers(map, data, groupKey, filter, label) {
+    if (!map || !window.L) return;
+    map._catalogMarkers?.clearLayers();
+    const markers = L.featureGroup();
+    const counts = new Map();
+    data.forEach(item => counts.set(item[groupKey], (counts.get(item[groupKey]) || 0) + 1));
+    counts.forEach((count, country) => {
+        const coordinates = catalogCountryCoordinates[country];
+        if (!coordinates) return;
+        const marker = L.circleMarker(coordinates, { radius: Math.min(18, 7 + Math.sqrt(count) * 1.5), color: '#916800', weight: 2, fillColor: '#e0ad2d', fillOpacity: 0.78 });
+        marker.bindTooltip(`${country}: ${count} ${count === 1 ? 'registro' : 'registros'}`);
+        marker.bindPopup(`<strong>${escapeHtml(country)}</strong><br>${count} ${count === 1 ? 'registro' : 'registros'} de ${escapeHtml(label)}<br><small>Marcador aproximado no país</small>`);
+        marker.on('click', () => { filter.value = country; filter.dispatchEvent(new Event('change')); });
+        markers.addLayer(marker);
+    });
+    markers.addTo(map);
+    map._catalogMarkers = markers;
+}
+
+function setupApparitions() {
+    const grid = document.getElementById('apparitionsGrid');
+    const countryFilter = document.getElementById('apparitionsCountryFilter');
+    const search = document.getElementById('apparitionsSearch');
+    const status = document.getElementById('apparitionsDirectoryStatus');
+    if (!grid || !countryFilter || !search || !status || !Array.isArray(marianApparitionsData)) return;
+    const countries = [...new Set(marianApparitionsData.map(item => item.country))].sort((a, b) => a.localeCompare(b, 'pt-BR'));
+    countryFilter.innerHTML = '<option value="all">Todos os países</option>' + countries.map(country => `<option value="${escapeHtml(country)}">${escapeHtml(country)}</option>`).join('');
+    const render = () => {
+        const query = normalizeDirectoryText(search.value.trim());
+        const records = marianApparitionsData.filter(item => (countryFilter.value === 'all' || item.country === countryFilter.value)
+            && (!query || normalizeDirectoryText(`${item.place} ${item.country}`).includes(query)));
+        grid.innerHTML = records.map(item => `<article class="miracle-card apparition-card"><div class="miracle-card-icon" aria-hidden="true"><i class="fa-solid fa-person-praying"></i></div><div class="miracle-card-content"><span class="miracle-card-country"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> ${escapeHtml(item.country)}</span><h3>${escapeHtml(item.place)}</h3><p class="miracle-card-date">Local catalogado na exposição mariana</p><button type="button" class="miracle-read-button" data-apparition-id="${item.id}"><i class="fa-solid fa-book-open" aria-hidden="true"></i> Ler documentação</button></div></article>`).join('');
+        status.textContent = `${records.length} ${records.length === 1 ? 'local encontrado' : 'locais encontrados'} de ${marianApparitionsData.length}.`;
+        if (!records.length) grid.innerHTML = '<p class="miracles-empty">Nenhum local encontrado. Ajuste a busca ou o filtro.</p>';
+    };
+    const map = createCatalogMap('apparitionsMap', marianApparitionsData, 'country', countryFilter, 'Aparições marianas');
+    if (map) renderCatalogMapMarkers(map, marianApparitionsData, 'country', countryFilter, 'Aparições marianas');
+    search.addEventListener('input', render);
+    countryFilter.addEventListener('change', render);
+    grid.addEventListener('click', event => {
+        const button = event.target.closest('[data-apparition-id]');
+        if (!button) return;
+        const item = marianApparitionsData.find(record => record.id === Number(button.dataset.apparitionId));
+        if (item) openApparitionDocument(item);
+    });
+    document.getElementById('clearApparitionsSearch')?.addEventListener('click', () => { search.value = ''; countryFilter.value = 'all'; render(); search.focus(); });
+    const dialog = document.getElementById('apparitionReaderDialog');
+    const frame = document.getElementById('apparitionReaderFrame');
+    document.getElementById('closeApparitionReader')?.addEventListener('click', () => dialog?.close());
+    dialog?.addEventListener('close', () => { if (frame) frame.src = 'about:blank'; });
+    render();
+}
+
+function openApparitionDocument(item) {
+    const dialog = document.getElementById('apparitionReaderDialog');
+    const frame = document.getElementById('apparitionReaderFrame');
+    if (!dialog || !frame) return;
+    document.getElementById('apparitionReaderTitle').textContent = item.place;
+    document.getElementById('apparitionReaderMeta').textContent = `${item.country} · Exposição mariana de São Carlo Acutis`;
+    document.getElementById('openApparitionSource').href = item.sourceUrl;
+    frame.src = item.sourceUrl;
+    dialog.showModal();
+}
+
+function setupPersonalBlog() {
+    const form = document.getElementById('blogPostForm');
+    const grid = document.getElementById('blogPostsGrid');
+    if (!form || !grid) return;
+    const storageKey = 'historiaSalvacaoPersonalBlogV1';
+    let posts = [];
+    try { posts = JSON.parse(localStorage.getItem(storageKey) || '[]'); } catch { posts = []; }
+    let editingId = null;
+    let selectedImage = '';
+    const titleInput = document.getElementById('blogPostTitle');
+    const bodyInput = document.getElementById('blogPostBody');
+    const imageInput = document.getElementById('blogPostImage');
+    const status = document.getElementById('blogStatus');
+    const persist = () => {
+        try { localStorage.setItem(storageKey, JSON.stringify(posts)); return true; }
+        catch { status.textContent = 'Não foi possível salvar: remova uma foto grande ou exporte e libere espaço.'; return false; }
+    };
+    const render = () => {
+        posts.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+        grid.innerHTML = posts.length ? posts.map(post => `<article class="blog-post-card">${post.image ? `<img src="${escapeHtml(post.image)}" alt="${escapeHtml(post.title)}" loading="lazy">` : ''}<div class="blog-post-content"><time datetime="${escapeHtml(post.createdAt)}">${new Date(post.createdAt).toLocaleDateString('pt-BR')}</time><h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.body)}</p><div class="blog-post-card-actions"><button type="button" data-edit-post="${escapeHtml(post.id)}"><i class="fa-solid fa-pen" aria-hidden="true"></i> Editar</button><button type="button" data-delete-post="${escapeHtml(post.id)}"><i class="fa-solid fa-trash" aria-hidden="true"></i> Excluir</button></div></div></article>`).join('') : '<p class="miracles-empty">Ainda não há publicações. Use o formulário acima para criar a primeira.</p>';
+    };
+    imageInput.addEventListener('change', () => {
+        const file = imageInput.files?.[0];
+        if (!file) { selectedImage = ''; return; }
+        if (!file.type.startsWith('image/')) { status.textContent = 'Selecione um arquivo de imagem.'; imageInput.value = ''; return; }
+        const reader = new FileReader();
+        reader.onload = () => {
+            const image = new Image();
+            image.onload = () => {
+                const scale = Math.min(1, 1400 / Math.max(image.width, image.height));
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.round(image.width * scale); canvas.height = Math.round(image.height * scale);
+                canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
+                selectedImage = canvas.toDataURL('image/jpeg', 0.78);
+                status.textContent = 'Foto pronta para publicação.';
+            };
+            image.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+    });
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        const now = new Date().toISOString();
+        if (editingId) {
+            const post = posts.find(item => item.id === editingId);
+            if (post) Object.assign(post, { title: titleInput.value.trim(), body: bodyInput.value.trim(), image: selectedImage || post.image, updatedAt: now });
+        } else posts.push({ id: `${Date.now()}`, title: titleInput.value.trim(), body: bodyInput.value.trim(), image: selectedImage, createdAt: now });
+        if (!persist()) return;
+        form.reset(); selectedImage = ''; editingId = null;
+        document.getElementById('saveBlogPost').innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Publicar';
+        document.getElementById('cancelBlogEdit').hidden = true;
+        status.textContent = 'Publicação salva neste navegador.';
+        render();
+    });
+    grid.addEventListener('click', event => {
+        const edit = event.target.closest('[data-edit-post]');
+        const remove = event.target.closest('[data-delete-post]');
+        if (edit) {
+            const post = posts.find(item => item.id === edit.dataset.editPost);
+            if (!post) return;
+            editingId = post.id; selectedImage = ''; titleInput.value = post.title; bodyInput.value = post.body;
+            document.getElementById('saveBlogPost').innerHTML = '<i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Salvar alterações';
+            document.getElementById('cancelBlogEdit').hidden = false; titleInput.focus();
+        }
+        if (remove && window.confirm('Excluir esta publicação?')) { posts = posts.filter(post => post.id !== remove.dataset.deletePost); persist(); render(); }
+    });
+    document.getElementById('cancelBlogEdit').addEventListener('click', () => { editingId = null; selectedImage = ''; form.reset(); document.getElementById('saveBlogPost').innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Publicar'; document.getElementById('cancelBlogEdit').hidden = true; status.textContent = ''; });
+    document.getElementById('exportBlogPosts').addEventListener('click', () => {
+        const blob = new Blob([JSON.stringify(posts, null, 2)], { type: 'application/json' });
+        const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'blog-pessoal-backup.json'; link.click(); URL.revokeObjectURL(link.href);
+    });
+    document.getElementById('importBlogPosts').addEventListener('change', async event => {
+        try {
+            const imported = JSON.parse(await event.target.files[0].text());
+            if (!Array.isArray(imported) || imported.some(post => typeof post.title !== 'string' || typeof post.body !== 'string' || !post.id || (post.image && !/^data:image\/(png|jpeg|webp|gif);base64,/i.test(post.image)))) throw new Error('Formato inválido');
+            posts = [...imported, ...posts.filter(existing => !imported.some(item => item.id === existing.id))];
+            if (persist()) { render(); status.textContent = 'Backup importado.'; }
+        } catch { status.textContent = 'Não foi possível importar esse arquivo JSON.'; }
+        event.target.value = '';
     });
     render();
 }
@@ -1973,6 +2155,18 @@ function setupEventListeners() {
         setExtensionOpen(false);
         switchView('dailyPrayersView');
         loadDailyContent();
+    };
+
+    document.getElementById('btnApparitions').onclick = event => {
+        event.preventDefault();
+        setExtensionOpen(false);
+        switchView('apparitionsView');
+    };
+
+    document.getElementById('btnPersonalBlog').onclick = event => {
+        event.preventDefault();
+        setExtensionOpen(false);
+        switchView('personalBlogView');
     };
 
     document.getElementById('btnAbout').onclick = (e) => {

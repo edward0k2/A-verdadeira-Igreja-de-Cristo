@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>História da Salvação - Livro Interativo</title>
-    <link rel="stylesheet" href="style.css?v=4.9">
+    <link rel="stylesheet" href="style.css?v=5.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Lora:ital,wght@0,400;0,700;1,400&family=Outfit:wght@400;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 </head>
 
 <body>
@@ -29,12 +30,14 @@
                 <li><a href="#" id="btnSantos">Santos Incorruptíveis</a></li>
                 <li><a href="#" id="btnMilagres">Milagres Eucarísticos</a></li>
                 <li class="menu-extension">
-                    <button type="button" id="btnDailyExtension" class="menu-extension-toggle" aria-label="Abrir Novidades e Orações" aria-controls="dailyExtensionMenu" aria-expanded="false" title="Novidades e Orações">
+                    <button type="button" id="btnDailyExtension" class="menu-extension-toggle" aria-label="Abrir menu complementar" aria-controls="dailyExtensionMenu" aria-expanded="false" title="Mais seções">
                         <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
                     </button>
                     <div id="dailyExtensionMenu" class="menu-extension-submenu" hidden>
                         <a href="#" id="btnNews"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Novidades</a>
                         <a href="#" id="btnDailyPrayers"><i class="fa-solid fa-hands-praying" aria-hidden="true"></i> Orações diárias</a>
+                        <a href="#" id="btnApparitions"><i class="fa-solid fa-person-praying" aria-hidden="true"></i> Aparições de Nossa Senhora</a>
+                        <a href="#" id="btnPersonalBlog"><i class="fa-solid fa-camera-retro" aria-hidden="true"></i> Blog pessoal</a>
                     </div>
                 </li>
             </ul>
@@ -603,6 +606,10 @@
                 </label>
                 <p id="miraclesDirectoryStatus" class="history-directory-status" role="status" aria-live="polite"></p>
             </div>
+            <section class="catalog-map-section" aria-labelledby="miraclesMapHeading">
+                <div class="catalog-map-heading"><div><h3 id="miraclesMapHeading">Mapa dos milagres</h3><p>Selecione um marcador para filtrar os registros por país. A posição representa o país, não o local exato do acontecimento.</p></div></div>
+                <div id="miraclesMap" class="catalog-map" role="application" aria-label="Mapa interativo dos países com milagres eucarísticos catalogados"></div>
+            </section>
             <div id="miraclesGrid" class="miracles-grid" aria-live="polite"></div>
             <p class="miracles-source-link">Fonte: <a href="https://www.miracolieucaristici.org/pr/Liste/list.html" target="_blank" rel="noopener noreferrer">Catálogo oficial da exposição de Carlo Acutis</a>.</p>
             <dialog id="miracleReaderDialog" class="miracle-reader-dialog" aria-labelledby="miracleReaderTitle">
@@ -658,6 +665,44 @@
             </div>
             <div id="dailyPrayersGrid" class="daily-prayers-grid"></div>
             <p class="daily-content-attribution">Consulte também o acervo de <a href="https://www.vaticannews.va/pt/oracoes.html" target="_blank" rel="noopener noreferrer">orações do Vatican News</a>.</p>
+        </section>
+
+        <section id="apparitionsView" class="view daily-content-view catalog-view">
+            <header class="daily-content-header">
+                <span class="daily-content-kicker"><i class="fa-solid fa-person-praying" aria-hidden="true"></i> Catálogo mariano</span>
+                <h2>Aparições de Nossa Senhora</h2>
+                <p>Consulte os locais reunidos na exposição mariana de São Carlo Acutis. Abra cada registro para ler a documentação original nesta página.</p>
+            </header>
+            <div class="history-directory-tools miracles-directory-tools">
+                <div class="history-directory-search"><i class="fas fa-search" aria-hidden="true"></i><input id="apparitionsSearch" type="search" autocomplete="off" placeholder="Buscar aparição, local ou país…" aria-label="Buscar aparições marianas"><button type="button" id="clearApparitionsSearch" aria-label="Limpar busca"><i class="fas fa-times" aria-hidden="true"></i></button></div>
+                <label>País<select id="apparitionsCountryFilter" aria-label="Filtrar aparições por país"><option value="all">Todos os países</option></select></label>
+                <p id="apparitionsDirectoryStatus" class="history-directory-status" role="status" aria-live="polite"></p>
+            </div>
+            <section class="catalog-map-section" aria-labelledby="apparitionsMapHeading">
+                <div class="catalog-map-heading"><div><h3 id="apparitionsMapHeading">Mapa das aparições</h3><p>Selecione um marcador para filtrar os locais. A posição representa o país, não o local exato da aparição.</p></div></div>
+                <div id="apparitionsMap" class="catalog-map" role="application" aria-label="Mapa interativo dos países com aparições marianas catalogadas"></div>
+            </section>
+            <div id="apparitionsGrid" class="miracles-grid" aria-live="polite"></div>
+            <p class="miracles-source-link">Fontes e documentação: <a href="https://www.carloacutis.com/en/avm/download" target="_blank" rel="noopener noreferrer">Exposição das aparições marianas de São Carlo Acutis</a>. Os documentos e relatos individuais são propriedade de seus autores e instituições de origem.</p>
+            <dialog id="apparitionReaderDialog" class="miracle-reader-dialog" aria-labelledby="apparitionReaderTitle">
+                <div class="miracle-reader-header"><div><p id="apparitionReaderMeta" class="miracle-reader-meta"></p><h2 id="apparitionReaderTitle">Documentação da aparição</h2></div><div class="miracle-reader-actions"><a id="openApparitionSource" class="miracle-download-button" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Abrir fonte</a><button type="button" id="closeApparitionReader" class="miracle-reader-close" aria-label="Fechar leitura"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div></div>
+                <p class="miracle-reader-note">Leitura do registro original incorporada. Se o site de origem bloquear a incorporação, use “Abrir fonte”.</p>
+                <iframe id="apparitionReaderFrame" title="Documento e relato da aparição mariana" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </dialog>
+        </section>
+
+        <section id="personalBlogView" class="view daily-content-view catalog-view">
+            <header class="daily-content-header"><span class="daily-content-kicker"><i class="fa-solid fa-camera-retro" aria-hidden="true"></i> Diário do projeto</span><h2>Blog pessoal</h2><p>Publique fotos, relatos e novidades do projeto em um espaço próprio.</p></header>
+            <section class="blog-editor-panel" aria-labelledby="blogEditorHeading">
+                <div class="catalog-map-heading"><div><h3 id="blogEditorHeading">Nova publicação</h3><p>As publicações ficam salvas somente neste navegador/dispositivo e não aparecem para outros visitantes. Exporte um backup para guardar seus textos.</p></div><div class="blog-editor-actions"><button type="button" id="exportBlogPosts"><i class="fa-solid fa-download" aria-hidden="true"></i> Exportar backup</button><label class="blog-import-button"><i class="fa-solid fa-upload" aria-hidden="true"></i> Importar backup<input id="importBlogPosts" type="file" accept="application/json,.json" hidden></label></div></div>
+                <form id="blogPostForm" class="blog-post-form">
+                    <label>Título<input id="blogPostTitle" type="text" maxlength="120" required placeholder="Título da publicação"></label>
+                    <label>Texto<textarea id="blogPostBody" rows="5" maxlength="12000" required placeholder="Escreva sua novidade…"></textarea></label>
+                    <label>Foto (opcional)<input id="blogPostImage" type="file" accept="image/*"></label>
+                    <div class="blog-form-actions"><button type="submit" id="saveBlogPost"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Publicar</button><button type="button" id="cancelBlogEdit" hidden>Cancelar edição</button><p id="blogStatus" role="status" aria-live="polite"></p></div>
+                </form>
+            </section>
+            <div id="blogPostsGrid" class="blog-posts-grid" aria-live="polite"></div>
         </section>
     </main>
 
@@ -756,7 +801,9 @@
     <script src="papas-data.js?v=20261110"></script>
     <script src="bible-story-data.js?v=20261111"></script>
     <script src="milagres-eucaristicos-data.js?v=3"></script>
-    <script src="script.js?v=4.3"></script>
+    <script src="aparicoes-marianas-data.js?v=1"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="script.js?v=4.4"></script>
 </body>
 
 </html>

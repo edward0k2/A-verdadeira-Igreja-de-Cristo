@@ -131,10 +131,19 @@ As tags `<script>` no final de `index.html` definem a ordem de carregamento dos 
 | `bibleHighlightsV1` | Marcações de versículos da Bíblia. |
 | `tercoYoutubeLive` | Link/ID do YouTube salvo localmente para o player do Terço. |
 | `historiaSalvacaoProgress` | Progresso e último ponto de leitura. |
+| `historiaSalvacaoPersonalBlogV1` | Publicações do blog pessoal salvas no navegador atual (texto e fotos compactadas). |
 
 `localStorage` é por navegador e dispositivo; não sincroniza entre usuários e não é um mecanismo de autenticação.
 
 ## Estado recente
 
 Na criação deste documento (13 de novembro de 2026), os últimos commits incluem a inclusão de 50 santos (`0b9fb68`), redução da largura do painel de filtros (`9347e0d`), ajuste de largura dos cards dos mistérios (`13351e1`) e inclusão das imagens laterais do Terço (`679cf59`). O autor espera que cada tarefa seguinte também seja commitada e enviada para `main`.
+
+## Novidades desta alteração
+
+- O menu de extensão contém agora **Novidades**, **Orações diárias**, **Aparições de Nossa Senhora** e **Blog pessoal**.
+- `aparicoes-marianas-data.js` reúne 156 locais listados no catálogo da exposição mariana de São Carlo Acutis. Filtros e busca operam localmente; cada card abre a página original correspondente em uma janela incorporada e mantém um botão para abrir a fonte se ela bloquear incorporação. O catálogo de origem é `https://www.carloacutis.com/en/avm/download`.
+- As abas de Milagres Eucarísticos e Aparições incluem mapas interativos Leaflet/OpenStreetMap. Os círculos mostram a quantidade de registros por país e filtram a lista. As coordenadas são aproximadas ao país; não representam o local exato de cada acontecimento. O mapa mantém o crédito do OpenStreetMap.
+- O blog permite criar, editar e excluir publicações com foto, além de exportar/importar backup JSON. Fotos são redimensionadas/compactadas antes de salvar. **Persistência atual é somente no localStorage do navegador/dispositivo em uso**: visitantes não compartilham as publicações e elas não são enviadas ao site/Vercel. Para publicação pública entre dispositivos será necessário ligar o editor a um backend/serviço persistente com autenticação do autor.
+- Referência de implementação do mapa: Leaflet 1.9.4 via CDN e tiles OpenStreetMap com atribuição visível.
 
