@@ -1776,13 +1776,21 @@ body {
 .event-scripture-verses {
     color: var(--text-main);
     font-family: var(--font-heading);
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 1.08rem;
+    line-height: 2;
     text-align: left;
 }
 
+.event-scripture-verse {
+    display: inline-block;
+    width: 100%;
+    padding: 0.18rem 0.3rem;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
 .event-scripture-verse sup {
-    margin-right: 0.15rem;
+    margin-right: 0.35rem;
     color: var(--primary-hover);
     font-family: var(--font-main);
     font-size: 0.68rem;
