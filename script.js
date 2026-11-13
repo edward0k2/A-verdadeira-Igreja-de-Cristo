@@ -1751,6 +1751,7 @@ function renderChapterContent() {
 
     const road = document.getElementById('roadContainer');
     road.innerHTML = '';
+    road.classList.toggle('road-container-single', cap.eventos.length === 1);
 
     cap.eventos.forEach((ev, i) => {
         const node = document.createElement('div');
