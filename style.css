@@ -1030,6 +1030,8 @@ body {
 }
 
 .history-directory-tools {
+    width: 100%;
+    max-width: 1200px;
     display: grid;
     grid-template-columns: minmax(240px, 1fr) minmax(150px, 200px) minmax(140px, 170px);
     align-items: end;
