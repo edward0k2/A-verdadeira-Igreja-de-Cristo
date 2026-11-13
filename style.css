@@ -3820,3 +3820,23 @@ body {
         margin-top: 5px;
     }
 }
+@media (max-width: 768px) {
+    #progressWidget {
+        left: 0.55rem;
+        bottom: 0.55rem;
+        width: min(118px, 34vw);
+        gap: 0.25rem;
+        padding: 0.35rem 0.5rem;
+        border-radius: 9px;
+    }
+
+    #progressWidget .progress-bar-container { height: 5px; }
+
+    #progressWidget #progressText {
+        font-size: 0.66rem;
+        line-height: 1.2;
+        white-space: nowrap;
+    }
+
+    #progressWidget:hover { transform: none; }
+}
