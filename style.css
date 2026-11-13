@@ -3457,6 +3457,19 @@ body {
     text-align: left;
 }
 
+.terco-mysteries-section {
+    position: relative;
+    left: 50%;
+    width: min(1400px, calc(100vw - 2rem));
+    max-width: none;
+    margin-inline: 0;
+    transform: translateX(-50%);
+}
+
+.terco-mysteries-intro {
+    max-width: 1000px;
+}
+
 .terco-mysteries-intro a {
     color: #795400;
     text-underline-offset: 0.18em;
@@ -3551,6 +3564,14 @@ body {
         width: 100%;
         max-width: 600px;
         height: 300px;
+    }
+
+    .terco-mysteries-section {
+        left: auto;
+        width: 100%;
+        max-width: 900px;
+        margin-inline: auto;
+        transform: none;
     }
 }
 
