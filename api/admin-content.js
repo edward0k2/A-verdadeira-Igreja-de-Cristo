@@ -3,8 +3,9 @@ const { sendJson, hasAdminSession, isSameOriginRequest, readJsonBody } = require
 const REPOSITORY = process.env.GITHUB_REPOSITORY || 'edward0k2/A-verdadeira-Igreja-de-Cristo';
 const BRANCH = process.env.GITHUB_BRANCH || 'main';
 const CONTENTS_API = `https://api.github.com/repos/${REPOSITORY}/contents`;
-const DATA_FILES = { blog: 'data/blog-posts.json', live: 'data/terco-live.json' };
-const MAX_IMAGE_CHARS = 2_700_000;
+const DATA_FILES = { blog: 'data/blog-posts.json', live: 'data/terco-live.json', missa: 'data/missa-live.json' };
+const MAX_IMAGE_CHARS = 1_500_000;
+const MAX_MEDIA_CHARS = 1_700_000;
 
 function githubHeaders() {
     const headers = { Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'Historia-da-Salvacao-admin' };
@@ -37,12 +38,12 @@ async function readPublicFile(file) {
 async function writeRepositoryFile(file, value, sha) {
     if (!process.env.GITHUB_TOKEN) throw Object.assign(new Error('A publicação ainda não está configurada: falta o segredo GITHUB_TOKEN no site.'), { status: 503 });
     const json = `${JSON.stringify(value, null, 2)}\n`;
-    if (Buffer.byteLength(json) > 3_000_000) throw Object.assign(new Error('O conteúdo excede o limite de armazenamento.'), { status: 413 });
+    if (Buffer.byteLength(json) > 3_000_000) throw Object.assign(new Error('O conteúdo excede o limite de armazenamento. Reduza o tamanho ou a quantidade de mídias.'), { status: 413 });
     const response = await fetch(`${CONTENTS_API}/${file}`, {
         method: 'PUT',
         headers: { ...githubHeaders(), 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            message: file === DATA_FILES.blog ? 'Atualiza publicações do blog pelo painel administrativo' : 'Atualiza live do Santo Terço pelo painel administrativo',
+            message: file === DATA_FILES.blog ? 'Atualiza publicações do blog pelo painel administrativo' : file === DATA_FILES.missa ? 'Atualiza transmissão da Santa Missa pelo painel administrativo' : 'Atualiza live do Santo Terço pelo painel administrativo',
             content: Buffer.from(json, 'utf8').toString('base64'),
             branch: BRANCH,
             ...(sha ? { sha } : {}),
@@ -60,15 +61,42 @@ function validatePosts(input) {
         if (!post || typeof post.title !== 'string' || typeof post.body !== 'string' || !String(post.id || '').match(/^[A-Za-z0-9_-]{1,80}$/)) {
             throw Object.assign(new Error('Uma publicação contém campos inválidos.'), { status: 400 });
         }
-        const image = post.image || '';
-        if (image && (typeof image !== 'string' || image.length > MAX_IMAGE_CHARS || !/^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/i.test(image))) {
-            throw Object.assign(new Error('Uma foto tem formato inválido ou é grande demais. Reduza a imagem e tente novamente.'), { status: 400 });
-        }
+        const validateDataUrl = (value, pattern, maxChars, label) => {
+            if (!value) return '';
+            if (typeof value !== 'string' || value.length > maxChars || !pattern.test(value)) throw Object.assign(new Error(`${label} inválida ou muito grande. Reduza o arquivo e tente novamente.`), { status: 400 });
+            return value;
+        };
+        const imagePattern = /^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/i;
+        const photoInput = Array.isArray(post.photos) ? post.photos : (post.image ? [post.image] : []);
+        if (photoInput.length > 5) throw Object.assign(new Error('Adicione no máximo cinco fotos por publicação.'), { status: 400 });
+        const photos = photoInput.map(photo => validateDataUrl(photo, imagePattern, MAX_IMAGE_CHARS, 'Foto'));
+        const authorPhoto = validateDataUrl(post.authorPhoto || '', imagePattern, 700_000, 'Mini foto do redator');
+        const videoData = validateDataUrl(post.videoData || '', /^data:video\/(?:mp4|webm);base64,[A-Za-z0-9+/]+={0,2}$/i, MAX_MEDIA_CHARS, 'Vídeo');
+        const audioData = validateDataUrl(post.audioData || '', /^data:audio\/(?:mpeg|mp3|mp4|ogg|wav|webm|x-wav|wave|x-m4a|aac);base64,[A-Za-z0-9+/]+={0,2}$/i, MAX_MEDIA_CHARS, 'Áudio');
+        const safeUrl = (value, label) => {
+            if (!value) return '';
+            if (typeof value !== 'string' || value.length > 2000) throw Object.assign(new Error(`Link de ${label} inválido.`), { status: 400 });
+            try { const url = new URL(value); if (url.protocol !== 'https:') throw new Error(); return url.href; }
+            catch (_) { throw Object.assign(new Error(`Use um link HTTPS válido para ${label}.`), { status: 400 }); }
+        };
+        const socialInput = post.social && typeof post.social === 'object' ? post.social : {};
+        const social = Object.fromEntries(['instagram', 'facebook', 'youtube', 'tiktok'].map(network => [network, safeUrl(socialInput[network], network)]));
+        const parsedDate = /^\d{4}-\d{2}-\d{2}$/.test(post.date || '') ? Date.parse(`${post.date}T00:00:00Z`) : NaN;
+        const publishedDate = Number.isFinite(parsedDate) && new Date(parsedDate).toISOString().slice(0, 10) === post.date ? post.date : new Date().toISOString().slice(0, 10);
         return {
             id: String(post.id),
             title: post.title.trim().slice(0, 120),
+            subtitle: typeof post.subtitle === 'string' ? post.subtitle.trim().slice(0, 220) : '',
             body: post.body.trim().slice(0, 12000),
-            image,
+            date: publishedDate,
+            authorName: typeof post.authorName === 'string' ? post.authorName.trim().slice(0, 80) : '',
+            authorPhoto,
+            photos,
+            videoUrl: safeUrl(post.videoUrl, 'vídeo'),
+            videoData,
+            audioUrl: safeUrl(post.audioUrl, 'áudio'),
+            audioData,
+            social,
             createdAt: Number.isFinite(Date.parse(post.createdAt)) ? new Date(post.createdAt).toISOString() : new Date().toISOString(),
             ...(Number.isFinite(Date.parse(post.updatedAt)) ? { updatedAt: new Date(post.updatedAt).toISOString() } : {})
         };
@@ -82,7 +110,15 @@ function validateLive(input) {
     }
     const validId = input.type === 'video' ? /^[A-Za-z0-9_-]{11}$/.test(input.id) : /^UC[A-Za-z0-9_-]{22}$/.test(input.id);
     if (!validId || input.original.length > 500) throw Object.assign(new Error('O link ou ID do YouTube é inválido.'), { status: 400 });
-    return { type: input.type, id: input.id, original: input.original, updatedAt: new Date().toISOString() };
+    const idOnly = input.type === 'video' ? input.original === input.id : input.original === input.id;
+    if (!idOnly) {
+        try {
+            const source = new URL(input.original);
+            const hostAllowed = ['youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtu.be', 'www.youtu.be'].includes(source.hostname);
+            if (source.protocol !== 'https:' || !hostAllowed) throw new Error();
+        } catch (_) { throw Object.assign(new Error('O link da transmissão deve apontar para o YouTube em HTTPS.'), { status: 400 }); }
+    }
+    return { type: input.type, id: input.id, original: input.original, active: Boolean(input.active), updatedAt: new Date().toISOString() };
 }
 
 module.exports = async function adminContentHandler(request, response) {

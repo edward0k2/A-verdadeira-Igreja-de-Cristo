@@ -231,6 +231,7 @@ const livrosData = [
 
 let currentChapterIndex = 0;
 let siteAdminAuthenticated = false;
+const siteLiveSettings = { terco: null, missa: null };
 
 document.addEventListener('DOMContentLoaded', () => {
     init();
@@ -253,6 +254,8 @@ function init() {
     setupSaintReaderResponsiveLayout();
     setupEventListeners();
     setupTercoLive();
+    setupMissaLive();
+    setupLiveAnnouncement();
     setupBackToTop();
     initProgress();
 }
@@ -609,6 +612,7 @@ function setupAdminAuth() {
         document.getElementById('blogEditorPanel').hidden = !authenticated;
         document.getElementById('blogAdminLoginPrompt').hidden = authenticated;
         document.getElementById('tercoLiveAdminControls').hidden = !authenticated;
+        document.getElementById('missaAdminControls').hidden = !authenticated;
         document.querySelectorAll('[data-open-admin-login]').forEach(button => { button.hidden = authenticated; });
         document.getElementById('adminSessionBar').hidden = !authenticated;
         document.dispatchEvent(new CustomEvent('site-admin-auth-changed', { detail: { authenticated } }));
@@ -658,22 +662,24 @@ function setupTercoLive() {
     const placeholder = document.getElementById('tercoLivePlaceholder');
     const status = document.getElementById('tercoLiveStatus');
     const clearButton = document.getElementById('clearTercoLive');
+    const activeCheckbox = document.getElementById('tercoLiveActive');
     if (!form || !input || !frame || !placeholder || !status || !clearButton) return;
 
     const showLive = live => {
+        siteLiveSettings.terco = live;
+        renderLiveAnnouncement();
         if (!live) {
             frame.src = '';
             frame.hidden = true;
             placeholder.hidden = false;
+            activeCheckbox.checked = false;
             return;
         }
-        const embedUrl = live.type === 'channel'
-            ? `https://www.youtube.com/embed/live_stream?channel=${encodeURIComponent(live.id)}`
-            : `https://www.youtube-nocookie.com/embed/${encodeURIComponent(live.id)}`;
-        frame.src = embedUrl;
+        frame.src = youtubeEmbedUrl(live, false);
         frame.hidden = false;
         placeholder.hidden = true;
         input.value = live.original || live.id;
+        activeCheckbox.checked = Boolean(live.active);
         status.textContent = live.type === 'channel'
             ? 'Canal configurado. A transmissão aparecerá aqui quando estiver ao vivo.'
             : 'Transmissão publicada no player.';
@@ -713,8 +719,9 @@ function setupTercoLive() {
     form.addEventListener('submit', async event => {
         event.preventDefault();
         if (!siteAdminAuthenticated) { status.textContent = 'Entre como administrador para publicar a live.'; return; }
-        const live = parseLive(input.value);
+        const live = parseYoutubeLive(input.value);
         if (!live) { status.textContent = 'Link inválido. Use link de vídeo/live, ID de vídeo ou ID de canal do YouTube.'; return; }
+        live.active = activeCheckbox.checked;
         status.textContent = 'Salvando configuração…';
         try {
             const response = await fetch('/api/admin-content?resource=live', { method: 'PUT', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ live }) });
@@ -734,6 +741,132 @@ function setupTercoLive() {
         } catch (error) { status.textContent = error.message; }
     });
     loadSavedLive();
+}
+
+function parseYoutubeLive(value) {
+    const text = String(value || '').trim();
+    const channelId = text.match(/^UC[A-Za-z0-9_-]{22}$/);
+    if (channelId) return { type: 'channel', id: channelId[0], original: `https://www.youtube.com/channel/${channelId[0]}` };
+    if (/^[A-Za-z0-9_-]{11}$/.test(text)) return { type: 'video', id: text, original: `https://www.youtube.com/watch?v=${text}` };
+    let url;
+    try { url = new URL(/^https?:\/\//i.test(text) ? text : `https://${text}`); } catch { return null; }
+    if (!['youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtu.be', 'www.youtu.be'].includes(url.hostname)) return null;
+    const videoId = url.hostname.includes('youtu.be') ? url.pathname.split('/').filter(Boolean)[0] : url.searchParams.get('v') || url.pathname.match(/^\/(?:live|embed|shorts)\/([^/?]+)/)?.[1];
+    const original = url.href.replace(/^http:/i, 'https:');
+    if (videoId && /^[A-Za-z0-9_-]{11}$/.test(videoId)) return { type: 'video', id: videoId, original };
+    const channel = url.pathname.match(/^\/channel\/(UC[A-Za-z0-9_-]{22})(?:\/|$)/)?.[1];
+    return channel ? { type: 'channel', id: channel, original } : null;
+}
+
+function youtubeSourceLink(live) {
+    if (/^https:\/\//i.test(live.original || '')) return live.original;
+    return live.type === 'video' ? `https://www.youtube.com/watch?v=${encodeURIComponent(live.id)}` : `https://www.youtube.com/channel/${encodeURIComponent(live.id)}`;
+}
+
+function youtubeEmbedUrl(live, autoplay) {
+    const url = live.type === 'channel'
+        ? new URL('https://www.youtube.com/embed/live_stream')
+        : new URL(`https://www.youtube-nocookie.com/embed/${encodeURIComponent(live.id)}`);
+    if (live.type === 'channel') url.searchParams.set('channel', live.id);
+    if (autoplay) { url.searchParams.set('autoplay', '1'); url.searchParams.set('mute', '1'); url.searchParams.set('playsinline', '1'); }
+    return url.href;
+}
+
+function setupMissaLive() {
+    const form = document.getElementById('missaLiveForm');
+    const input = document.getElementById('missaLiveInput');
+    const frame = document.getElementById('missaLiveFrame');
+    const placeholder = document.getElementById('missaLivePlaceholder');
+    const status = document.getElementById('missaLiveStatus');
+    const activeCheckbox = document.getElementById('missaLiveActive');
+    const fixedLink = document.getElementById('missaFixedLink');
+    if (!form || !input || !frame || !placeholder || !status || !activeCheckbox || !fixedLink) return;
+    const showLive = live => {
+        siteLiveSettings.missa = live;
+        renderLiveAnnouncement();
+        if (!live) { frame.src = ''; frame.hidden = true; placeholder.hidden = false; fixedLink.hidden = true; activeCheckbox.checked = false; return; }
+        input.value = live.original || live.id;
+        activeCheckbox.checked = Boolean(live.active);
+        frame.src = youtubeEmbedUrl(live, false);
+        frame.hidden = false; placeholder.hidden = true;
+        fixedLink.href = youtubeSourceLink(live);
+        fixedLink.hidden = false;
+        status.textContent = live.active ? 'Transmissão salva e destacada para os visitantes.' : 'Link permanente da Santa Missa carregado.';
+    };
+    const load = async () => {
+        try {
+            const response = await fetch('/api/admin-content?resource=missa', { cache: 'no-store' });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Não foi possível carregar a Santa Missa.');
+            showLive(result.live);
+            if (!result.live) status.textContent = 'O administrador ainda não configurou o link fixo.';
+        } catch (error) { status.textContent = error.message; }
+    };
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!siteAdminAuthenticated) { status.textContent = 'Entre como administrador para configurar o link.'; return; }
+        const live = parseYoutubeLive(input.value);
+        if (!live) { status.textContent = 'Informe um link ou ID válido de vídeo/canal do YouTube.'; return; }
+        live.active = activeCheckbox.checked;
+        status.textContent = 'Salvando link fixo…';
+        try {
+            const response = await fetch('/api/admin-content?resource=missa', { method: 'PUT', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ live }) });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Não foi possível salvar o link.');
+            showLive(result.live);
+        } catch (error) { status.textContent = error.message; }
+    });
+    document.getElementById('clearMissaLive').addEventListener('click', async () => {
+        if (!siteAdminAuthenticated) return;
+        try {
+            const response = await fetch('/api/admin-content?resource=missa', { method: 'PUT', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ live: null }) });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Não foi possível remover o link.');
+            showLive(null); input.value = ''; status.textContent = 'Link da Santa Missa removido.';
+        } catch (error) { status.textContent = error.message; }
+    });
+    load();
+}
+
+function setupLiveAnnouncement() {
+    const popup = document.getElementById('siteLivePopup');
+    const frame = document.getElementById('siteLivePopupFrame');
+    const closeButton = document.getElementById('closeSiteLivePopup');
+    if (!popup || !frame || !closeButton) return;
+    closeButton.addEventListener('click', () => {
+        try { sessionStorage.setItem('siteLivePopupDismissed', 'true'); } catch (_) { /* O aviso ainda pode ser fechado sem armazenamento de sessão. */ }
+        popup.hidden = true;
+        frame.src = 'about:blank';
+    });
+    document.getElementById('openSiteLivePage').addEventListener('click', () => {
+        const type = popup.dataset.liveType;
+        switchView(type === 'missa' ? 'missaView' : 'tercoView');
+        try { sessionStorage.setItem('siteLivePopupDismissed', 'true'); } catch (_) { /* Mantém a caixa fechada durante esta navegação. */ }
+        popup.hidden = true;
+        frame.src = 'about:blank';
+    });
+    renderLiveAnnouncement();
+}
+
+function renderLiveAnnouncement() {
+    const popup = document.getElementById('siteLivePopup');
+    const frame = document.getElementById('siteLivePopupFrame');
+    if (!popup || !frame) return;
+    const current = [
+        siteLiveSettings.terco?.active ? { ...siteLiveSettings.terco, typePage: 'terco', title: 'Santo Terço' } : null,
+        siteLiveSettings.missa?.active ? { ...siteLiveSettings.missa, typePage: 'missa', title: 'Santa Missa' } : null
+    ].filter(Boolean).sort((a, b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')))[0] || null;
+    let dismissed = false;
+    try { dismissed = sessionStorage.getItem('siteLivePopupDismissed') === 'true'; } catch (_) { /* Mantém o aviso visível se storage estiver bloqueado. */ }
+    if (!current || dismissed) {
+        popup.hidden = true;
+        frame.src = 'about:blank';
+        return;
+    }
+    document.getElementById('siteLivePopupTitle').textContent = `${current.title} ao vivo`;
+    popup.dataset.liveType = current.typePage;
+    frame.src = youtubeEmbedUrl(current, true);
+    popup.hidden = false;
 }
 
 // Lógica de Progresso e Estatísticas
@@ -794,7 +927,7 @@ function updateProgressUI() {
 }
 
 function switchView(viewId) {
-    const views = ['summaryView', 'chapterView', 'catechismView', 'booksView', 'saintsView', 'eucharisticMiraclesView', 'apparitionsView', 'personalBlogView', 'newsView', 'dailyPrayersView', 'tercoView', 'aboutView'];
+    const views = ['summaryView', 'chapterView', 'catechismView', 'booksView', 'saintsView', 'eucharisticMiraclesView', 'apparitionsView', 'personalBlogView', 'newsView', 'dailyPrayersView', 'missaView', 'tercoView', 'aboutView'];
     views.forEach(id => {
         const view = document.getElementById(id);
         if (view) {
@@ -994,24 +1127,67 @@ function setupPersonalBlog() {
     const grid = document.getElementById('blogPostsGrid');
     if (!form || !grid) return;
     const storageKey = 'historiaSalvacaoPersonalBlogV1';
+    let localBackup = [];
+    try { localBackup = JSON.parse(localStorage.getItem(storageKey) || '[]'); } catch { localBackup = []; }
     let posts = [];
-    try { posts = JSON.parse(localStorage.getItem(storageKey) || '[]'); } catch { posts = []; }
-    const localBackup = posts;
-    posts = [];
     let editingId = null;
-    let selectedImage = null;
+    let selectedPhotos = null;
+    let selectedAuthorPhoto = null;
+    let selectedVideo = null;
+    let selectedAudio = null;
+    let photosChanged = false;
+    let videoChanged = false;
+    let audioChanged = false;
     const titleInput = document.getElementById('blogPostTitle');
+    const subtitleInput = document.getElementById('blogPostSubtitle');
     const bodyInput = document.getElementById('blogPostBody');
-    const imageInput = document.getElementById('blogPostImage');
+    const dateInput = document.getElementById('blogPostDate');
     const status = document.getElementById('blogStatus');
+    let pendingMediaTasks = 0;
     let migrationAttempted = false;
+    const localDateValue = () => {
+        const date = new Date();
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    };
+    const photoList = post => Array.isArray(post.photos) ? post.photos : post.image ? [post.image] : [];
+    const validHttpsUrl = value => {
+        if (!value) return '';
+        try { const url = new URL(value); return url.protocol === 'https:' ? url.href : ''; } catch { return ''; }
+    };
+    const videoMarkup = post => {
+        if (post.videoData) return `<video controls preload="metadata" src="${escapeHtml(post.videoData)}"></video>`;
+        const url = validHttpsUrl(post.videoUrl);
+        if (!url) return '';
+        const parsed = parseYoutubeLive(url);
+        return parsed ? `<div class="blog-video-frame"><iframe src="${escapeHtml(youtubeEmbedUrl(parsed, false))}" title="Vídeo: ${escapeHtml(post.title)}" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>` : `<video controls preload="metadata" src="${escapeHtml(url)}"></video>`;
+    };
+    const audioMarkup = post => {
+        const source = post.audioData || validHttpsUrl(post.audioUrl);
+        return source ? `<audio controls preload="metadata" src="${escapeHtml(source)}"></audio>` : '';
+    };
+    const socialLinks = post => [['instagram', 'Instagram', 'fa-instagram'], ['facebook', 'Facebook', 'fa-facebook'], ['youtube', 'YouTube', 'fa-youtube'], ['tiktok', 'TikTok', 'fa-tiktok']]
+        .filter(([key]) => validHttpsUrl(post.social?.[key]))
+        .map(([key, label, icon]) => `<a href="${escapeHtml(validHttpsUrl(post.social[key]))}" target="_blank" rel="noopener noreferrer" aria-label="${label} de ${escapeHtml(post.authorName || 'redator')}"><i class="fa-brands ${icon}" aria-hidden="true"></i></a>`).join('');
     const render = () => {
-        posts.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-        grid.innerHTML = posts.length ? posts.map(post => `<article class="blog-post-card">${post.image ? `<img src="${escapeHtml(post.image)}" alt="${escapeHtml(post.title)}" loading="lazy">` : ''}<div class="blog-post-content"><time datetime="${escapeHtml(post.createdAt)}">${new Date(post.createdAt).toLocaleDateString('pt-BR')}</time><h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.body)}</p>${siteAdminAuthenticated ? `<div class="blog-post-card-actions"><button type="button" data-edit-post="${escapeHtml(post.id)}"><i class="fa-solid fa-pen" aria-hidden="true"></i> Editar</button><button type="button" data-delete-post="${escapeHtml(post.id)}"><i class="fa-solid fa-trash" aria-hidden="true"></i> Excluir</button></div>` : ''}</div></article>`).join('') : '<p class="miracles-empty">Ainda não há publicações.</p>';
+        posts.sort((a, b) => String(b.date || b.createdAt || '').localeCompare(String(a.date || a.createdAt || '')));
+        grid.innerHTML = posts.length ? posts.map(post => {
+            const photos = photoList(post);
+            const date = post.date || (post.createdAt || '').slice(0, 10);
+            const avatar = post.authorPhoto ? `<img src="${escapeHtml(post.authorPhoto)}" alt="" loading="lazy">` : '<i class="fa-solid fa-user-pen" aria-hidden="true"></i>';
+            const socials = socialLinks(post);
+            return `<article class="blog-post-card">
+                <div class="blog-post-author"><span class="blog-author-avatar">${avatar}</span><span><strong>${escapeHtml(post.authorName || 'Redação')}</strong><time datetime="${escapeHtml(date)}">${escapeHtml(date ? new Date(`${date}T12:00:00`).toLocaleDateString('pt-BR') : '')}</time></span></div>
+                ${photos.length ? `<div class="blog-post-gallery">${photos.map(photo => `<img src="${escapeHtml(photo)}" alt="Foto da publicação: ${escapeHtml(post.title)}" loading="lazy">`).join('')}</div>` : ''}
+                <div class="blog-post-content"><h3>${escapeHtml(post.title)}</h3>${post.subtitle ? `<p class="blog-post-subtitle">${escapeHtml(post.subtitle)}</p>` : ''}<p class="blog-post-body">${escapeHtml(post.body)}</p>
+                    ${videoMarkup(post)}${audioMarkup(post)}${socials ? `<nav class="blog-post-social" aria-label="Redes sociais de ${escapeHtml(post.authorName || 'redator')}">${socials}</nav>` : ''}
+                    ${siteAdminAuthenticated ? `<div class="blog-post-card-actions"><button type="button" data-edit-post="${escapeHtml(post.id)}"><i class="fa-solid fa-pen" aria-hidden="true"></i> Editar</button><button type="button" data-delete-post="${escapeHtml(post.id)}"><i class="fa-solid fa-trash" aria-hidden="true"></i> Excluir</button></div>` : ''}</div></article>`;
+        }).join('') : '<p class="miracles-empty">Ainda não há publicações.</p>';
     };
 
     const savePosts = async () => {
-        const response = await fetch('/api/admin-content?resource=blog', { method: 'PUT', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ posts }) });
+        const body = JSON.stringify({ posts });
+        if (new Blob([body]).size > 2_800_000) throw new Error('As mídias desta publicação ficaram grandes demais juntas. Reduza o tamanho ou a quantidade de arquivos.');
+        const response = await fetch('/api/admin-content?resource=blog', { method: 'PUT', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body });
         const result = await response.json();
         if (!response.ok) throw new Error(result.error || 'Não foi possível salvar as publicações.');
         posts = result.posts || posts;
@@ -1025,7 +1201,7 @@ function setupPersonalBlog() {
             posts = Array.isArray(result.posts) ? result.posts : [];
             if (siteAdminAuthenticated && !posts.length && localBackup.length && !migrationAttempted) {
                 migrationAttempted = true;
-                posts = localBackup;
+                posts = localBackup.map(post => ({ ...post, date: post.date || (post.createdAt || new Date().toISOString()).slice(0, 10), photos: photoList(post) }));
                 try { await savePosts(); status.textContent = 'Publicações locais antigas foram enviadas ao blog compartilhado.'; }
                 catch (error) { status.textContent = `Não foi possível migrar as publicações antigas: ${error.message}`; }
             }
@@ -1039,38 +1215,103 @@ function setupPersonalBlog() {
         loadPosts();
         render();
     });
-    imageInput.addEventListener('change', () => {
-        const file = imageInput.files?.[0];
-        if (!file) { selectedImage = null; return; }
-        if (!file.type.startsWith('image/')) { status.textContent = 'Selecione um arquivo de imagem.'; imageInput.value = ''; return; }
+    const compressImage = file => new Promise((resolve, reject) => {
+        if (!file.type.startsWith('image/')) { reject(new Error('Selecione um arquivo de imagem.')); return; }
         const reader = new FileReader();
+        reader.onerror = () => reject(new Error('Não foi possível ler a imagem.'));
         reader.onload = () => {
             const image = new Image();
+            image.onerror = () => reject(new Error('Não foi possível abrir a imagem.'));
             image.onload = () => {
-                const scale = Math.min(1, 1200 / Math.max(image.width, image.height));
+                const scale = Math.min(1, 1100 / Math.max(image.width, image.height));
                 const canvas = document.createElement('canvas');
                 canvas.width = Math.round(image.width * scale); canvas.height = Math.round(image.height * scale);
                 canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
-                selectedImage = canvas.toDataURL('image/jpeg', 0.7);
-                status.textContent = 'Foto pronta para publicação.';
+                resolve(canvas.toDataURL('image/jpeg', 0.66));
             };
             image.src = reader.result;
         };
         reader.readAsDataURL(file);
     });
+    const readSmallMedia = (file, kind) => new Promise((resolve, reject) => {
+        const allowed = kind === 'video' ? ['video/mp4', 'video/webm'] : ['audio/mpeg', 'audio/mp3', 'audio/mp4', 'audio/ogg', 'audio/wav', 'audio/webm', 'audio/x-wav', 'audio/wave', 'audio/x-m4a', 'audio/aac'];
+        if (!allowed.includes(file.type)) { reject(new Error(`Formato de ${kind} não aceito.`)); return; }
+        if (file.size > 1_200_000) { reject(new Error(`O arquivo de ${kind} precisa ter até 1,2 MB. Para arquivos maiores, use o campo de link.`)); return; }
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error(`Não foi possível ler o arquivo de ${kind}.`));
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+    });
+    document.getElementById('blogAuthorPhoto').addEventListener('change', async event => {
+        const file = event.target.files?.[0]; if (!file) return;
+        pendingMediaTasks += 1; document.getElementById('saveBlogPost').disabled = true;
+        try { selectedAuthorPhoto = await compressImage(file); status.textContent = 'Mini foto do redator pronta.'; }
+        catch (error) { status.textContent = error.message; event.target.value = ''; }
+        finally { pendingMediaTasks -= 1; document.getElementById('saveBlogPost').disabled = pendingMediaTasks > 0; }
+    });
+    document.getElementById('blogPostPhotos').addEventListener('change', async event => {
+        const files = [...(event.target.files || [])];
+        if (files.length > 5) { status.textContent = 'Escolha no máximo cinco fotos.'; event.target.value = ''; return; }
+        pendingMediaTasks += 1; document.getElementById('saveBlogPost').disabled = true;
+        try { selectedPhotos = await Promise.all(files.map(compressImage)); photosChanged = true; status.textContent = `${files.length} foto(s) pronta(s) para publicação.`; }
+        catch (error) { status.textContent = error.message; event.target.value = ''; selectedPhotos = null; photosChanged = false; }
+        finally { pendingMediaTasks -= 1; document.getElementById('saveBlogPost').disabled = pendingMediaTasks > 0; }
+    });
+    document.getElementById('blogVideoFile').addEventListener('change', async event => {
+        const file = event.target.files?.[0]; if (!file) return;
+        pendingMediaTasks += 1; document.getElementById('saveBlogPost').disabled = true;
+        try { selectedVideo = await readSmallMedia(file, 'video'); videoChanged = true; document.getElementById('blogVideoUrl').value = ''; status.textContent = 'Vídeo pronto para publicação.'; }
+        catch (error) { status.textContent = error.message; event.target.value = ''; selectedVideo = null; videoChanged = false; }
+        finally { pendingMediaTasks -= 1; document.getElementById('saveBlogPost').disabled = pendingMediaTasks > 0; }
+    });
+    document.getElementById('blogAudioFile').addEventListener('change', async event => {
+        const file = event.target.files?.[0]; if (!file) return;
+        pendingMediaTasks += 1; document.getElementById('saveBlogPost').disabled = true;
+        try { selectedAudio = await readSmallMedia(file, 'áudio'); audioChanged = true; document.getElementById('blogAudioUrl').value = ''; status.textContent = 'Áudio pronto para publicação.'; }
+        catch (error) { status.textContent = error.message; event.target.value = ''; selectedAudio = null; audioChanged = false; }
+        finally { pendingMediaTasks -= 1; document.getElementById('saveBlogPost').disabled = pendingMediaTasks > 0; }
+    });
+    document.getElementById('blogVideoUrl').addEventListener('input', event => { if (event.target.value.trim()) { videoChanged = true; selectedVideo = null; document.getElementById('blogVideoFile').value = ''; } });
+    document.getElementById('blogAudioUrl').addEventListener('input', event => { if (event.target.value.trim()) { audioChanged = true; selectedAudio = null; document.getElementById('blogAudioFile').value = ''; } });
+    const collectSocial = () => ({
+        instagram: document.getElementById('blogSocialInstagram').value.trim(),
+        facebook: document.getElementById('blogSocialFacebook').value.trim(),
+        youtube: document.getElementById('blogSocialYoutube').value.trim(),
+        tiktok: document.getElementById('blogSocialTiktok').value.trim()
+    });
+    const resetMediaState = () => { selectedPhotos = null; selectedAuthorPhoto = null; selectedVideo = null; selectedAudio = null; photosChanged = false; videoChanged = false; audioChanged = false; };
     form.addEventListener('submit', async event => {
         event.preventDefault();
         if (!siteAdminAuthenticated) { status.textContent = 'Entre como administrador para publicar.'; return; }
+        if (pendingMediaTasks) { status.textContent = 'Aguarde o preparo das mídias.'; return; }
         const previousPosts = JSON.parse(JSON.stringify(posts));
         const now = new Date().toISOString();
-        if (editingId) {
-            const post = posts.find(item => item.id === editingId);
-            if (post) Object.assign(post, { title: titleInput.value.trim(), body: bodyInput.value.trim(), image: selectedImage === null ? post.image : selectedImage, updatedAt: now });
-        } else posts.push({ id: `${Date.now()}`, title: titleInput.value.trim(), body: bodyInput.value.trim(), image: selectedImage || '', createdAt: now });
+        const existing = editingId ? posts.find(item => item.id === editingId) : null;
+        const current = existing || {};
+        const clearAvatar = document.getElementById('clearBlogAuthorPhoto').checked;
+        const clearPhotos = document.getElementById('clearBlogPhotos').checked;
+        const clearVideo = document.getElementById('clearBlogVideo').checked;
+        const clearAudio = document.getElementById('clearBlogAudio').checked;
+        const videoUrl = document.getElementById('blogVideoUrl').value.trim();
+        const audioUrl = document.getElementById('blogAudioUrl').value.trim();
+        const post = {
+            ...current, id: editingId || `${Date.now()}`, title: titleInput.value.trim(), subtitle: subtitleInput.value.trim(), body: bodyInput.value.trim(),
+            date: dateInput.value, authorName: document.getElementById('blogAuthorName').value.trim(),
+            authorPhoto: clearAvatar ? '' : selectedAuthorPhoto !== null ? selectedAuthorPhoto : current.authorPhoto || '',
+            photos: clearPhotos ? [] : photosChanged ? selectedPhotos : photoList(current),
+            videoUrl: clearVideo ? '' : videoChanged ? videoUrl : videoUrl || current.videoUrl || '',
+            videoData: clearVideo ? '' : videoChanged ? selectedVideo || '' : current.videoData || '',
+            audioUrl: clearAudio ? '' : audioChanged ? audioUrl : audioUrl || current.audioUrl || '',
+            audioData: clearAudio ? '' : audioChanged ? selectedAudio || '' : current.audioData || '',
+            social: collectSocial(),
+            ...(editingId ? { updatedAt: now } : { createdAt: now })
+        };
+        if (editingId) posts = posts.map(item => item.id === editingId ? post : item);
+        else posts.push(post);
         status.textContent = 'Publicando…';
         try {
             await savePosts();
-            form.reset(); selectedImage = null; editingId = null;
+            form.reset(); resetMediaState(); editingId = null; dateInput.value = localDateValue();
             document.getElementById('saveBlogPost').innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Publicar';
             document.getElementById('cancelBlogEdit').hidden = true;
             status.textContent = 'Publicação visível para todos os visitantes.';
@@ -1083,7 +1324,17 @@ function setupPersonalBlog() {
         if (edit) {
             const post = posts.find(item => item.id === edit.dataset.editPost);
             if (!post) return;
-            editingId = post.id; selectedImage = null; titleInput.value = post.title; bodyInput.value = post.body;
+            editingId = post.id; resetMediaState();
+            titleInput.value = post.title; subtitleInput.value = post.subtitle || ''; bodyInput.value = post.body;
+            dateInput.value = post.date || (post.createdAt || '').slice(0, 10) || localDateValue();
+            document.getElementById('blogAuthorName').value = post.authorName || '';
+            document.getElementById('blogVideoUrl').value = post.videoUrl || '';
+            document.getElementById('blogAudioUrl').value = post.audioUrl || '';
+            document.getElementById('blogSocialInstagram').value = post.social?.instagram || '';
+            document.getElementById('blogSocialFacebook').value = post.social?.facebook || '';
+            document.getElementById('blogSocialYoutube').value = post.social?.youtube || '';
+            document.getElementById('blogSocialTiktok').value = post.social?.tiktok || '';
+            ['clearBlogAuthorPhoto', 'clearBlogPhotos', 'clearBlogVideo', 'clearBlogAudio'].forEach(id => { document.getElementById(id).checked = false; });
             document.getElementById('saveBlogPost').innerHTML = '<i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Salvar alterações';
             document.getElementById('cancelBlogEdit').hidden = false; titleInput.focus();
         }
@@ -1094,7 +1345,7 @@ function setupPersonalBlog() {
             catch (error) { posts = previous; render(); status.textContent = error.message; }
         }
     });
-    document.getElementById('cancelBlogEdit').addEventListener('click', () => { editingId = null; selectedImage = null; form.reset(); document.getElementById('saveBlogPost').innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Publicar'; document.getElementById('cancelBlogEdit').hidden = true; status.textContent = ''; });
+    document.getElementById('cancelBlogEdit').addEventListener('click', () => { editingId = null; resetMediaState(); form.reset(); dateInput.value = localDateValue(); document.getElementById('saveBlogPost').innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Publicar'; document.getElementById('cancelBlogEdit').hidden = true; status.textContent = ''; });
     document.getElementById('exportBlogPosts').addEventListener('click', () => {
         const blob = new Blob([JSON.stringify(posts, null, 2)], { type: 'application/json' });
         const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'blog-pessoal-backup.json'; link.click(); URL.revokeObjectURL(link.href);
@@ -1111,6 +1362,7 @@ function setupPersonalBlog() {
         } catch (error) { status.textContent = error.message || 'Não foi possível importar esse arquivo JSON.'; }
         event.target.value = '';
     });
+    dateInput.value = localDateValue();
     loadPosts();
 }
 
@@ -2256,6 +2508,12 @@ function setupEventListeners() {
         setExtensionOpen(false);
         switchView('dailyPrayersView');
         loadDailyContent();
+    };
+
+    document.getElementById('btnMissa').onclick = event => {
+        event.preventDefault();
+        setExtensionOpen(false);
+        switchView('missaView');
     };
 
     document.getElementById('btnApparitions').onclick = event => {

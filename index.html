@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>História da Salvação - Livro Interativo</title>
-    <link rel="stylesheet" href="style.css?v=5.2">
+    <link rel="stylesheet" href="style.css?v=5.3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -36,6 +36,7 @@
                     <div id="dailyExtensionMenu" class="menu-extension-submenu" hidden>
                         <a href="#" id="btnNews"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Novidades</a>
                         <a href="#" id="btnDailyPrayers"><i class="fa-solid fa-hands-praying" aria-hidden="true"></i> Orações diárias</a>
+                        <a href="#" id="btnMissa"><i class="fa-solid fa-church" aria-hidden="true"></i> Santa Missa</a>
                         <a href="#" id="btnApparitions"><i class="fa-solid fa-person-praying" aria-hidden="true"></i> Aparições de Nossa Senhora</a>
                         <a href="#" id="btnPersonalBlog"><i class="fa-solid fa-camera-retro" aria-hidden="true"></i> Blog pessoal</a>
                     </div>
@@ -433,6 +434,7 @@
                                 <button type="submit"><i class="fab fa-youtube" aria-hidden="true"></i> Publicar live</button>
                                 <button type="button" id="clearTercoLive" class="terco-live-clear">Remover</button>
                             </div>
+                            <label class="live-active-toggle"><input id="tercoLiveActive" type="checkbox"> <span>Estou ao vivo: mostrar a caixa flutuante para todos</span></label>
                             <p id="tercoLiveHelp" class="terco-live-help">Somente o administrador pode configurar o player. Para iniciar uma transmissão, use o YouTube Studio.</p>
                         </form>
                     </div>
@@ -670,6 +672,34 @@
             <p class="daily-content-attribution">Consulte também o acervo de <a href="https://www.vaticannews.va/pt/oracoes.html" target="_blank" rel="noopener noreferrer">orações do Vatican News</a>.</p>
         </section>
 
+        <section id="missaView" class="view daily-content-view">
+            <header class="daily-content-header">
+                <span class="daily-content-kicker"><i class="fa-solid fa-church" aria-hidden="true"></i> Celebração eucarística</span>
+                <h2>Santa Missa</h2>
+                <p>Assista à transmissão pelo link permanente configurado pelo administrador.</p>
+            </header>
+            <div class="missa-live-panel">
+                <button type="button" id="openMissaAdminLogin" class="admin-login-trigger" data-open-admin-login><i class="fa-solid fa-lock" aria-hidden="true"></i> Entrar como administrador</button>
+                <div id="missaAdminControls" class="missa-admin-controls" hidden>
+                    <form id="missaLiveForm" class="terco-live-form">
+                        <label for="missaLiveInput">Link permanente ou ID do vídeo/canal do YouTube</label>
+                        <div class="terco-live-controls">
+                            <input id="missaLiveInput" type="text" inputmode="url" autocomplete="url" placeholder="Cole aqui o link permanente da Santa Missa">
+                            <button type="submit"><i class="fab fa-youtube" aria-hidden="true"></i> Salvar link</button>
+                            <button type="button" id="clearMissaLive" class="terco-live-clear">Remover</button>
+                        </div>
+                        <label class="live-active-toggle"><input id="missaLiveActive" type="checkbox"> <span>Estou ao vivo: mostrar a caixa flutuante para todos</span></label>
+                    </form>
+                </div>
+                <p id="missaLiveStatus" class="terco-live-status" role="status" aria-live="polite">Carregando transmissão…</p>
+                <div class="video-container missa-video-container">
+                    <div id="missaLivePlaceholder" class="terco-live-placeholder"><i class="fa-solid fa-church" aria-hidden="true"></i><p>A transmissão da Santa Missa aparecerá aqui.</p></div>
+                    <iframe id="missaLiveFrame" src="" title="Transmissão da Santa Missa" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen hidden></iframe>
+                </div>
+                <a id="missaFixedLink" class="missa-fixed-link" href="#" target="_blank" rel="noopener noreferrer" hidden><i class="fa-brands fa-youtube" aria-hidden="true"></i> Abrir transmissão no YouTube</a>
+            </div>
+        </section>
+
         <section id="apparitionsView" class="view daily-content-view catalog-view">
             <header class="daily-content-header">
                 <span class="daily-content-kicker"><i class="fa-solid fa-person-praying" aria-hidden="true"></i> Catálogo mariano</span>
@@ -700,9 +730,31 @@
             <section id="blogEditorPanel" class="blog-editor-panel" aria-labelledby="blogEditorHeading" hidden>
                 <div class="catalog-map-heading"><div><h3 id="blogEditorHeading">Nova publicação</h3><p>Publicações salvas aqui são compartilhadas com todos os visitantes. Exporte backups para guardar uma cópia.</p></div><div class="blog-editor-actions"><button type="button" id="exportBlogPosts"><i class="fa-solid fa-download" aria-hidden="true"></i> Exportar backup</button><label class="blog-import-button"><i class="fa-solid fa-upload" aria-hidden="true"></i> Importar backup<input id="importBlogPosts" type="file" accept="application/json,.json" hidden></label></div></div>
                 <form id="blogPostForm" class="blog-post-form">
+                    <label>Data da publicação<input id="blogPostDate" type="date" required></label>
                     <label>Título<input id="blogPostTitle" type="text" maxlength="120" required placeholder="Título da publicação"></label>
+                    <label>Subtítulo<input id="blogPostSubtitle" type="text" maxlength="220" placeholder="Uma linha para apresentar a publicação"></label>
                     <label>Texto<textarea id="blogPostBody" rows="5" maxlength="12000" required placeholder="Escreva sua novidade…"></textarea></label>
-                    <label>Foto (opcional)<input id="blogPostImage" type="file" accept="image/*"></label>
+                    <fieldset class="blog-media-fields"><legend>Redator e mídias</legend>
+                        <label>Nome do redator<input id="blogAuthorName" type="text" maxlength="80" placeholder="Nome que aparecerá no post"></label>
+                        <label>Mini foto do redator<input id="blogAuthorPhoto" type="file" accept="image/*"></label>
+                        <label>Fotos da publicação (até 5)<input id="blogPostPhotos" type="file" accept="image/*" multiple></label>
+                        <label>Vídeo (link do YouTube ou URL)<input id="blogVideoUrl" type="url" inputmode="url" placeholder="https://youtube.com/watch?v=…"></label>
+                        <label>Ou envie um vídeo curto (máx. 1,2 MB)<input id="blogVideoFile" type="file" accept="video/mp4,video/webm"></label>
+                        <label>Áudio (URL direta)<input id="blogAudioUrl" type="url" inputmode="url" placeholder="https://…/audio.mp3"></label>
+                        <label>Ou envie um áudio curto (máx. 1,2 MB)<input id="blogAudioFile" type="file" accept="audio/mpeg,audio/mp4,audio/ogg,audio/wav,audio/webm"></label>
+                    </fieldset>
+                    <fieldset class="blog-social-fields"><legend>Redes sociais do redator (opcional)</legend>
+                        <label>Instagram<input id="blogSocialInstagram" type="url" inputmode="url" placeholder="https://instagram.com/…"></label>
+                        <label>Facebook<input id="blogSocialFacebook" type="url" inputmode="url" placeholder="https://facebook.com/…"></label>
+                        <label>YouTube<input id="blogSocialYoutube" type="url" inputmode="url" placeholder="https://youtube.com/@…"></label>
+                        <label>TikTok<input id="blogSocialTiktok" type="url" inputmode="url" placeholder="https://tiktok.com/@…"></label>
+                    </fieldset>
+                    <fieldset class="blog-removal-fields"><legend>Remover mídias salvas (em edições)</legend>
+                        <label><input id="clearBlogAuthorPhoto" type="checkbox"> Foto do redator</label>
+                        <label><input id="clearBlogPhotos" type="checkbox"> Fotos do post</label>
+                        <label><input id="clearBlogVideo" type="checkbox"> Vídeo</label>
+                        <label><input id="clearBlogAudio" type="checkbox"> Áudio</label>
+                    </fieldset>
                     <div class="blog-form-actions"><button type="submit" id="saveBlogPost"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Publicar</button><button type="button" id="cancelBlogEdit" hidden>Cancelar edição</button><p id="blogStatus" role="status" aria-live="polite"></p></div>
                 </form>
             </section>
@@ -722,6 +774,12 @@
         </form>
     </dialog>
     <div id="adminSessionBar" class="admin-session-bar" hidden><span><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Administrador conectado</span><button type="button" id="adminLogout"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Sair</button></div>
+    <aside id="siteLivePopup" class="site-live-popup" aria-label="Transmissão ao vivo" hidden>
+        <div class="site-live-popup-heading"><span><i class="fa-solid fa-circle" aria-hidden="true"></i> AO VIVO</span><button type="button" id="closeSiteLivePopup" aria-label="Fechar aviso da transmissão"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div>
+        <h2 id="siteLivePopupTitle">Santo Terço ao vivo</h2>
+        <iframe id="siteLivePopupFrame" title="Player flutuante da transmissão ao vivo" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <button type="button" id="openSiteLivePage" class="site-live-open-button">Abrir página da transmissão</button>
+    </aside>
 
     <!-- Modal de Informações Detalhadas -->
     <div id="infoModal" class="modal">
@@ -820,7 +878,7 @@
     <script src="milagres-eucaristicos-data.js?v=3"></script>
     <script src="aparicoes-marianas-data.js?v=1"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="script.js?v=4.5"></script>
+    <script src="script.js?v=4.7"></script>
 </body>
 
 </html>

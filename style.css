@@ -2303,10 +2303,47 @@ body {
 .blog-post-card > img { display: block; width: 100%; max-height: 300px; object-fit: cover; background: var(--bg-card); }
 .blog-post-content { padding: 1rem; }
 .blog-post-content time { color: var(--text-muted); font-size: 0.78rem; }
-.blog-post-content h3 { margin: 0.35rem 0 0.55rem; color: var(--text-main); font: 700 1.1rem/1.35 'Lora', serif; overflow-wrap: anywhere; }
-.blog-post-content > p { margin: 0 0 0.85rem; color: var(--text-main); line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.blog-post-author { display: flex; align-items: center; gap: 0.65rem; padding: 0.85rem 1rem 0; }
+.blog-author-avatar { display: grid; width: 42px; height: 42px; flex: 0 0 42px; overflow: hidden; place-items: center; border: 1px solid var(--border-light); border-radius: 50%; background: var(--bg-card); color: #805d11; }
+.blog-author-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.blog-post-author > span:last-child { display: grid; gap: 0.1rem; }
+.blog-post-author strong { color: var(--text-main); font-size: 0.86rem; }
+.blog-post-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 0.3rem; max-height: 450px; margin-top: 0.75rem; overflow: hidden; background: #eee8dc; }
+.blog-post-gallery img { display: block; width: 100%; max-height: 450px; aspect-ratio: 4 / 3; object-fit: cover; }
+.blog-post-content h3 { margin: 0.1rem 0 0.45rem; color: var(--text-main); font: 700 1.2rem/1.35 'Lora', serif; overflow-wrap: anywhere; }
+.blog-post-content .blog-post-subtitle { margin: 0 0 0.7rem; color: #805d11; font: italic 600 0.98rem/1.5 'Lora', serif; }
+.blog-post-content > .blog-post-body { margin: 0 0 0.85rem; color: var(--text-main); line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
+.blog-post-content video, .blog-post-content audio { display: block; width: 100%; max-width: 100%; margin: 0.8rem 0; }
+.blog-video-frame { position: relative; width: 100%; margin: 0.8rem 0; overflow: hidden; border-radius: 10px; background: #171512; aspect-ratio: 16 / 9; }
+.blog-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.blog-post-social { display: flex; gap: 0.65rem; margin: 0.85rem 0; }
+.blog-post-social a { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--border-light); border-radius: 50%; color: #795400; text-decoration: none; }
+.blog-post-social a:hover, .blog-post-social a:focus-visible { background: #f5edda; }
 .blog-post-card-actions { border-top: 1px solid #eee6d8; padding-top: 0.7rem; }
 .blog-post-card-actions button { min-height: 36px; }
+.blog-post-form fieldset { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; padding: 0.9rem; border: 1px solid var(--border-light); border-radius: 10px; }
+.blog-post-form fieldset legend { padding: 0 0.35rem; color: #805d11; font-size: 0.85rem; font-weight: 700; }
+.blog-post-form .blog-removal-fields { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.blog-post-form .blog-removal-fields label { display: flex; align-items: center; gap: 0.4rem; font-weight: 400; }
+.blog-post-form .blog-removal-fields input { width: 16px; height: 16px; }
+
+.missa-live-panel { max-width: 900px; margin: 0 auto; padding: 1rem; border: 1px solid var(--border-light); border-radius: 16px; background: var(--bg-card); }
+.missa-admin-controls { margin: 0.8rem 0; }
+.missa-video-container { margin-top: 0.8rem; }
+.missa-fixed-link { display: inline-flex; min-height: 42px; align-items: center; gap: 0.45rem; margin-top: 0.75rem; color: #795400; font-weight: 700; }
+.missa-fixed-link[hidden] { display: none !important; }
+.live-active-toggle { display: flex !important; align-items: flex-start; gap: 0.5rem !important; margin-top: 0.6rem; color: #795400 !important; font-size: 0.86rem !important; }
+.live-active-toggle input { width: 18px; height: 18px; flex: 0 0 18px; margin-top: 0.08rem; accent-color: #795400; }
+.site-live-popup { position: fixed; right: 1rem; bottom: 1rem; z-index: 1600; width: min(370px, calc(100vw - 2rem)); padding: 0.7rem; border: 1px solid #a77b14; border-radius: 16px; background: var(--bg-main); box-shadow: 0 14px 45px rgba(35, 26, 10, 0.32); }
+.site-live-popup[hidden] { display: none !important; }
+.site-live-popup-heading { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.site-live-popup-heading > span { display: inline-flex; align-items: center; gap: 0.4rem; color: #9b1c12; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; }
+.site-live-popup-heading > span i { font-size: 0.55rem; animation: live-pulse 1.5s ease-in-out infinite; }
+.site-live-popup-heading button { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid var(--border-light); border-radius: 50%; background: #fff; color: var(--text-main); cursor: pointer; }
+.site-live-popup h2 { margin: 0.2rem 0 0.65rem; color: var(--text-main); font: 700 1rem/1.3 'Lora', serif; }
+.site-live-popup iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 9px; background: #171512; }
+.site-live-open-button { width: 100%; min-height: 38px; margin-top: 0.6rem; border: 1px solid #795400; border-radius: 8px; background: #795400; color: #fff; font-weight: 700; cursor: pointer; }
+@keyframes live-pulse { 50% { opacity: 0.35; } }
 
 .admin-login-prompt {
     margin: 1rem 0;
@@ -2336,7 +2373,7 @@ body {
 }
 
 .admin-login-trigger:hover, .admin-login-trigger:focus-visible { background: #5e4100; outline: 3px solid rgba(220, 169, 44, 0.3); outline-offset: 2px; }
-.admin-login-trigger[hidden], #adminSessionBar[hidden], #blogEditorPanel[hidden], #blogAdminLoginPrompt[hidden], #tercoLiveAdminControls[hidden], .blog-form-actions [hidden] { display: none !important; }
+.admin-login-trigger[hidden], #adminSessionBar[hidden], #blogEditorPanel[hidden], #blogAdminLoginPrompt[hidden], #tercoLiveAdminControls[hidden], #missaAdminControls[hidden], .blog-form-actions [hidden] { display: none !important; }
 .admin-login-dialog { width: min(430px, calc(100vw - 1.5rem)); max-width: none; padding: 0; border: 1px solid var(--border-light); border-radius: 16px; background: var(--bg-main); color: var(--text-main); box-shadow: 0 22px 80px rgba(0, 0, 0, 0.35); }
 .admin-login-dialog::backdrop { background: rgba(28, 24, 18, 0.72); }
 .admin-login-dialog[open] { position: fixed; inset: 50% auto auto 50%; transform: translate(-50%, -50%); }
@@ -2584,12 +2621,15 @@ body {
     .miracles-grid { grid-template-columns: 1fr; gap: 0.7rem; margin-top: 0.8rem; }
     .miracle-card { padding: 0.9rem; }
     #apparitionsView, #personalBlogView { padding: 1.1rem 0.8rem 2.5rem; }
+    #missaView { padding: 1.1rem 0.8rem 2.5rem; }
     .catalog-map-section, .blog-editor-panel { margin: 0.9rem 0; padding: 0.8rem; border-radius: 12px; }
     .catalog-map { height: 300px; }
     .catalog-map-heading { flex-direction: column; }
     .blog-editor-actions { width: 100%; }
     .blog-editor-actions button, .blog-import-button { flex: 1 1 140px; }
     .blog-posts-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+    .blog-post-form fieldset { grid-template-columns: 1fr; padding: 0.7rem; }
+    .site-live-popup { right: 0.55rem; bottom: 0.55rem; width: min(340px, calc(100vw - 1.1rem)); padding: 0.6rem; }
     .miracle-reader-dialog {
         width: calc(100vw - 1rem);
         height: calc(100dvh - 1rem);

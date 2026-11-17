@@ -20,10 +20,12 @@ As rotas administrativas usam cookie de sessão `HttpOnly`, `Secure` em produç�
 ## Como os dados são publicados
 
 - Posts compartilhados e a live ficam em `data/blog-posts.json` e `data/terco-live.json`.
+- A configuração permanente da Santa Missa fica em `data/missa-live.json` e usa o mesmo login administrativo.
 - Ao salvar, a API grava esses arquivos no branch configurado pela API do GitHub. O commit aciona o deploy normal do site.
 - O catálogo público do blog é leitura para visitantes; somente uma sessão administrativa válida pode criar, editar ou excluir publicações.
-- A configuração da live controla qual vídeo ou canal aparece no player público. Ela não inicia nem agenda uma transmissão no YouTube. Para transmitir, use o YouTube Studio na conta autorizada.
-- Fotos são compactadas no navegador e armazenadas como dados incorporados no JSON do blog. Se o arquivo crescer demais, reduza as imagens ou mantenha menos fotos por post.
+- A configuração das lives controla o vídeo/canal exibido no player público, mas não inicia nem agenda uma transmissão. Use o YouTube Studio para transmitir.
+- Posts aceitam data, título, subtítulo, texto, até cinco fotos, nome/avatar do redator e links sociais. Vídeo e áudio podem ser URLs ou arquivos curtos (até 1,2 MB cada); fotos e avatar são compactados no navegador. O JSON tem um limite total de tamanho; use URLs para mídia maior.
+- Ao começar uma transmissão, o administrador marca **Estou ao vivo** e salva para mostrar o player flutuante a todos. Deve desmarcar ao encerrar; o site não detecta o estado da live do YouTube automaticamente. O visitante pode fechar o aviso até a próxima sessão do navegador.
 
 ## Execução local
 
