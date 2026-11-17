@@ -158,3 +158,11 @@ Na criação deste documento (13 de novembro de 2026), os últimos commits inclu
 - O formulário de live só configura o player com uma URL/ID de vídeo ou canal; não cria nem inicia transmissões do YouTube. A transmissão é iniciada pelo YouTube Studio.
 - Pedido mais recente: manter a publicação de posts e a configuração da live disponíveis somente ao administrador. O código aplica o controle tanto na interface quanto no servidor; falta cadastrar os segredos de produção na Vercel para ativar o login.
 
+## Registro de entrega — 17 de novembro de 2026
+
+- Commit `ff56a92` (`Add blog media and live broadcast features`), enviado para `origin/main`.
+- Editor do blog: campos para data, título, subtítulo, corpo, nome e mini foto do redator, até cinco fotos, vídeo, áudio e links de redes sociais. A edição/publicação permanece restrita ao administrador autenticado.
+- Nova aba **Santa Missa**, com player e link do YouTube configuráveis pelo administrador em `data/missa-live.json`.
+- Aviso flutuante de transmissão na página inicial, com player e opção de fechar. Para exibi-lo, o administrador marca **Estou ao vivo**; a detecção automática do status do YouTube não está configurada. O aviso fechado volta a aparecer na próxima sessão do visitante.
+- Verificações realizadas antes do envio: `node --check` em `script.js` e `api/admin-content.js`, além de `git diff --check`.
+
