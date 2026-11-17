@@ -166,13 +166,9 @@ Na criação deste documento (13 de novembro de 2026), os últimos commits inclu
 - Aviso flutuante de transmissão na página inicial, com player e opção de fechar. Para exibi-lo, o administrador marca **Estou ao vivo**; a detecção automática do status do YouTube não está configurada. O aviso fechado volta a aparecer na próxima sessão do visitante.
 - Verificações realizadas antes do envio: `node --check` em `script.js` e `api/admin-content.js`, além de `git diff --check`.
 
-## Ajuste — posicionamento das fotos bíblicas
+## Ajuste — segurança e inclusão das fotos
 
-- Cada foto pode ser associada a um versículo e posicionada antes ou depois dele, aparecendo junto ao trecho bíblico correspondente; é possível adicionar até seis espaços por capítulo e remover os que não forem necessários. O formato recomendado continua 16:9.
-- As imagens são guardadas no `localStorage` do navegador e dispositivo usados (`bibleChapterPhotosV1`); não são enviadas ao servidor nem ficam visíveis para outros visitantes. Para publicar fotos para todos, os arquivos deverão ser incluídos no repositório ou será necessário criar persistência administrativa compartilhada.
-
-## Ajuste — quadros de imagem nas histórias
-
-- Os quadros “Cena ou Arte Sacra” das páginas de história agora permitem selecionar/trocar uma imagem, removê-la e recomendam formato 16:9. Retratos de capa sem foto também aceitam imagem.
-- As fotos das histórias são guardadas por personagem no navegador atual (`saintStoryPhotosV1`), como as imagens bíblicas; para torná-las visíveis publicamente, será necessária publicação compartilhada dos arquivos.
+- Removidos seletores de arquivo e armazenamento local das fotos bíblicas e dos quadros das histórias. Visitantes não podem incluir, trocar nem remover imagens pela interface.
+- Os quadros permanecem como espaços estáticos. Para adicionar ou trocar uma foto, coloque o arquivo em `assets/` e inclua uma regra em `style.css` usando os atributos `data-bible-photo-slot` (capítulos) ou `data-photo-slot` (histórias). As regras CSS contêm exemplos; use `background-image: url("assets/caminho-da-foto.jpg")`, `background-size: cover` e `color: transparent`.
+- Os espaços dos capítulos bíblicos e das cenas mantêm proporção 16:9; retratos de capa permanecem quadrados. Alterações nos arquivos do repositório são exibidas para todos após o deploy.
 

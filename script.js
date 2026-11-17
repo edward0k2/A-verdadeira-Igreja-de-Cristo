@@ -327,7 +327,6 @@ let biblePassagesData = null;
 let biblePassagesLoadPromise = null;
 let bibleHighlightMode = false;
 let bibleHighlights = {};
-let bibleChapterPhotos = {};
 let activeBibleBook = null;
 let activeBibleChapter = 1;
 
@@ -393,11 +392,6 @@ function setupBibleReader() {
         bibleHighlights = JSON.parse(localStorage.getItem('bibleHighlightsV1') || '{}');
     } catch {
         bibleHighlights = {};
-    }
-    try {
-        bibleChapterPhotos = JSON.parse(localStorage.getItem('bibleChapterPhotosV1') || '{}');
-    } catch {
-        bibleChapterPhotos = {};
     }
 
     const setMode = mode => {
@@ -473,30 +467,6 @@ function setupBibleReader() {
     document.getElementById('bibleNextChapter').addEventListener('click', () => moveChapter(1));
 
     chapterContent.addEventListener('click', event => {
-        const removePhoto = event.target.closest('[data-remove-bible-photo]');
-        if (removePhoto && activeBibleBook) {
-            const key = `${activeBibleBook.slug}.${activeBibleChapter}`;
-            const photos = bibleChapterPhotos[key] || [];
-            photos.splice(Number(removePhoto.dataset.removeBiblePhoto), 1);
-            bibleChapterPhotos[key] = photos;
-            saveBibleChapterPhotos();
-            renderBibleChapter();
-            return;
-        }
-        if (event.target.closest('[data-add-bible-photo]') && activeBibleBook) {
-            const key = `${activeBibleBook.slug}.${activeBibleChapter}`;
-            const photos = bibleChapterPhotos[key] || [];
-            if (photos.length < 6) {
-                photos.push({
-                    src: null,
-                    verse: Number(document.getElementById('bible-photo-new-verse').value) || 1,
-                    position: document.getElementById('bible-photo-new-position').value || 'before'
-                });
-                bibleChapterPhotos[key] = photos;
-                renderBibleChapter();
-            }
-            return;
-        }
         const verseButton = event.target.closest('[data-bible-verse]');
         if (!verseButton || !bibleHighlightMode || !activeBibleBook) return;
         const key = `${activeBibleBook.slug}.${activeBibleChapter}.${verseButton.dataset.bibleVerse}`;
@@ -506,79 +476,6 @@ function setupBibleReader() {
         renderBibleChapter();
     });
 
-    chapterContent.addEventListener('change', async event => {
-        const verseSelect = event.target.closest('[data-bible-photo-verse]');
-        const positionSelect = event.target.closest('[data-bible-photo-position]');
-        if ((verseSelect || positionSelect) && activeBibleBook) {
-            const control = verseSelect || positionSelect;
-            const key = `${activeBibleBook.slug}.${activeBibleChapter}`;
-            const photos = bibleChapterPhotos[key] || [];
-            const photo = photos[Number(control.dataset.biblePhotoVerse ?? control.dataset.biblePhotoPosition)];
-            if (photo) {
-                if (verseSelect) photo.verse = Number(verseSelect.value);
-                if (positionSelect) photo.position = positionSelect.value;
-                bibleChapterPhotos[key] = photos;
-                saveBibleChapterPhotos();
-                renderBibleChapter();
-            }
-            return;
-        }
-        const input = event.target.closest('[data-bible-photo-input]');
-        const file = input?.files?.[0];
-        if (!file || !activeBibleBook) return;
-        if (!file.type.startsWith('image/')) {
-            document.getElementById('bibleReaderStatus').textContent = 'Selecione um arquivo de imagem.';
-            return;
-        }
-        try {
-            const compressed = await compressBiblePhoto(file);
-            const key = `${activeBibleBook.slug}.${activeBibleChapter}`;
-            const photos = bibleChapterPhotos[key] || [];
-            const index = Number(input.dataset.biblePhotoInput);
-            const current = photos[index];
-            photos[index] = {
-                ...(typeof current === 'object' && current ? current : {}),
-                src: compressed,
-                verse: Number(current?.verse) || 1,
-                position: current?.position === 'after' ? 'after' : 'before'
-            };
-            bibleChapterPhotos[key] = photos;
-            saveBibleChapterPhotos();
-            renderBibleChapter();
-        } catch (error) {
-            document.getElementById('bibleReaderStatus').textContent = error.message || 'Não foi possível guardar esta imagem neste navegador.';
-        }
-    });
-}
-
-function compressBiblePhoto(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onerror = () => reject(new Error('Não foi possível ler o arquivo de imagem.'));
-        reader.onload = () => {
-            const image = new Image();
-            image.onerror = () => reject(new Error('O arquivo selecionado não pôde ser aberto como imagem.'));
-            image.onload = () => {
-                const scale = Math.min(1, 1600 / image.width, 900 / image.height);
-                const canvas = document.createElement('canvas');
-                canvas.width = Math.round(image.width * scale);
-                canvas.height = Math.round(image.height * scale);
-                canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
-                resolve(canvas.toDataURL('image/webp', 0.78));
-            };
-            image.src = reader.result;
-        };
-        reader.readAsDataURL(file);
-    });
-}
-
-function saveBibleChapterPhotos() {
-    try {
-        localStorage.setItem('bibleChapterPhotosV1', JSON.stringify(bibleChapterPhotos));
-        document.getElementById('bibleReaderStatus').textContent = 'Imagem salva neste navegador.';
-    } catch {
-        document.getElementById('bibleReaderStatus').textContent = 'O armazenamento do navegador está cheio. Remova algumas imagens e tente novamente.';
-    }
 }
 
 async function loadBibleCorpus() {
@@ -641,101 +538,15 @@ function renderBibleChapter() {
     heading.textContent = `${activeBibleBook.name} ${activeBibleChapter}`;
     article.appendChild(heading);
 
-    const photoKey = `${activeBibleBook.slug}.${activeBibleChapter}`;
-    let photos = Array.isArray(bibleChapterPhotos[photoKey])
-        ? bibleChapterPhotos[photoKey]
-        : [{ src: null, verse: verses[0]?.v || 1, position: 'before' }];
-    photos = photos.map(photo => typeof photo === 'string'
-        ? { src: photo, verse: verses[0]?.v || 1, position: 'before' }
-        : { src: null, verse: verses[0]?.v || 1, position: 'before', ...photo });
-    bibleChapterPhotos[photoKey] = photos;
-    const photoSection = document.createElement('section');
-    photoSection.className = 'bible-chapter-photos';
-    const photoHeading = document.createElement('h4');
-    photoHeading.textContent = 'Fotos das passagens marcantes';
-    const photoHelp = document.createElement('p');
-    photoHelp.textContent = 'Escolha o versículo e se a foto aparece antes ou depois do trecho.';
-    const addPhoto = document.createElement('button');
-    addPhoto.type = 'button';
-    addPhoto.className = 'bible-photo-add';
-    addPhoto.dataset.addBiblePhoto = 'true';
-    addPhoto.textContent = '＋ Criar outro espaço para foto';
-    addPhoto.disabled = photos.length >= 6;
-    const newPhotoVerse = document.createElement('select');
-    newPhotoVerse.id = 'bible-photo-new-verse';
-    newPhotoVerse.className = 'bible-photo-new-verse';
-    newPhotoVerse.setAttribute('aria-label', 'Escolha o versículo para o novo espaço de foto');
-    newPhotoVerse.innerHTML = verses.map(item => `<option value="${item.v}">Versículo ${item.v}</option>`).join('');
-    const newPhotoPosition = document.createElement('select');
-    newPhotoPosition.id = 'bible-photo-new-position';
-    newPhotoPosition.className = 'bible-photo-new-position';
-    newPhotoPosition.setAttribute('aria-label', 'Escolha se a nova foto fica antes ou depois do versículo');
-    newPhotoPosition.innerHTML = '<option value="before">Antes do trecho</option><option value="after">Depois do trecho</option>';
-    photoSection.append(photoHeading, photoHelp, newPhotoVerse, newPhotoPosition, addPhoto);
-    article.appendChild(photoSection);
+    const photoSlot = document.createElement('figure');
+    photoSlot.className = 'bible-photo-slot bible-photo-placeholder';
+    photoSlot.dataset.biblePhotoSlot = `${activeBibleBook.slug}-${activeBibleChapter}-1`;
+    photoSlot.innerHTML = '<span>Espaço para imagem da passagem</span>';
+    article.appendChild(photoSlot);
 
     const verseList = document.createElement('div');
     verseList.className = 'bible-verse-list';
-    const makePhotoSlot = (photo, index) => {
-        const slot = document.createElement('figure');
-        slot.className = 'bible-photo-slot';
-        const placement = document.createElement('div');
-        placement.className = 'bible-photo-placement';
-        const verseLabel = document.createElement('label');
-        verseLabel.textContent = 'Passagem';
-        const verseSelect = document.createElement('select');
-        verseSelect.dataset.biblePhotoVerse = String(index);
-        verseSelect.setAttribute('aria-label', 'Versículo relacionado à foto');
-        verseSelect.innerHTML = verses.map(item => `<option value="${item.v}">Versículo ${item.v}</option>`).join('');
-        verseSelect.value = String(photo.verse || verses[0]?.v || 1);
-        verseLabel.appendChild(verseSelect);
-        const positionLabel = document.createElement('label');
-        positionLabel.textContent = 'Posição';
-        const positionSelect = document.createElement('select');
-        positionSelect.dataset.biblePhotoPosition = String(index);
-        positionSelect.setAttribute('aria-label', 'Posição da foto em relação ao trecho');
-        positionSelect.innerHTML = '<option value="before">Antes do trecho</option><option value="after">Depois do trecho</option>';
-        positionSelect.value = photo.position === 'after' ? 'after' : 'before';
-        positionLabel.appendChild(positionSelect);
-        placement.append(verseLabel, positionLabel);
-        slot.appendChild(placement);
-        if (photo.src) {
-            const image = document.createElement('img');
-            image.src = photo.src;
-            image.alt = `Imagem da passagem em ${activeBibleBook.name} ${activeBibleChapter}, versículo ${photo.verse}`;
-            slot.appendChild(image);
-        } else {
-            const label = document.createElement('label');
-            label.className = 'bible-photo-placeholder';
-            const icon = document.createElement('i');
-            icon.className = 'fas fa-image';
-            icon.setAttribute('aria-hidden', 'true');
-            const prompt = document.createElement('span');
-            prompt.textContent = 'Adicionar foto da passagem';
-            const hint = document.createElement('small');
-            hint.textContent = 'Formato recomendado: 16:9';
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.dataset.biblePhotoInput = String(index);
-            input.setAttribute('aria-label', 'Selecionar foto para esta passagem');
-            label.append(icon, prompt, hint, input);
-            slot.appendChild(label);
-        }
-        const remove = document.createElement('button');
-        remove.type = 'button';
-        remove.className = 'bible-photo-remove';
-        remove.dataset.removeBiblePhoto = String(index);
-        remove.setAttribute('aria-label', 'Remover este espaço de foto');
-        remove.textContent = 'Remover espaço';
-        slot.appendChild(remove);
-        return slot;
-    };
-
-    const orderedPhotos = photos.map((photo, index) => ({ photo, index }));
     verses.forEach(verse => {
-        orderedPhotos.filter(item => Number(item.photo.verse) === Number(verse.v) && item.photo.position !== 'after')
-            .forEach(item => verseList.appendChild(makePhotoSlot(item.photo, item.index)));
         const key = `${activeBibleBook.slug}.${activeBibleChapter}.${verse.v}`;
         const button = document.createElement('button');
         button.type = 'button';
@@ -751,8 +562,6 @@ function renderBibleChapter() {
         text.textContent = verse.t;
         button.append(number, text);
         verseList.appendChild(button);
-        orderedPhotos.filter(item => Number(item.photo.verse) === Number(verse.v) && item.photo.position === 'after')
-            .forEach(item => verseList.appendChild(makePhotoSlot(item.photo, item.index)));
     });
     article.appendChild(verseList);
     status.textContent = `${verses.length} versículos · ${activeBibleBook.name}, capítulo ${activeBibleChapter}`;
@@ -2168,7 +1977,6 @@ function renderSaintBookContent() {
             <button type="button" onclick="nextSaintPage()" class="btn-book-nav" aria-label="Próxima página" ${pageStart + (isMobile ? 1 : 2) >= totalPages ? 'disabled' : ''}>Próxima →</button>
         </div>
     `;
-    setupSaintPhotoInputs();
     body.scrollTop = 0;
 }
 
@@ -2197,14 +2005,9 @@ function renderPageContent(page) {
     }
 
     if (page.type === 'cover') {
-        let savedPortrait = '';
-        try {
-            const photos = JSON.parse(localStorage.getItem('saintStoryPhotosV1') || '{}');
-            savedPortrait = photos[page.photoKey] || '';
-        } catch { /* Ignore invalid or unavailable local storage. */ }
         return `
             <div style="text-align: center; margin-bottom: 25px;">
-                ${page.foto ? `<img src="${page.foto}" alt="Foto ${page.nome}" style="width: 180px; height: 180px; border-radius: 12px; object-fit: cover; object-position: top; border: 4px solid var(--primary); box-shadow: 0 10px 25px rgba(0,0,0,0.15);">` : renderSaintPortraitSlot(page.photoKey, savedPortrait)}
+                ${page.foto ? `<img src="${page.foto}" alt="Foto ${page.nome}" style="width: 180px; height: 180px; border-radius: 12px; object-fit: cover; object-position: top; border: 4px solid var(--primary); box-shadow: 0 10px 25px rgba(0,0,0,0.15);">` : `<div class="book-portrait-placeholder" data-photo-slot="${escapeHtml(page.photoKey)}"><span>Espaço para retrato</span></div>`}
             </div>
             <h3 style="text-align:center; font-size: 2rem; margin-bottom: 5px; color: var(--primary);">${page.nome}</h3>
             <p style="text-align:center; font-weight: bold; margin-bottom: 1.2rem; font-family: 'Outfit', sans-serif; color: #666; font-size: 0.9rem;">${page.data}</p>
@@ -2220,12 +2023,7 @@ function renderPageContent(page) {
         if (block.type === 'text') {
             html += `<p>${block.content}</p>`;
         } else if (block.type === 'image') {
-            let savedPhoto = '';
-            try {
-                const photos = JSON.parse(localStorage.getItem('saintStoryPhotosV1') || '{}');
-                savedPhoto = photos[block.photoKey] || '';
-            } catch { /* Ignore invalid or unavailable local storage. */ }
-            html += renderSaintPhotoSlot(block.photoKey, block.text, savedPhoto);
+            html += renderSaintPhotoSlot(block.photoKey, block.text);
         } else if (block.type === 'doutrina') {
             html += `
                 <div class="interpretation" style="margin-top: auto; border-top: 1px dashed var(--border-light); padding-top: 1rem; background: rgba(212, 175, 55, 0.05);">
@@ -2238,56 +2036,8 @@ function renderPageContent(page) {
     return html;
 }
 
-function renderSaintPhotoSlot(photoKey, placeholderText, photoData) {
-    const safeKey = escapeHtml(photoKey);
-    const picker = `<label class="book-photo-picker" aria-label="Adicionar ou trocar foto desta passagem">
-        <i class="fas fa-image" aria-hidden="true"></i><span>${photoData ? 'Trocar foto' : escapeHtml(placeholderText)}</span>
-        <small>Imagem 16:9 recomendada</small>
-        <input type="file" accept="image/*" data-saint-photo-key="${safeKey}" aria-label="Selecionar foto para esta passagem">
-    </label>`;
-    if (!photoData) return `<div class="book-image-placeholder">${picker}</div>`;
-    return `<div class="book-image-filled"><img src="${photoData}" alt="Arte ou cena sacra desta passagem">${picker}<button type="button" class="book-photo-delete" data-delete-saint-photo="${safeKey}">Remover foto</button></div>`;
-}
-
-function renderSaintPortraitSlot(photoKey, photoData) {
-    const safeKey = escapeHtml(photoKey);
-    const picker = `<label class="book-photo-picker" aria-label="Adicionar retrato">
-        <i class="fas fa-image" aria-hidden="true"></i><span>${photoData ? 'Trocar retrato' : 'Adicionar retrato'}</span>
-        <input type="file" accept="image/*" data-saint-photo-key="${safeKey}" aria-label="Selecionar retrato">
-    </label>`;
-    if (!photoData) return `<div class="book-portrait-placeholder">${picker}</div>`;
-    return `<div class="book-image-filled book-portrait-filled"><img src="${photoData}" alt="Retrato adicionado pelo leitor">${picker}<button type="button" class="book-photo-delete" data-delete-saint-photo="${safeKey}">Remover retrato</button></div>`;
-}
-
-function setupSaintPhotoInputs() {
-    const body = document.getElementById('modalBody');
-    if (!body) return;
-    body.onchange = async event => {
-        const input = event.target.closest('[data-saint-photo-key]');
-        const file = input?.files?.[0];
-        if (!file) return;
-        try {
-            const imageData = await compressBiblePhoto(file);
-            const photos = JSON.parse(localStorage.getItem('saintStoryPhotosV1') || '{}');
-            photos[input.dataset.saintPhotoKey] = imageData;
-            localStorage.setItem('saintStoryPhotosV1', JSON.stringify(photos));
-            renderSaintBookContent();
-        } catch {
-            window.alert('Não foi possível guardar a imagem. O armazenamento deste navegador pode estar cheio.');
-        }
-    };
-    body.onclick = event => {
-        const remove = event.target.closest('[data-delete-saint-photo]');
-        if (!remove) return;
-        try {
-            const photos = JSON.parse(localStorage.getItem('saintStoryPhotosV1') || '{}');
-            delete photos[remove.dataset.deleteSaintPhoto];
-            localStorage.setItem('saintStoryPhotosV1', JSON.stringify(photos));
-            renderSaintBookContent();
-        } catch {
-            window.alert('Não foi possível remover a imagem deste navegador.');
-        }
-    };
+function renderSaintPhotoSlot(photoKey, placeholderText) {
+    return `<div class="book-image-placeholder" data-photo-slot="${escapeHtml(photoKey)}"><span>${escapeHtml(placeholderText)}</span></div>`;
 }
 
 function nextSaintPage() {
