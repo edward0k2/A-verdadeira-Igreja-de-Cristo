@@ -327,6 +327,7 @@ let biblePassagesData = null;
 let biblePassagesLoadPromise = null;
 let bibleHighlightMode = false;
 let bibleHighlights = {};
+let bibleChapterPhotos = {};
 let activeBibleBook = null;
 let activeBibleChapter = 1;
 
@@ -392,6 +393,11 @@ function setupBibleReader() {
         bibleHighlights = JSON.parse(localStorage.getItem('bibleHighlightsV1') || '{}');
     } catch {
         bibleHighlights = {};
+    }
+    try {
+        bibleChapterPhotos = JSON.parse(localStorage.getItem('bibleChapterPhotosV1') || '{}');
+    } catch {
+        bibleChapterPhotos = {};
     }
 
     const setMode = mode => {
@@ -467,6 +473,27 @@ function setupBibleReader() {
     document.getElementById('bibleNextChapter').addEventListener('click', () => moveChapter(1));
 
     chapterContent.addEventListener('click', event => {
+        const removePhoto = event.target.closest('[data-remove-bible-photo]');
+        if (removePhoto && activeBibleBook) {
+            const key = `${activeBibleBook.slug}.${activeBibleChapter}`;
+            const photos = bibleChapterPhotos[key] || [];
+            photos.splice(Number(removePhoto.dataset.removeBiblePhoto), 1);
+            if (photos.length) bibleChapterPhotos[key] = photos;
+            else delete bibleChapterPhotos[key];
+            saveBibleChapterPhotos();
+            renderBibleChapter();
+            return;
+        }
+        if (event.target.closest('[data-add-bible-photo]') && activeBibleBook) {
+            const key = `${activeBibleBook.slug}.${activeBibleChapter}`;
+            const photos = bibleChapterPhotos[key] || [];
+            if (photos.length < 6) {
+                photos.push(null);
+                bibleChapterPhotos[key] = photos;
+                renderBibleChapter();
+            }
+            return;
+        }
         const verseButton = event.target.closest('[data-bible-verse]');
         if (!verseButton || !bibleHighlightMode || !activeBibleBook) return;
         const key = `${activeBibleBook.slug}.${activeBibleChapter}.${verseButton.dataset.bibleVerse}`;
@@ -475,6 +502,57 @@ function setupBibleReader() {
         saveBibleHighlights();
         renderBibleChapter();
     });
+
+    chapterContent.addEventListener('change', async event => {
+        const input = event.target.closest('[data-bible-photo-input]');
+        const file = input?.files?.[0];
+        if (!file || !activeBibleBook) return;
+        if (!file.type.startsWith('image/')) {
+            document.getElementById('bibleReaderStatus').textContent = 'Selecione um arquivo de imagem.';
+            return;
+        }
+        try {
+            const compressed = await compressBiblePhoto(file);
+            const key = `${activeBibleBook.slug}.${activeBibleChapter}`;
+            const photos = bibleChapterPhotos[key] || [];
+            photos[Number(input.dataset.biblePhotoInput)] = compressed;
+            bibleChapterPhotos[key] = photos;
+            saveBibleChapterPhotos();
+            renderBibleChapter();
+        } catch (error) {
+            document.getElementById('bibleReaderStatus').textContent = error.message || 'Não foi possível guardar esta imagem neste navegador.';
+        }
+    });
+}
+
+function compressBiblePhoto(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error('Não foi possível ler o arquivo de imagem.'));
+        reader.onload = () => {
+            const image = new Image();
+            image.onerror = () => reject(new Error('O arquivo selecionado não pôde ser aberto como imagem.'));
+            image.onload = () => {
+                const scale = Math.min(1, 1600 / image.width, 900 / image.height);
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.round(image.width * scale);
+                canvas.height = Math.round(image.height * scale);
+                canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
+                resolve(canvas.toDataURL('image/webp', 0.78));
+            };
+            image.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+function saveBibleChapterPhotos() {
+    try {
+        localStorage.setItem('bibleChapterPhotosV1', JSON.stringify(bibleChapterPhotos));
+        document.getElementById('bibleReaderStatus').textContent = 'Imagem salva neste navegador.';
+    } catch {
+        document.getElementById('bibleReaderStatus').textContent = 'O armazenamento do navegador está cheio. Remova algumas imagens e tente novamente.';
+    }
 }
 
 async function loadBibleCorpus() {
@@ -536,6 +614,61 @@ function renderBibleChapter() {
     heading.className = 'bible-chapter-heading';
     heading.textContent = `${activeBibleBook.name} ${activeBibleChapter}`;
     article.appendChild(heading);
+
+    const photoKey = `${activeBibleBook.slug}.${activeBibleChapter}`;
+    const photos = bibleChapterPhotos[photoKey] || [];
+    const photoSection = document.createElement('section');
+    photoSection.className = 'bible-chapter-photos';
+    photoSection.setAttribute('aria-label', `Imagens para ${activeBibleBook.name}, capítulo ${activeBibleChapter}`);
+    const photoHeading = document.createElement('h4');
+    photoHeading.textContent = 'Imagens das passagens marcantes';
+    photoSection.appendChild(photoHeading);
+    const photoGrid = document.createElement('div');
+    photoGrid.className = 'bible-photo-grid';
+    for (let index = 0; index < Math.max(1, photos.length); index += 1) {
+        const slot = document.createElement('figure');
+        slot.className = 'bible-photo-slot';
+        if (photos[index]) {
+            const image = document.createElement('img');
+            image.src = photos[index];
+            image.alt = `Imagem ${index + 1} de ${activeBibleBook.name} ${activeBibleChapter}`;
+            slot.appendChild(image);
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.className = 'bible-photo-remove';
+            remove.dataset.removeBiblePhoto = String(index);
+            remove.setAttribute('aria-label', 'Remover esta imagem');
+            remove.textContent = 'Remover';
+            slot.appendChild(remove);
+        } else {
+            const label = document.createElement('label');
+            label.className = 'bible-photo-placeholder';
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-image';
+            icon.setAttribute('aria-hidden', 'true');
+            const prompt = document.createElement('span');
+            prompt.textContent = 'Adicionar foto da passagem';
+            const hint = document.createElement('small');
+            hint.textContent = 'Proporção recomendada: 16:9';
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.dataset.biblePhotoInput = String(index);
+            input.setAttribute('aria-label', `Adicionar foto para ${activeBibleBook.name} ${activeBibleChapter}`);
+            label.append(icon, prompt, hint, input);
+            slot.appendChild(label);
+        }
+        photoGrid.appendChild(slot);
+    }
+    photoSection.appendChild(photoGrid);
+    const addPhoto = document.createElement('button');
+    addPhoto.type = 'button';
+    addPhoto.className = 'bible-photo-add';
+    addPhoto.dataset.addBiblePhoto = 'true';
+    addPhoto.textContent = '＋ Adicionar outro espaço para foto';
+    addPhoto.hidden = photos.length >= 6;
+    photoSection.appendChild(addPhoto);
+    article.appendChild(photoSection);
 
     const verseList = document.createElement('div');
     verseList.className = 'bible-verse-list';
