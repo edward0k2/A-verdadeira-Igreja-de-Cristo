@@ -2044,6 +2044,7 @@ async function createDynamicPages(saint) {
     const maxHeight = 500; // Reduzi significativamente para garantir margem de segurança
     const hasSources = Array.isArray(saint.fontes) && saint.fontes.length > 0;
     const historyParts = saint.historia.split(hasSources ? /\n\n+/ : '[IMG]');
+    const saintPhotoSlug = saint.nome.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
     
     // 1. Capa / Intro (Sempre fixa)
     pages.push({
@@ -2053,16 +2054,24 @@ async function createDynamicPages(saint) {
         data: saint.data,
         content: historyParts[0],
         doutrina: saint.doutrina,
+        photoKey: `${saintPhotoSlug}-portrait`,
         hasSources
     });
 
     // 2. Preparar blocos de conteúdo para as páginas seguintes
     const remainingHistory = historyParts.slice(1);
     let allBlocks = [];
+    let imageSlotIndex = 0;
     
     remainingHistory.forEach(part => {
         // Adiciona a imagem placeholder primeiro se existia um [IMG]
-        if (!hasSources) allBlocks.push({ type: 'image', text: 'Espaço para Cena ou Arte Sacra' });
+        if (!hasSources) {
+            allBlocks.push({
+                type: 'image',
+                text: 'Adicionar foto desta passagem',
+                photoKey: `${saintPhotoSlug}-${imageSlotIndex++}`
+            });
+        }
         
         // Divide o texto em parágrafos
         const paragraphs = part.trim().split('\n').filter(p => p.trim() !== '');
@@ -2159,6 +2168,7 @@ function renderSaintBookContent() {
             <button type="button" onclick="nextSaintPage()" class="btn-book-nav" aria-label="Próxima página" ${pageStart + (isMobile ? 1 : 2) >= totalPages ? 'disabled' : ''}>Próxima →</button>
         </div>
     `;
+    setupSaintPhotoInputs();
     body.scrollTop = 0;
 }
 
@@ -2187,9 +2197,14 @@ function renderPageContent(page) {
     }
 
     if (page.type === 'cover') {
+        let savedPortrait = '';
+        try {
+            const photos = JSON.parse(localStorage.getItem('saintStoryPhotosV1') || '{}');
+            savedPortrait = photos[page.photoKey] || '';
+        } catch { /* Ignore invalid or unavailable local storage. */ }
         return `
             <div style="text-align: center; margin-bottom: 25px;">
-                ${page.foto ? `<img src="${page.foto}" alt="Foto ${page.nome}" style="width: 180px; height: 180px; border-radius: 12px; object-fit: cover; object-position: top; border: 4px solid var(--primary); box-shadow: 0 10px 25px rgba(0,0,0,0.15);">` : '<div class="book-image-placeholder" style="width:180px;height:180px;margin:auto;border-radius:12px;">Retrato não disponível</div>'}
+                ${page.foto ? `<img src="${page.foto}" alt="Foto ${page.nome}" style="width: 180px; height: 180px; border-radius: 12px; object-fit: cover; object-position: top; border: 4px solid var(--primary); box-shadow: 0 10px 25px rgba(0,0,0,0.15);">` : renderSaintPortraitSlot(page.photoKey, savedPortrait)}
             </div>
             <h3 style="text-align:center; font-size: 2rem; margin-bottom: 5px; color: var(--primary);">${page.nome}</h3>
             <p style="text-align:center; font-weight: bold; margin-bottom: 1.2rem; font-family: 'Outfit', sans-serif; color: #666; font-size: 0.9rem;">${page.data}</p>
@@ -2205,7 +2220,12 @@ function renderPageContent(page) {
         if (block.type === 'text') {
             html += `<p>${block.content}</p>`;
         } else if (block.type === 'image') {
-            html += `<div class="book-image-placeholder">${block.text}</div>`;
+            let savedPhoto = '';
+            try {
+                const photos = JSON.parse(localStorage.getItem('saintStoryPhotosV1') || '{}');
+                savedPhoto = photos[block.photoKey] || '';
+            } catch { /* Ignore invalid or unavailable local storage. */ }
+            html += renderSaintPhotoSlot(block.photoKey, block.text, savedPhoto);
         } else if (block.type === 'doutrina') {
             html += `
                 <div class="interpretation" style="margin-top: auto; border-top: 1px dashed var(--border-light); padding-top: 1rem; background: rgba(212, 175, 55, 0.05);">
@@ -2216,6 +2236,58 @@ function renderPageContent(page) {
     });
     html += '</div>';
     return html;
+}
+
+function renderSaintPhotoSlot(photoKey, placeholderText, photoData) {
+    const safeKey = escapeHtml(photoKey);
+    const picker = `<label class="book-photo-picker" aria-label="Adicionar ou trocar foto desta passagem">
+        <i class="fas fa-image" aria-hidden="true"></i><span>${photoData ? 'Trocar foto' : escapeHtml(placeholderText)}</span>
+        <small>Imagem 16:9 recomendada</small>
+        <input type="file" accept="image/*" data-saint-photo-key="${safeKey}" aria-label="Selecionar foto para esta passagem">
+    </label>`;
+    if (!photoData) return `<div class="book-image-placeholder">${picker}</div>`;
+    return `<div class="book-image-filled"><img src="${photoData}" alt="Arte ou cena sacra desta passagem">${picker}<button type="button" class="book-photo-delete" data-delete-saint-photo="${safeKey}">Remover foto</button></div>`;
+}
+
+function renderSaintPortraitSlot(photoKey, photoData) {
+    const safeKey = escapeHtml(photoKey);
+    const picker = `<label class="book-photo-picker" aria-label="Adicionar retrato">
+        <i class="fas fa-image" aria-hidden="true"></i><span>${photoData ? 'Trocar retrato' : 'Adicionar retrato'}</span>
+        <input type="file" accept="image/*" data-saint-photo-key="${safeKey}" aria-label="Selecionar retrato">
+    </label>`;
+    if (!photoData) return `<div class="book-portrait-placeholder">${picker}</div>`;
+    return `<div class="book-image-filled book-portrait-filled"><img src="${photoData}" alt="Retrato adicionado pelo leitor">${picker}<button type="button" class="book-photo-delete" data-delete-saint-photo="${safeKey}">Remover retrato</button></div>`;
+}
+
+function setupSaintPhotoInputs() {
+    const body = document.getElementById('modalBody');
+    if (!body) return;
+    body.onchange = async event => {
+        const input = event.target.closest('[data-saint-photo-key]');
+        const file = input?.files?.[0];
+        if (!file) return;
+        try {
+            const imageData = await compressBiblePhoto(file);
+            const photos = JSON.parse(localStorage.getItem('saintStoryPhotosV1') || '{}');
+            photos[input.dataset.saintPhotoKey] = imageData;
+            localStorage.setItem('saintStoryPhotosV1', JSON.stringify(photos));
+            renderSaintBookContent();
+        } catch {
+            window.alert('Não foi possível guardar a imagem. O armazenamento deste navegador pode estar cheio.');
+        }
+    };
+    body.onclick = event => {
+        const remove = event.target.closest('[data-delete-saint-photo]');
+        if (!remove) return;
+        try {
+            const photos = JSON.parse(localStorage.getItem('saintStoryPhotosV1') || '{}');
+            delete photos[remove.dataset.deleteSaintPhoto];
+            localStorage.setItem('saintStoryPhotosV1', JSON.stringify(photos));
+            renderSaintBookContent();
+        } catch {
+            window.alert('Não foi possível remover a imagem deste navegador.');
+        }
+    };
 }
 
 function nextSaintPage() {

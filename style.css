@@ -3426,18 +3426,139 @@ body {
 }
 
 .book-image-placeholder {
+    position: relative;
     width: 100%;
-    height: 200px;
+    aspect-ratio: 16 / 9;
     background: #f5f1e6;
     border: 2px dashed var(--border-light);
     margin: 1.5rem 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: var(--text-muted);
     font-style: italic;
     font-size: 0.9rem;
     border-radius: 4px;
+}
+
+.book-photo-picker {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-align: center;
+}
+
+.book-photo-picker i {
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+.book-photo-picker small {
+    font-size: 0.72rem;
+}
+
+.book-photo-picker input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.book-image-filled {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+.book-image-filled > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-image-filled .book-photo-picker {
+    inset: auto 0.5rem 0.5rem auto;
+    width: auto;
+    height: auto;
+    padding: 0.45rem 0.65rem;
+    border-radius: 7px;
+    background: rgba(255, 253, 248, 0.94);
+    font-size: 0.75rem;
+}
+
+.book-image-filled .book-photo-picker i,
+.book-image-filled .book-photo-picker small {
+    display: none;
+}
+
+.book-photo-delete {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 2.8rem;
+    z-index: 1;
+    padding: 0.4rem 0.65rem;
+    border: 0;
+    border-radius: 7px;
+    background: rgba(39, 31, 23, 0.78);
+    color: #fff;
+    cursor: pointer;
+}
+
+.book-portrait-placeholder,
+.book-portrait-filled {
+    position: relative;
+    overflow: hidden;
+    width: 180px;
+    height: 180px;
+    margin: auto;
+    border-radius: 12px;
+    background: #f5f1e6;
+    border: 2px dashed var(--border-light);
+}
+
+.book-portrait-filled {
+    border: 4px solid var(--primary);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.book-portrait-filled > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.book-portrait-filled .book-photo-picker {
+    inset: auto 0.25rem 0.25rem auto;
+    width: auto;
+    height: auto;
+    padding: 0.35rem;
+    border-radius: 7px;
+    background: rgba(255, 253, 248, 0.94);
+    font-size: 0.7rem;
+}
+
+.book-portrait-filled .book-photo-picker i,
+.book-portrait-filled .book-photo-picker small {
+    display: none;
+}
+
+.book-portrait-filled .book-photo-delete {
+    right: auto;
+    bottom: 0.25rem;
+    left: 0.25rem;
+    padding: 0.35rem;
+    font-size: 0.7rem;
 }
 
 .book-nav {
