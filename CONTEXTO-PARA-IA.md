@@ -166,8 +166,8 @@ Na criação deste documento (13 de novembro de 2026), os últimos commits inclu
 - Aviso flutuante de transmissão na página inicial, com player e opção de fechar. Para exibi-lo, o administrador marca **Estou ao vivo**; a detecção automática do status do YouTube não está configurada. O aviso fechado volta a aparecer na próxima sessão do visitante.
 - Verificações realizadas antes do envio: `node --check` em `script.js` e `api/admin-content.js`, além de `git diff --check`.
 
-## Registro de entrega — espaços para fotos nos capítulos bíblicos
+## Ajuste — posicionamento das fotos bíblicas
 
-- Cada capítulo no leitor da Bíblia completa mostra um espaço de imagem em proporção 16:9 antes do texto; é possível adicionar até seis fotos por capítulo, remover fotos e redimensioná-las/comprimi-las no navegador.
+- Cada foto pode ser associada a um versículo e posicionada antes ou depois dele, aparecendo junto ao trecho bíblico correspondente; é possível adicionar até seis espaços por capítulo e remover os que não forem necessários. O formato recomendado continua 16:9.
 - As imagens são guardadas no `localStorage` do navegador e dispositivo usados (`bibleChapterPhotosV1`); não são enviadas ao servidor nem ficam visíveis para outros visitantes. Para publicar fotos para todos, os arquivos deverão ser incluídos no repositório ou será necessário criar persistência administrativa compartilhada.
 

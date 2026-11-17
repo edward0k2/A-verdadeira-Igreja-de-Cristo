@@ -478,8 +478,7 @@ function setupBibleReader() {
             const key = `${activeBibleBook.slug}.${activeBibleChapter}`;
             const photos = bibleChapterPhotos[key] || [];
             photos.splice(Number(removePhoto.dataset.removeBiblePhoto), 1);
-            if (photos.length) bibleChapterPhotos[key] = photos;
-            else delete bibleChapterPhotos[key];
+            bibleChapterPhotos[key] = photos;
             saveBibleChapterPhotos();
             renderBibleChapter();
             return;
@@ -488,7 +487,11 @@ function setupBibleReader() {
             const key = `${activeBibleBook.slug}.${activeBibleChapter}`;
             const photos = bibleChapterPhotos[key] || [];
             if (photos.length < 6) {
-                photos.push(null);
+                photos.push({
+                    src: null,
+                    verse: Number(document.getElementById('bible-photo-new-verse').value) || 1,
+                    position: document.getElementById('bible-photo-new-position').value || 'before'
+                });
                 bibleChapterPhotos[key] = photos;
                 renderBibleChapter();
             }
@@ -504,6 +507,22 @@ function setupBibleReader() {
     });
 
     chapterContent.addEventListener('change', async event => {
+        const verseSelect = event.target.closest('[data-bible-photo-verse]');
+        const positionSelect = event.target.closest('[data-bible-photo-position]');
+        if ((verseSelect || positionSelect) && activeBibleBook) {
+            const control = verseSelect || positionSelect;
+            const key = `${activeBibleBook.slug}.${activeBibleChapter}`;
+            const photos = bibleChapterPhotos[key] || [];
+            const photo = photos[Number(control.dataset.biblePhotoVerse ?? control.dataset.biblePhotoPosition)];
+            if (photo) {
+                if (verseSelect) photo.verse = Number(verseSelect.value);
+                if (positionSelect) photo.position = positionSelect.value;
+                bibleChapterPhotos[key] = photos;
+                saveBibleChapterPhotos();
+                renderBibleChapter();
+            }
+            return;
+        }
         const input = event.target.closest('[data-bible-photo-input]');
         const file = input?.files?.[0];
         if (!file || !activeBibleBook) return;
@@ -515,7 +534,14 @@ function setupBibleReader() {
             const compressed = await compressBiblePhoto(file);
             const key = `${activeBibleBook.slug}.${activeBibleChapter}`;
             const photos = bibleChapterPhotos[key] || [];
-            photos[Number(input.dataset.biblePhotoInput)] = compressed;
+            const index = Number(input.dataset.biblePhotoInput);
+            const current = photos[index];
+            photos[index] = {
+                ...(typeof current === 'object' && current ? current : {}),
+                src: compressed,
+                verse: Number(current?.verse) || 1,
+                position: current?.position === 'after' ? 'after' : 'before'
+            };
             bibleChapterPhotos[key] = photos;
             saveBibleChapterPhotos();
             renderBibleChapter();
@@ -616,30 +642,68 @@ function renderBibleChapter() {
     article.appendChild(heading);
 
     const photoKey = `${activeBibleBook.slug}.${activeBibleChapter}`;
-    const photos = bibleChapterPhotos[photoKey] || [];
+    let photos = Array.isArray(bibleChapterPhotos[photoKey])
+        ? bibleChapterPhotos[photoKey]
+        : [{ src: null, verse: verses[0]?.v || 1, position: 'before' }];
+    photos = photos.map(photo => typeof photo === 'string'
+        ? { src: photo, verse: verses[0]?.v || 1, position: 'before' }
+        : { src: null, verse: verses[0]?.v || 1, position: 'before', ...photo });
+    bibleChapterPhotos[photoKey] = photos;
     const photoSection = document.createElement('section');
     photoSection.className = 'bible-chapter-photos';
-    photoSection.setAttribute('aria-label', `Imagens para ${activeBibleBook.name}, capítulo ${activeBibleChapter}`);
     const photoHeading = document.createElement('h4');
-    photoHeading.textContent = 'Imagens das passagens marcantes';
-    photoSection.appendChild(photoHeading);
-    const photoGrid = document.createElement('div');
-    photoGrid.className = 'bible-photo-grid';
-    for (let index = 0; index < Math.max(1, photos.length); index += 1) {
+    photoHeading.textContent = 'Fotos das passagens marcantes';
+    const photoHelp = document.createElement('p');
+    photoHelp.textContent = 'Escolha o versículo e se a foto aparece antes ou depois do trecho.';
+    const addPhoto = document.createElement('button');
+    addPhoto.type = 'button';
+    addPhoto.className = 'bible-photo-add';
+    addPhoto.dataset.addBiblePhoto = 'true';
+    addPhoto.textContent = '＋ Criar outro espaço para foto';
+    addPhoto.disabled = photos.length >= 6;
+    const newPhotoVerse = document.createElement('select');
+    newPhotoVerse.id = 'bible-photo-new-verse';
+    newPhotoVerse.className = 'bible-photo-new-verse';
+    newPhotoVerse.setAttribute('aria-label', 'Escolha o versículo para o novo espaço de foto');
+    newPhotoVerse.innerHTML = verses.map(item => `<option value="${item.v}">Versículo ${item.v}</option>`).join('');
+    const newPhotoPosition = document.createElement('select');
+    newPhotoPosition.id = 'bible-photo-new-position';
+    newPhotoPosition.className = 'bible-photo-new-position';
+    newPhotoPosition.setAttribute('aria-label', 'Escolha se a nova foto fica antes ou depois do versículo');
+    newPhotoPosition.innerHTML = '<option value="before">Antes do trecho</option><option value="after">Depois do trecho</option>';
+    photoSection.append(photoHeading, photoHelp, newPhotoVerse, newPhotoPosition, addPhoto);
+    article.appendChild(photoSection);
+
+    const verseList = document.createElement('div');
+    verseList.className = 'bible-verse-list';
+    const makePhotoSlot = (photo, index) => {
         const slot = document.createElement('figure');
         slot.className = 'bible-photo-slot';
-        if (photos[index]) {
+        const placement = document.createElement('div');
+        placement.className = 'bible-photo-placement';
+        const verseLabel = document.createElement('label');
+        verseLabel.textContent = 'Passagem';
+        const verseSelect = document.createElement('select');
+        verseSelect.dataset.biblePhotoVerse = String(index);
+        verseSelect.setAttribute('aria-label', 'Versículo relacionado à foto');
+        verseSelect.innerHTML = verses.map(item => `<option value="${item.v}">Versículo ${item.v}</option>`).join('');
+        verseSelect.value = String(photo.verse || verses[0]?.v || 1);
+        verseLabel.appendChild(verseSelect);
+        const positionLabel = document.createElement('label');
+        positionLabel.textContent = 'Posição';
+        const positionSelect = document.createElement('select');
+        positionSelect.dataset.biblePhotoPosition = String(index);
+        positionSelect.setAttribute('aria-label', 'Posição da foto em relação ao trecho');
+        positionSelect.innerHTML = '<option value="before">Antes do trecho</option><option value="after">Depois do trecho</option>';
+        positionSelect.value = photo.position === 'after' ? 'after' : 'before';
+        positionLabel.appendChild(positionSelect);
+        placement.append(verseLabel, positionLabel);
+        slot.appendChild(placement);
+        if (photo.src) {
             const image = document.createElement('img');
-            image.src = photos[index];
-            image.alt = `Imagem ${index + 1} de ${activeBibleBook.name} ${activeBibleChapter}`;
+            image.src = photo.src;
+            image.alt = `Imagem da passagem em ${activeBibleBook.name} ${activeBibleChapter}, versículo ${photo.verse}`;
             slot.appendChild(image);
-            const remove = document.createElement('button');
-            remove.type = 'button';
-            remove.className = 'bible-photo-remove';
-            remove.dataset.removeBiblePhoto = String(index);
-            remove.setAttribute('aria-label', 'Remover esta imagem');
-            remove.textContent = 'Remover';
-            slot.appendChild(remove);
         } else {
             const label = document.createElement('label');
             label.className = 'bible-photo-placeholder';
@@ -649,30 +713,29 @@ function renderBibleChapter() {
             const prompt = document.createElement('span');
             prompt.textContent = 'Adicionar foto da passagem';
             const hint = document.createElement('small');
-            hint.textContent = 'Proporção recomendada: 16:9';
+            hint.textContent = 'Formato recomendado: 16:9';
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = 'image/*';
             input.dataset.biblePhotoInput = String(index);
-            input.setAttribute('aria-label', `Adicionar foto para ${activeBibleBook.name} ${activeBibleChapter}`);
+            input.setAttribute('aria-label', 'Selecionar foto para esta passagem');
             label.append(icon, prompt, hint, input);
             slot.appendChild(label);
         }
-        photoGrid.appendChild(slot);
-    }
-    photoSection.appendChild(photoGrid);
-    const addPhoto = document.createElement('button');
-    addPhoto.type = 'button';
-    addPhoto.className = 'bible-photo-add';
-    addPhoto.dataset.addBiblePhoto = 'true';
-    addPhoto.textContent = '＋ Adicionar outro espaço para foto';
-    addPhoto.hidden = photos.length >= 6;
-    photoSection.appendChild(addPhoto);
-    article.appendChild(photoSection);
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'bible-photo-remove';
+        remove.dataset.removeBiblePhoto = String(index);
+        remove.setAttribute('aria-label', 'Remover este espaço de foto');
+        remove.textContent = 'Remover espaço';
+        slot.appendChild(remove);
+        return slot;
+    };
 
-    const verseList = document.createElement('div');
-    verseList.className = 'bible-verse-list';
+    const orderedPhotos = photos.map((photo, index) => ({ photo, index }));
     verses.forEach(verse => {
+        orderedPhotos.filter(item => Number(item.photo.verse) === Number(verse.v) && item.photo.position !== 'after')
+            .forEach(item => verseList.appendChild(makePhotoSlot(item.photo, item.index)));
         const key = `${activeBibleBook.slug}.${activeBibleChapter}.${verse.v}`;
         const button = document.createElement('button');
         button.type = 'button';
@@ -688,6 +751,8 @@ function renderBibleChapter() {
         text.textContent = verse.t;
         button.append(number, text);
         verseList.appendChild(button);
+        orderedPhotos.filter(item => Number(item.photo.verse) === Number(verse.v) && item.photo.position === 'after')
+            .forEach(item => verseList.appendChild(makePhotoSlot(item.photo, item.index)));
     });
     article.appendChild(verseList);
     status.textContent = `${verses.length} versículos · ${activeBibleBook.name}, capítulo ${activeBibleChapter}`;
